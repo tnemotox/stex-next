@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>stex-next</groupId>
+  <artifactId>stex-next</artifactId>
+  <version>1.0-SNAPSHOT</version>
+
+  <profiles>
+    <profile>
+      <id>local</id>
+      <activation>
+        <activeByDefault>true</activeByDefault>
+      </activation>
+      <properties>
+        <db.encoding>UTF8</db.encoding>
+        <db.basedir>${project.basedir}/ermaster/database/</db.basedir>
+        <db.url>jdbc:postgresql://localhost:5432/stex</db.url>
+        <db.username>stex</db.username>
+        <db.password>stex</db.password>
+        <db.driver>org.postgresql.Driver</db.driver>
+        <db.groupId>org.postgresql</db.groupId>
+        <db.artifactId>postgresql</db.artifactId>
+        <db.version>${postgresql.version}</db.version>
+        <db.delimiterType>row</db.delimiterType>
+      </properties>
+    </profile>
+    <profile>
+      <id>local-test</id>
+      <properties>
+        <db.encoding>UTF8</db.encoding>
+        <db.basedir>${project.basedir}/ermaster/database/</db.basedir>
+        <db.url>jdbc:postgresql://localhost:5432/stex-test</db.url>
+        <db.username>stex-test</db.username>
+        <db.password>stex-test</db.password>
+        <db.driver>org.postgresql.Driver</db.driver>
+        <db.groupId>org.postgresql</db.groupId>
+        <db.artifactId>postgresql</db.artifactId>
+        <db.version>${postgresql.version}</db.version>
+        <db.delimiterType>row</db.delimiterType>
+      </properties>
+    </profile>
+
+  </profiles>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>${maven-compiler-plugin.version}</version>
+        <configuration>
+          <source>1.8</source>
+          <target>1.8</target>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>sql-maven-plugin</artifactId>
+        <version>1.5</version>
+        <dependencies>
+          <dependency>
+            <groupId>${db.groupId}</groupId>
+            <artifactId>${db.artifactId}</artifactId>
+            <version>${db.version}</version>
+          </dependency>
+        </dependencies>
+        <configuration>
+          <driver>${db.driver}</driver>
+          <url>${db.url}</url>
+          <username>${db.username}</username>
+          <password>${db.password}</password>
+          <encoding>${db.encoding}</encoding>
+          <autocommit>false</autocommit>
+          <delimiterType>${db.delimiterType}</delimiterType>
+          <skip>false</skip>
+          <fileset>
+            <basedir>${db.basedir}</basedir>
+            <includes>
+              <include>*.sql</include>
+            </includes>
+            <excludes>
+              <exclude>00-init.sql</exclude>
+            </excludes>
+          </fileset>
+          <orderFile>ascending</orderFile>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+
+  <dependencies>
+    <!-- spring boot library -->
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter</artifactId>
+      <version>${spring-boot.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-web</artifactId>
+      <version>${spring-boot.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-autoconfigure</artifactId>
+      <version>${spring-boot.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.mybatis.spring.boot</groupId>
+      <artifactId>mybatis-spring-boot-starter</artifactId>
+      <version>${mybatis-spring-boot.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.mybatis.spring.boot</groupId>
+      <artifactId>mybatis-spring-boot-autoconfigure</artifactId>
+      <version>${mybatis-spring-boot.version}</version>
+    </dependency>
+
+    <!-- other library -->
+    <dependency>
+      <groupId>org.apache.commons</groupId>
+      <artifactId>commons-lang3</artifactId>
+      <version>${commons-lang3.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.projectlombok</groupId>
+      <artifactId>lombok</artifactId>
+      <version>${lombok.version}</version>
+      <scope>provided</scope>
+    </dependency>
+
+    <!-- test library -->
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-engine</artifactId>
+      <version>${junit-jupiter.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.junit.platform</groupId>
+      <artifactId>junit-platform-launcher</artifactId>
+      <version>${junit-platform.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-test</artifactId>
+      <version>${spring-boot.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.mybatis.spring.boot</groupId>
+      <artifactId>mybatis-spring-boot-starter-test</artifactId>
+      <version>${mybatis-spring-boot.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.github.springtestdbunit</groupId>
+      <artifactId>spring-test-dbunit</artifactId>
+      <version>${spring-test-dbunit.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.dbunit</groupId>
+      <artifactId>dbunit</artifactId>
+      <version>${dbunit.version}</version>
+    </dependency>
+
+    <!-- environment -->
+    <dependency>
+      <groupId>org.postgresql</groupId>
+      <artifactId>postgresql</artifactId>
+      <version>${postgresql.version}</version>
+    </dependency>
+  </dependencies>
+
+  <properties>
+    <!-- == Maven Plugin Versions == -->
+    <build-helper-maven-plugin.version>3.0.0</build-helper-maven-plugin.version>
+    <cargo-maven2-plugin.version>1.6.8</cargo-maven2-plugin.version>
+    <exec-maven-plugin.version>1.6.0</exec-maven-plugin.version>
+    <findbugs-maven-plugin.version>3.0.5</findbugs-maven-plugin.version>
+    <jacoco-maven-plugin.version>0.8.1</jacoco-maven-plugin.version>
+    <maven-checkstyle-plugin.version>3.0.0</maven-checkstyle-plugin.version>
+    <maven-compiler-plugin.version>3.7.0</maven-compiler-plugin.version>
+    <maven-failsafe-plugin.version>2.22.0</maven-failsafe-plugin.version>
+    <maven-pmd-plugin.version>3.10.0</maven-pmd-plugin.version>
+    <maven-surefire-plugin.version>2.22.0</maven-surefire-plugin.version>
+    <maven-war-plugin.version>3.2.2</maven-war-plugin.version>
+    <!-- == Sprint Versions == -->
+    <spring-boot.version>2.0.3.RELEASE</spring-boot.version>
+    <mybatis-spring-boot.version>2.0.0-SNAPSHOT</mybatis-spring-boot.version>
+    <spring-test-dbunit.version>1.3.0</spring-test-dbunit.version>
+    <!-- == Dependency Versions == -->
+    <postgresql.version>42.2.4</postgresql.version>
+    <dbunit.version>2.5.4</dbunit.version>
+    <lombok.version>1.18.0</lombok.version>
+    <commons-lang3.version>3.0</commons-lang3.version>
+    <junit-jupiter.version>5.2.0</junit-jupiter.version>
+    <junit-platform.version>1.2.0</junit-platform.version>
+    <!-- == Project Properties == -->
+    <encoding>UTF-8</encoding>
+    <java-version>1.8</java-version>
+  </properties>
+</project>

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="jp.co.stex.domain.mapper.strategy.TradeStrategyPaletteMapper">
+
+  <select id="findOne" resultType="TradeStrategyPaletteEntity">
+    SELECT
+      pid,
+      uid,
+      rid,
+      left_joint_type,
+      right_joint_type,
+      nest_open,
+      nest_close,
+      order_by
+    FROM trade_strategy_palettes
+    WHERE uid = #{uid}
+      AND pid = #{pid}
+  </select>
+
+  <select id="createAll" resultType="java.lang.Integer">
+    INSERT INTO trade_strategy_palettes (
+      uid,
+      rid,
+      left_joint_type,
+      right_joint_type,
+      nest_open,
+      nest_close,
+      order_by
+    )
+    VALUES (
+      <foreach collection="palettes" item="palette" separator="), (">
+        #{palette.uid},
+        #{palette.rid},
+        #{palette.leftJointType},
+        #{palette.rightJointType},
+        #{palette.nestOpen},
+        #{palette.nestClose},
+        #{palette.orderBy}
+      </foreach>
+    )
+    RETURNING pid
+  </select>
+
+  <update id="updateAll">
+    <foreach collection="palettes" item="palette" separator=";">
+      UPDATE trade_strategy_palettes
+      SET
+        left_joint_type = #{palette.leftJointType},
+        right_joint_type = #{palette.rightJointType},
+        nest_open = #{palette.nestOpen},
+        nest_close = #{palette.nestClose},
+        order_by = #{palette.orderBy}
+      WHERE uid = #{palette.uid}
+        AND pid = #{palette.pid}
+    </foreach>
+  </update>
+
+  <delete id="deleteAll">
+    DELETE FROM trade_strategy_palettes
+    WHERE
+    uid = #{uid}
+    AND
+    rid IN
+    <foreach collection="pids" item="pid" open="(" close=")" separator=",">
+      #{pid}
+    </foreach>
+  </delete>
+</mapper>

@@ -1,0 +1,5 @@
+pid,uid,rid,left_joint_type,right_joint_type,nest_open,nest_close,order_by
+1,1,1,0,1,true,false,1
+2,1,1,2,0,false,true,2
+3,1,2,0,1,true,false,1
+4,1,2,2,0,false,true,2

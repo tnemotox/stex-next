@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="jp.co.stex.domain.mapper.strategy.TradeStrategyCardMapper">
+
+  <select id="findOne" resultType="TradeStrategyCardEntity">
+    SELECT
+      cid,
+      uid,
+      pid,
+      label,
+      used,
+      card_type,
+      left_side_indicator_type,
+      left_side_days,
+      right_side_indicator_type,
+      right_side_days,
+      right_side_fix_or_flex,
+      right_side_fix_value,
+      coefficient,
+      comparison_type
+    FROM trade_strategy_cards
+    WHERE uid = #{uid}
+      AND cid = #{cid}
+  </select>
+
+  <select id="createOne" resultType="java.lang.Integer">
+    INSERT INTO trade_strategy_cards (
+      uid,
+      pid,
+      label,
+      used,
+      card_type,
+      left_side_indicator_type,
+      left_side_days,
+      right_side_indicator_type,
+      right_side_days,
+      right_side_fix_or_flex,
+      right_side_fix_value,
+      coefficient,
+      comparison_type
+    ) VALUES (
+      #{card.uid},
+      null,
+      #{card.label},
+      false,
+      #{card.cardType},
+      #{card.leftSideIndicatorType},
+      #{card.leftSideDays},
+      #{card.rightSideIndicatorType},
+      #{card.rightSideDays},
+      #{card.rightSideFixOrFlex},
+      #{card.rightSideFixValue},
+      #{card.coefficient},
+      #{card.comparisonType}
+    )
+    RETURNING cid
+  </select>
+
+  <update id="updateOne">
+    UPDATE trade_strategy_cards
+    SET
+      label = #{card.label},
+      card_type = #{card.cardType},
+      left_side_indicator_type = #{card.leftSideIndicatorType},
+      left_side_days = #{card.leftSideDays},
+      right_side_indicator_type = #{card.rightSideIndicatorType},
+      right_side_days = #{card.rightSideDays},
+      right_side_fix_or_flex = #{card.rightSideFixOrFlex},
+      right_side_fix_value = #{card.rightSideFixValue},
+      coefficient = #{card.coefficient},
+      comparison_type = #{card.comparisonType}
+    WHERE uid = #{card.uid}
+    AND cid = #{card.cid}
+  </update>
+
+  <update id="associateOneWithPalette">
+    UPDATE trade_strategy_cards
+    SET
+      <choose>
+        <when test="card.pid == 0">
+          pid = null,
+        </when>
+        <otherwise>
+          pid = #{card.pid},
+        </otherwise>
+      </choose>
+      used = #{card.used}
+    WHERE uid = #{card.uid}
+      AND cid = #{card.cid}
+  </update>
+
+  <delete id="deleteOne">
+    DELETE FROM trade_strategy_cards
+    WHERE uid = #{uid}
+      AND cid = #{cid}
+  </delete>
+</mapper>

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="jp.co.stex.domain.mapper.strategy.TradeStrategyMapper">
+
+  <select id="findOne" resultType="TradeStrategyEntity">
+    SELECT
+      sid,
+      uid,
+      gid,
+      label,
+      analysis_start_date,
+      analysis_end_date,
+      analyzed_at,
+      memo
+    FROM trade_strategies
+    WHERE uid = #{uid}
+    AND sid = #{sid}
+  </select>
+
+  <select id="findAll" resultType="TradeStrategyEntity">
+    SELECT
+    sid,
+    uid,
+    gid,
+    label,
+    analysis_start_date,
+    analysis_end_date,
+    analyzed_at,
+    memo
+    FROM trade_strategies
+    WHERE uid = #{uid}
+    ORDER BY sid
+  </select>
+
+  <select id="createOne" resultType="java.lang.Integer">
+    INSERT INTO trade_strategies (
+      uid,
+      gid,
+      label,
+      analysis_start_date,
+      analysis_end_date,
+      analyzed_at,
+      memo
+    )
+    VALUES (
+      #{strategy.uid},
+      #{strategy.gid},
+      #{strategy.label},
+      #{strategy.analysisStartDate},
+      #{strategy.analysisEndDate},
+      #{strategy.analyzedAt},
+      #{strategy.memo}
+    )
+    RETURNING sid
+  </select>
+
+  <update id="updateOne">
+    UPDATE trade_strategies
+    SET
+      gid = #{strategy.gid},
+      label = #{strategy.label},
+      analysis_start_date = #{strategy.analysisStartDate},
+      analysis_end_date = #{strategy.analysisEndDate},
+      analyzed_at = #{strategy.analyzedAt},
+      memo = #{strategy.memo}
+    WHERE uid = #{strategy.uid}
+    AND sid = #{strategy.sid}
+  </update>
+
+  <delete id="deleteOne">
+    DELETE FROM trade_strategies
+    WHERE
+      uid = #{uid}
+    AND
+      sid = #{sid}
+  </delete>
+</mapper>

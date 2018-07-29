@@ -1,0 +1,15 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://127.0.0.1:5342/stex
+    username: stex
+    password: stex
+    driver-class-name: org.postgresql.Driver
+
+  messages:
+    basename: i18n/messages
+
+  transaction:
+    rollback-on-commit-failure: true
+
+mybatis:
+  config-location: mybatis-config.xml
