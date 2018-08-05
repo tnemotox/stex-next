@@ -1,0 +1,37 @@
+* {
+  font-family: sans-serif !important;
+}
+
+h4 {
+  margin: 5px;
+}
+
+th {
+  background-color: #dddddd !important;
+  text-align: center !important;
+}
+
+.el-form--label-top .el-form-item__label {
+  padding: 0 0 0 5px !important;
+  font-weight: bold;
+}
+
+.el-dialog__header {
+  border-bottom: solid 1px #dddddd;
+}
+
+.el-dialog__header div {
+  margin-bottom: 8px;
+}
+
+.el-dialog__footer {
+  border-top: solid 1px #dddddd;
+}
+
+.el-dialog__footer div {
+  margin-top: 8px;
+}
+
+.el-dialog__body {
+  padding: 10px 20px !important;
+}

@@ -56,6 +56,11 @@ public class TradeRuleEntity implements Serializable {
     private int tradeTimingType;
 
     /**
+     * 指値
+     */
+    private double limitOrderValue;
+
+    /**
      * 仕掛けフラグ
      */
     private boolean inOrExit;
