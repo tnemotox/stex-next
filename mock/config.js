@@ -89,124 +89,118 @@ server.get(`${prefix}/strategy`, (req, res) => {
           elapsedDay: 5
         },
       ],
-      tradeRules: {
-        in: {
-          rules: [
+      inRules: [
+        {
+          rid: 1,
+          label: '頑張る取引ルール',
+          todayOrTomorrow: true,
+          buyOrSell: true,
+          tradeTimingType: 1,
+          limitOrderPrice: null,
+          orderBy: 1,
+          palettes: [
             {
-              rid: 1,
-              label: '頑張る取引ルール',
-              todayOrTomorrow: true,
-              buyOrSell: true,
-              tradeTimingType: 1,
-              limitOrderPrice: null,
-              orderBy: 1,
-              palettes: [
-                {
-                  pid: 1,
-                  leftJointType: 0,
-                  rightJointType: 1,
-                  nestOpen: true,
-                  nestClose: false,
-                  orderBy: 1
-                },
-                {
-                  pid: 2,
-                  leftJointType: 2,
-                  rightJointType: 0,
-                  nestOpen: false,
-                  nestClose: true,
-                  orderBy: 2
-                }
-              ],
+              pid: 1,
+              leftJointType: 0,
+              rightJointType: 1,
+              nestOpen: true,
+              nestClose: false,
+              orderBy: 1
             },
             {
-              rid: 2,
-              label: 'すごい取引ルール',
-              todayOrTomorrow: false,
-              buyOrSell: true,
-              tradeTimingType: 3,
-              limitOrderPrice: null,
-              orderBy: 2,
-              palettes: [
-                {
-                  pid: 3,
-                  leftJointType: 0,
-                  rightJointType: 1,
-                  nestOpen: true,
-                  nestClose: false,
-                  orderBy: 1
-                },
-                {
-                  pid: 4,
-                  leftJointType: 2,
-                  rightJointType: 0,
-                  nestOpen: false,
-                  nestClose: true,
-                  orderBy: 2
-                }
-              ],
-            },
-          ]
+              pid: 2,
+              leftJointType: 2,
+              rightJointType: 0,
+              nestOpen: false,
+              nestClose: true,
+              orderBy: 2
+            }
+          ],
         },
-        exit:  {
-          rules: [
+        {
+          rid: 2,
+          label: 'すごい取引ルール',
+          todayOrTomorrow: false,
+          buyOrSell: true,
+          tradeTimingType: 3,
+          limitOrderPrice: null,
+          orderBy: 2,
+          palettes: [
             {
-              rid: 3,
-              label: 'えらい取引ルール',
-              todayOrTomorrow: true,
-              buyOrSell: true,
-              tradeTimingType: 4,
-              limitOrderPrice: 100,
-              orderBy: 1,
-              palettes: [
-                {
-                  pid: 5,
-                  leftJointType: 0,
-                  rightJointType: 1,
-                  nestOpen: true,
-                  nestClose: false,
-                  orderBy: 1
-                },
-                {
-                  pid: 6,
-                  leftJointType: 2,
-                  rightJointType: 0,
-                  nestOpen: false,
-                  nestClose: true,
-                  orderBy: 2
-                }
-              ],
+              pid: 3,
+              leftJointType: 0,
+              rightJointType: 1,
+              nestOpen: true,
+              nestClose: false,
+              orderBy: 1
             },
             {
-              rid: 4,
-              label: 'やばい取引ルール',
-              todayOrTomorrow: false,
-              buyOrSell: true,
-              tradeTimingType: 2,
-              limitOrderPrice: null,
-              orderBy: 2,
-              palettes: [
-                {
-                  pid: 7,
-                  leftJointType: 0,
-                  rightJointType: 1,
-                  nestOpen: true,
-                  nestClose: false,
-                  orderBy: 1
-                },
-                {
-                  pid: 8,
-                  leftJointType: 2,
-                  rightJointType: 0,
-                  nestOpen: false,
-                  nestClose: true,
-                  orderBy: 2
-                }
-              ],
+              pid: 4,
+              leftJointType: 2,
+              rightJointType: 0,
+              nestOpen: false,
+              nestClose: true,
+              orderBy: 2
+            }
+          ],
+        },
+      ],
+      exitRules: [
+        {
+          rid: 3,
+          label: 'えらい取引ルール',
+          todayOrTomorrow: true,
+          buyOrSell: true,
+          tradeTimingType: 4,
+          limitOrderPrice: 100,
+          orderBy: 1,
+          palettes: [
+            {
+              pid: 5,
+              leftJointType: 0,
+              rightJointType: 1,
+              nestOpen: true,
+              nestClose: false,
+              orderBy: 1
             },
-          ]
-        }
-      }
+            {
+              pid: 6,
+              leftJointType: 2,
+              rightJointType: 0,
+              nestOpen: false,
+              nestClose: true,
+              orderBy: 2
+            }
+          ],
+        },
+        {
+          rid: 4,
+          label: 'やばい取引ルール',
+          todayOrTomorrow: false,
+          buyOrSell: true,
+          tradeTimingType: 2,
+          limitOrderPrice: null,
+          orderBy: 2,
+          palettes: [
+            {
+              pid: 7,
+              leftJointType: 0,
+              rightJointType: 1,
+              nestOpen: true,
+              nestClose: false,
+              orderBy: 1
+            },
+            {
+              pid: 8,
+              leftJointType: 2,
+              rightJointType: 0,
+              nestOpen: false,
+              nestClose: true,
+              orderBy: 2
+            }
+          ],
+        },
+      ],
     },
     {
       sid: 2,
@@ -218,14 +212,8 @@ server.get(`${prefix}/strategy`, (req, res) => {
       analyzedAt: '2018-01-01',
       memo: 'めも2',
       cards: [],
-      tradeRules: {
-        in: {
-          rules: [],
-        },
-        exit:  {
-          rules: []
-        }
-      }
+      inRules: [],
+      exitRules: [],
     }
   ])
 })

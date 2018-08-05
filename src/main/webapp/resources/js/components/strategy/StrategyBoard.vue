@@ -617,13 +617,13 @@
     computed: {
       ...mapFields({
         cards: 'strategyForm.cards',
-        inRules: 'strategyForm.tradeRules.in.rules',
-        exitRules: 'strategyForm.tradeRules.exit.rules',
+        inRules: 'strategyForm.inRules',
+        exitRules: 'strategyForm.exitRules',
       }),
 
       ...mapMultiRowFields({
-        inRulesMulti: 'strategyForm.tradeRules.in.rules',
-        exitRulesMulti: 'strategyForm.tradeRules.exit.rules',
+        inRulesMulti: 'strategyForm.inRules',
+        exitRulesMulti: 'strategyForm.exitRules',
       }),
 
       /**

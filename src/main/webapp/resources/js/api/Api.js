@@ -9,7 +9,7 @@ export default {
 
     $update: cardForm => card.put(cardForm, `/${cardForm.cid}`),
 
-    $delete: cid => card.delete(`/${cid}`),
+    $delete: cid   => card.delete(`/${cid}`),
   },
   strategy: {
 

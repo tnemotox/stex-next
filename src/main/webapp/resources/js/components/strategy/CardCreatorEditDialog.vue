@@ -324,8 +324,8 @@
     computed: {
       ...mapFields({
         cards: 'strategyForm.cards',
-        inRules: 'strategyForm.tradeRules.in.rules',
-        exitRules: 'strategyForm.tradeRules.exit.rules',
+        inRules: 'strategyForm.inRules',
+        exitRules: 'strategyForm.exitRules',
       }),
     }
   }
