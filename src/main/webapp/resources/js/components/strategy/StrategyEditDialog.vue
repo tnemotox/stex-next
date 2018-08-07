@@ -145,7 +145,10 @@
       create() {
         this.$refs.strategyForm.validate(async valid => {
           if (valid) {
-            await this.$http.strategy.$create(this.strategyForm).then(() => {
+            await this.$http.strategy.$create(Object.assign(this.strategyForm, {
+              analysisStartDate: this.strategyForm.analysisDate[0],
+              analysisEndDate: this.strategyForm.analysisDate[1]
+            })).then(() => {
               this.$notify({
                 type: 'info',
                 message: '取引戦略を作成しました。',

@@ -10,7 +10,7 @@ module.exports = {
     stex: [babelPolyfill, './src/main/webapp/resources/js/application/stex.js']
   },
   output: {
-    path: path.resolve(__dirname, 'target/generated-webapp/resources/build'),
+    path: path.resolve(__dirname, 'src/main/resources/static'),
     chunkFilename: '[name].build.js',
     publicPath: '/build/',
     filename: '[name].build.js'
@@ -73,7 +73,7 @@ module.exports = {
         changeOrigin: true
       }
     },
-    contentBase: path.join(__dirname, 'src/main/webapp/WEB-INF/views'),
+    contentBase: path.join(__dirname, 'src/main/resources/templates'),
     watchContentBase: true,
     hot: true,
     inline: true,

@@ -11,7 +11,7 @@ import java.util.List;
  * <p>取引戦略パレットを操作するマッパーです。</p>
  * <p>ユーザIDが合致するもののみ操作可能です。</p>
  *
- * @author Kuneo
+ * @author t.nemoto.x
  * @since 1.0
  */
 @Mapper

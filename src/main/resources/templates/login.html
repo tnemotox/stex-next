@@ -1,0 +1,24 @@
+<html lang="ja" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+<meta charset=" utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>タイトル</title>
+</head>
+<body onload="document.login.username.focus();">
+  <!-- ログインが失敗した時のメッセージ -->
+  <div class="alert alert-danger" role="alert"
+    th:if="${session['SPRING_SECURITY_LAST_EXCEPTION']} != null">
+    <strong>ログインに失敗しました: </strong>ユーザが存在しないか、パスワードが間違っています。
+  </div>
+
+  <!-- ログインのフォーム -->
+  <form class="form-signin" action="" th:action="@{/login}" method="post" name="login">
+    <h2 class="form-signin-heading">ログイン画面</h2>
+    <input type="text" class="form-control" placeholder="ユーザID" name="username" />
+    <input type="password" class="form-control" placeholder="パスワード" name="password" />
+    <button class="btn btn-lg btn-primary btn-block" type="submit">ログイン</button>
+  </form>
+</body>
+</html>

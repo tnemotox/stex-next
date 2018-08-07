@@ -14,7 +14,7 @@ import java.util.List;
  * <p>取引ルールに紐付く取引戦略パレット、取引戦略カードを合わせて取得します。</p>
  * <p>ユーザIDが合致するもののみ操作可能です。</p>
  *
- * @author Kuneo
+ * @author t.nemoto.x
  * @since 1.0
  */
 @Mapper

@@ -22,14 +22,14 @@
 
   <select id="findAll" resultType="TradeStrategyEntity">
     SELECT
-    sid,
-    uid,
-    gid,
-    label,
-    analysis_start_date,
-    analysis_end_date,
-    analyzed_at,
-    memo
+      sid,
+      uid,
+      gid,
+      label,
+      analysis_start_date,
+      analysis_end_date,
+      analyzed_at,
+      memo
     FROM trade_strategies
     WHERE uid = #{uid}
     ORDER BY sid

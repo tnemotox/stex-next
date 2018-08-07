@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: jdbc:postgresql://127.0.0.1:5342/stex
+    url: jdbc:postgresql:stex
     username: stex
     password: stex
     driver-class-name: org.postgresql.Driver
@@ -11,5 +11,8 @@ spring:
   transaction:
     rollback-on-commit-failure: true
 
+dozer:
+  mapping-files: classpath:dozer/java8-mappings.xml
+
 mybatis:
-  config-location: mybatis-config.xml
+  config-location: classpath:mybatis-config.xml

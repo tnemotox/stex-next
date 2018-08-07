@@ -149,6 +149,8 @@ CREATE TABLE trade_rules
 	-- 3: 成行
 	-- 4: 指値
 	trade_timing_type int NOT NULL,
+	-- 指値
+	limit_order_value numeric,
 	-- 仕掛けフラグ : true: 仕掛け
 	-- false: 手仕舞い
 	in_or_exit boolean NOT NULL,
@@ -277,7 +279,7 @@ CREATE TABLE users
 	-- パスワード
 	password varchar NOT NULL,
 	-- 権限
-	authority int NOT NULL,
+	authority varchar NOT NULL,
 	PRIMARY KEY (uid)
 ) WITHOUT OIDS;
 
@@ -431,6 +433,7 @@ COMMENT ON COLUMN trade_rules.trade_timing_type IS '取引タイミング種別 
 2: 引成
 3: 成行
 4: 指値';
+COMMENT ON COLUMN trade_rules.limit_order_value IS '指値';
 COMMENT ON COLUMN trade_rules.in_or_exit IS '仕掛けフラグ : true: 仕掛け
 false: 手仕舞い';
 COMMENT ON COLUMN trade_rules.order_by IS '順序';

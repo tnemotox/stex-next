@@ -10,6 +10,7 @@
   </settings>
 
   <typeAliases>
+    <package name="jp.co.stex.domain.model.base"/>
     <package name="jp.co.stex.domain.model.strategy"/>
   </typeAliases>
 
@@ -19,5 +20,9 @@
 
   <mappers>
     <mapper resource="jp/co/stex/domain/mapper/strategy/TradeStrategyMapper.xml"/>
+    <mapper resource="jp/co/stex/domain/mapper/strategy/TradeRuleMapper.xml"/>
+    <mapper resource="jp/co/stex/domain/mapper/strategy/TradeStrategyCardMapper.xml"/>
+    <mapper resource="jp/co/stex/domain/mapper/strategy/TradeStrategyPaletteMapper.xml"/>
+    <mapper resource="jp/co/stex/domain/mapper/base/UserMapper.xml"/>
   </mappers>
 </configuration>

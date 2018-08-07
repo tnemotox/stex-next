@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE Configuration>
+<Configuration status="OFF">
+    <!-- 出力先の設定 -->
+    <!-- 標準出力 -->
+    <Appenders>
+        <Console name="stdout" target="SYSTEM_OUT">
+            <!-- メッセージフォーマット -->
+            <PatternLayout pattern="[%d{yyyy/MM/dd HH:mm:sss}] [%t] [%-p] [%-c{1}] %m%n"/>
+        </Console>
+        <File name="file" fileName="${env:STEX_HOME}/logs/app.log">
+            <PatternLayout charset="UTF-8" pattern="[%d{yyyy/MM/dd HH:mm:sss.SSS}] [%-p] [%t] %m%n"/>
+        </File>
+        <File name="test" fileName="${env:STEX_HOME}/logs/test.log">
+            <PatternLayout pattern="[%d{yyyy/MM/dd HH:mm:sss.SSS}] [%-p] [%t] %m%n"/>
+        </File>
+    </Appenders>
+
+    <!-- 出力パッケージの設定 -->
+    <Loggers>
+        <Logger name="jp.co.stex" level="DEBUG" additivity="false">
+            <AppenderRef ref="stdout"/>
+            <AppenderRef ref="file"/>
+        </Logger>
+        <Logger name="org.apache.ibatis" level="DEBUG" additivity="false">
+            <AppenderRef ref="stdout"/>
+            <AppenderRef ref="file"/>
+        </Logger>
+        <Logger name="jdbc.sqltiming" level="ERROR" additivity="false">
+            <AppenderRef ref="stdout"/>
+            <AppenderRef ref="file"/>
+        </Logger>
+        <!-- 上記以外は警告以上を出力 -->
+        <Root level="ERROR">
+            <AppenderRef ref="stdout"/>
+            <AppenderRef ref="file"/>
+        </Root>
+    </Loggers>
+</Configuration>
