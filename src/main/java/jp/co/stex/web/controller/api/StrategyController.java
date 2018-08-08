@@ -1,23 +1,28 @@
 package jp.co.stex.web.controller.api;
 
+import lombok.RequiredArgsConstructor;
+
 import jp.co.stex.domain.model.strategy.TradeStrategyEntity;
 import jp.co.stex.domain.service.base.UserService;
 import jp.co.stex.domain.service.strategy.StrategyService;
-import lombok.RequiredArgsConstructor;
+
 import org.dozer.Mapper;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.validation.BindException;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.List;
+
+import javax.validation.constraints.NotNull;
 
 /**
  * <p>取引戦略の操作を行うコントローラです。</p>
@@ -27,8 +32,12 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/strategy")
 @RequiredArgsConstructor
+@Validated
 public class StrategyController {
 
+    /**
+     * dozerマッパー
+     */
     private final Mapper dozerMapper;
 
     /**
@@ -56,17 +65,36 @@ public class StrategyController {
      *
      * @param form 取引戦略フォーム
      * @param bd バインド結果
+     * @param uriBuilder URIビルダー
      * @return なし
      * @throws BindException バインド例外
      */
     @RequestMapping(path = "", method = RequestMethod.POST)
-    public ResponseEntity<Void> create(@RequestBody @Validated TradeStrategyForm form, BindingResult bd) throws BindException {
+    public ResponseEntity<Void> create(@RequestBody @Validated TradeStrategyForm form, BindingResult bd, UriComponentsBuilder uriBuilder) throws BindException {
         if (bd.hasErrors()) {
             throw new BindException(bd);
         }
         TradeStrategyEntity entity = dozerMapper.map(form, TradeStrategyEntity.class);
-        strategyService.createOne(findUserId(), entity);
-        return ResponseEntity.status(HttpStatus.CREATED).build();
+        int id = strategyService.createOne(findUserId(), entity);
+        return ResponseEntity.created(uriBuilder.path("/api/strategy/{id}").buildAndExpand(id).toUri()).build();
+    }
+
+    /**
+     * <p>取引戦略を更新する。</p>
+     *
+     * @param sid 取引戦略ID
+     * @param form 取引戦略フォーム
+     * @param bd バインド結果
+     * @return なし
+     * @throws BindException バインド例外
+     */
+    @RequestMapping(path = "/{sid}", method = RequestMethod.PUT)
+    public ResponseEntity<Void> update(@PathVariable("sid") @NotNull Integer sid, @RequestBody @Validated TradeStrategyForm form, BindingResult bd) throws BindException {
+        if (bd.hasErrors()) {
+            throw new BindException(bd);
+        }
+        strategyService.updateOne(findUserId(), sid, dozerMapper.map(form, TradeStrategyEntity.class));
+        return ResponseEntity.noContent().build();
     }
 
     /**
@@ -78,9 +106,8 @@ public class StrategyController {
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         if (principal instanceof UserDetails) {
             return ((UserDetails) principal).getUsername();
-        } else {
-            return principal.toString();
         }
+        return principal.toString();
     }
 
     /**

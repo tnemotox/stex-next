@@ -31,6 +31,7 @@ import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 /**
@@ -127,7 +128,6 @@ class StrategyControllerTest extends ControllerTestBase {
     class create {
 
         private final String postData = "{" +
-            "  \"sid\" : 1," +
             "  \"gid\" : 1," +
             "  \"label\" : \"すごい取引戦略\"," +
             "  \"analysisStartDate\" : \"2017-01-01\"," +
@@ -167,6 +167,52 @@ class StrategyControllerTest extends ControllerTestBase {
                     .contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON)
             )
             .andExpect(status().isCreated())
+            .andReturn();
+            LOG.info(result.getResponse().getContentAsString());
+        }
+    }
+
+    /**
+     * {@link StrategyController#update}
+     */
+    @Nested
+    class update {
+
+        private final String postData = "{" +
+            "  \"gid\" : 1," +
+            "  \"label\" : \"すごい取引戦略\"," +
+            "  \"analysisStartDate\" : \"2017-01-01\"," +
+            "  \"analysisEndDate\" : \"2017-12-31\"," +
+            "  \"analyzedAt\" : \"2018-01-01\"," +
+            "  \"memo\" : \"とてもすごい取引戦略です\"" +
+            "}";
+
+        @Test
+        @DisplayName("正しい引数が与えられたとき、取引戦略を更新する")
+        @WithMockUser
+        void _001() throws Exception {
+            doNothing().when(strategyService).updateOne(anyInt(), anyInt(), any());
+            MvcResult result = mockMvc.perform(
+                put("/api/strategy/1")
+                    .content(postData)
+                    .contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON)
+            )
+            .andExpect(status().isNoContent())
+            .andReturn();
+            LOG.info(result.getResponse().getContentAsString());
+        }
+
+        @Test
+        @DisplayName("パスで受け取る取引戦略IDがnullで入力チェックエラー")
+        @WithMockUser
+        void _002() throws Exception {
+            doNothing().when(strategyService).updateOne(anyInt(), anyInt(), any());
+            MvcResult result = mockMvc.perform(
+                put("/api/strategy/1")
+                    .content(postData)
+                    .contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON)
+            )
+            .andExpect(status().isNoContent())
             .andReturn();
             LOG.info(result.getResponse().getContentAsString());
         }

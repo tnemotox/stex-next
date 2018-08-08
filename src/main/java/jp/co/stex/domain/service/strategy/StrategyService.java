@@ -1,7 +1,6 @@
 package jp.co.stex.domain.service.strategy;
 
 import jp.co.stex.domain.model.strategy.TradeStrategyEntity;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 
@@ -25,6 +24,16 @@ public interface StrategyService {
      *
      * @param uid ユーザID
      * @param tradeStrategy 取引戦略
+     * @return 取引戦略戦略ID
      */
-    void createOne(int uid, TradeStrategyEntity tradeStrategy);
+    int createOne(int uid, TradeStrategyEntity tradeStrategy);
+
+    /**
+     * <p>取引戦略を更新する。</p>
+     *
+     * @param uid ユーザID
+     * @param sid 取引戦略ID
+     * @param tradeStrategy 取引戦略
+     */
+    void updateOne(int uid, int sid, TradeStrategyEntity tradeStrategy);
 }

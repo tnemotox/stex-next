@@ -19,17 +19,25 @@ public class StrategyServiceImpl implements StrategyService {
     private final TradeStrategyMapper tradeStrategyMapper;
 
     /**
-     * <p>全ての取引戦略を取得する。</p>
-     *
-     * @return 取引戦略リスト
+     * {@inheritDoc}
      */
     @Override
     public List<TradeStrategyEntity> findAll(int loginUserId) {
         return tradeStrategyMapper.findAll(loginUserId);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public void createOne(int uid, TradeStrategyEntity tradeStrategy) {
+    public int createOne(int uid, TradeStrategyEntity tradeStrategy) {
+        return 0;
+    }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void updateOne(int uid, int sid, TradeStrategyEntity tradeStrategy) {
     }
 }

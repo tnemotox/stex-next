@@ -1,10 +1,12 @@
 package jp.co.stex.domain.service.base;
 
+import lombok.RequiredArgsConstructor;
+
 import jp.co.stex.base.MessageCode;
 import jp.co.stex.base.exception.StexSystemException;
 import jp.co.stex.domain.model.base.ResponseMessage;
 import jp.co.stex.domain.model.base.code.ErrorLevel;
-import lombok.RequiredArgsConstructor;
+
 import org.springframework.context.MessageSource;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.stereotype.Service;
@@ -15,6 +17,8 @@ import org.thymeleaf.util.ArrayUtils;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+
+import javax.validation.ConstraintViolation;
 
 /**
  * メッセージを抽出するサービスです。
@@ -68,6 +72,19 @@ public class MessageService {
     public ResponseMessage makeResponesMessage(FieldError error, ErrorLevel level) {
         String message = messageSource.getMessage(error.getCodes()[0], new Object[] {}, Locale.JAPAN);
         return new ResponseMessage(error.getCodes()[0], new String[] {}, level, message);
+    }
+
+    /**
+     * <p>入力チェックを契機に発生する例外から画面メッセージ情報を生成する。</p>
+     *
+     * @param violation エラー情報
+     * @param level エラーレベル
+     * @return 画面メッセージ情報
+     * @since 1.0.0
+     */
+    public ResponseMessage makeResponesMessage(ConstraintViolation<?> violation, ErrorLevel level) {
+        String code = violation.getConstraintDescriptor().getAnnotation().annotationType().getSimpleName() + "." + violation.getRootBeanClass().getSimpleName() + "." + violation.getPropertyPath().toString();
+        return new ResponseMessage(code, new String[] {}, level, messageSource.getMessage(code, new Object[]{}, Locale.getDefault()));
     }
 
     /**
