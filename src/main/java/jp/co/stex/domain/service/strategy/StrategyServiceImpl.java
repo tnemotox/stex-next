@@ -30,14 +30,23 @@ public class StrategyServiceImpl implements StrategyService {
      * {@inheritDoc}
      */
     @Override
-    public int createOne(int uid, TradeStrategyEntity tradeStrategy) {
-        return 0;
+    public int createOne(TradeStrategyEntity tradeStrategy) {
+        return tradeStrategyMapper.createOne(tradeStrategy);
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public void updateOne(int uid, int sid, TradeStrategyEntity tradeStrategy) {
+    public void updateOne(TradeStrategyEntity tradeStrategy) {
+        tradeStrategyMapper.updateOne(tradeStrategy);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void deleteOne(int uid, int sid) {
+        tradeStrategyMapper.deleteOne(uid, sid);
     }
 }

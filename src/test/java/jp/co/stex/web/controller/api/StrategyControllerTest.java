@@ -2,36 +2,28 @@ package jp.co.stex.web.controller.api;
 
 import com.fasterxml.jackson.databind.SerializationFeature;
 import jp.co.stex.domain.model.strategy.TradeStrategyEntity;
-import jp.co.stex.domain.service.base.MessageService;
-import jp.co.stex.domain.service.base.UserService;
 import jp.co.stex.domain.service.strategy.StrategyService;
 import jp.co.stex.web.controller.ControllerTestBase;
-import jp.co.stex.web.controller.GlobalRestExceptionHandler;
-import org.dozer.Mapper;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Nested;
-import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.junit.jupiter.api.*;
+import org.mockito.ArgumentCaptor;
+import org.mockito.Captor;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors;
 import org.springframework.test.web.servlet.MvcResult;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import org.springframework.validation.annotation.Validated;
 
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 
 import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
-import static org.mockito.Mockito.doNothing;
-import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.mockito.Mockito.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 /**
@@ -39,23 +31,14 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  *
  * @author t.nemoto.x
  */
-@Validated
+@WebMvcTest(controllers = {StrategyController.class})
 class StrategyControllerTest extends ControllerTestBase {
 
-    @Mock
+    @MockBean
     private StrategyService strategyService;
-
-    @Mock
-    private UserService userService;
-
-    @Autowired
-    private Mapper dozerMapper;
 
     @BeforeAll
     void setup() {
-        mockMvc = MockMvcBuilders.standaloneSetup(new StrategyController(dozerMapper, strategyService, userService))
-            .setControllerAdvice(new GlobalRestExceptionHandler(new MessageService(messageSource())))
-            .build();
         mapper.enable(SerializationFeature.INDENT_OUTPUT);
     }
 
@@ -67,6 +50,7 @@ class StrategyControllerTest extends ControllerTestBase {
 
         private final List<TradeStrategyEntity> strategies = Arrays.asList(
             TradeStrategyEntity.builder()
+                .uid(1)
                 .sid(1)
                 .gid(1)
                 .label("すごい取引戦略")
@@ -76,6 +60,7 @@ class StrategyControllerTest extends ControllerTestBase {
                 .memo("とてもすごい取引戦略です")
                 .build(),
             TradeStrategyEntity.builder()
+                .uid(1)
                 .sid(2)
                 .gid(1)
                 .label("label2")
@@ -88,6 +73,7 @@ class StrategyControllerTest extends ControllerTestBase {
 
         private final String expected = "[" +
             "{" +
+            "  \"uid\" : 1," +
             "  \"sid\" : 1," +
             "  \"gid\" : 1," +
             "  \"label\" : \"すごい取引戦略\"," +
@@ -97,6 +83,7 @@ class StrategyControllerTest extends ControllerTestBase {
             "  \"memo\" : \"とてもすごい取引戦略です\"" +
             "}," +
             "{" +
+            "  \"uid\" : 1," +
             "  \"sid\" : 2," +
             "  \"gid\" : 1," +
             "  \"label\" : \"label2\"," +
@@ -113,7 +100,7 @@ class StrategyControllerTest extends ControllerTestBase {
         void _001() throws Exception {
             when(strategyService.findAll(anyInt())).thenReturn(strategies);
             MvcResult result = mockMvc
-                .perform(get("/api/strategy"))
+                .perform(get("/api/strategy").with(SecurityMockMvcRequestPostProcessors.csrf()))
                 .andExpect(status().isOk())
                 .andExpect(content().json(expected))
                 .andReturn();
@@ -127,6 +114,9 @@ class StrategyControllerTest extends ControllerTestBase {
     @Nested
     class create {
 
+        @Captor
+        private ArgumentCaptor<TradeStrategyEntity> captor;
+
         private final String postData = "{" +
             "  \"gid\" : 1," +
             "  \"label\" : \"すごい取引戦略\"," +
@@ -136,38 +126,60 @@ class StrategyControllerTest extends ControllerTestBase {
             "  \"memo\" : \"とてもすごい取引戦略です\"" +
             "}";
 
-        @Test
-        @DisplayName("未入力のフィールドがチェックエラーになることを確認する")
-        @WithMockUser
-        void _001() throws Exception {
-            MvcResult result = mockMvc
-                .perform(
-                    post("/api/strategy")
-                        .content("{}")
-                        .contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON)
-                )
-                .andExpect(status().isBadRequest())
-                .andExpect(jsonPath("$.*", hasSize(4)))
-                .andExpect(jsonPath("$.['NotNull.tradeStrategyForm.gid'].message").value("分析銘柄グループが未入力です。"))
-                .andExpect(jsonPath("$.['NotBlank.tradeStrategyForm.label'].message").value("取引戦略名が未入力です。"))
-                .andExpect(jsonPath("$.['NotNull.tradeStrategyForm.analysisStartDate'].message").value("分析開始日が未入力です。"))
-                .andExpect(jsonPath("$.['NotNull.tradeStrategyForm.analysisEndDate'].message").value("分析終了日が未入力です。"))
-                .andReturn();
-            LOG.info(result.getResponse().getContentAsString());
+        @BeforeEach
+        void setUp() {
+            reset(strategyService);
         }
 
         @Test
         @DisplayName("正しい引数が与えられたとき、取引戦略を作成する")
         @WithMockUser
-        void _002() throws Exception {
-            doNothing().when(strategyService).createOne(anyInt(), any());
+        void _001() throws Exception {
+            when(userService.findUserId(anyString())).thenReturn(1);
+            when(strategyService.createOne(captor.capture())).thenReturn(1);
             MvcResult result = mockMvc.perform(
                 post("/api/strategy")
                     .content(postData)
                     .contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON)
-            )
-            .andExpect(status().isCreated())
-            .andReturn();
+                    .with(SecurityMockMvcRequestPostProcessors.csrf())
+                )
+                .andExpect(status().isCreated())
+                .andReturn();
+            verify(strategyService, times(1)).createOne(any());
+
+            assertEquals(
+                TradeStrategyEntity.builder()
+                    .uid(1)
+                    .gid(1)
+                    .label("すごい取引戦略")
+                    .analysisStartDate(LocalDate.of(2017, 1, 1))
+                    .analysisEndDate(LocalDate.of(2017, 12, 31))
+                    .memo("とてもすごい取引戦略です")
+                    .build(),
+                captor.getValue());
+            LOG.info(result.getResponse().getContentAsString());
+        }
+
+        @Test
+        @DisplayName("未入力のフィールドがチェックエラーになることを確認する")
+        @WithMockUser
+        void _002() throws Exception {
+            MvcResult result = mockMvc
+                .perform(
+                    post("/api/strategy")
+                        .content("{}")
+                        .contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON)
+                        .with(SecurityMockMvcRequestPostProcessors.csrf())
+                    )
+                    .andExpect(status().isBadRequest())
+                    .andExpect(jsonPath("$.*", hasSize(4)))
+                    .andExpect(jsonPath("$.['NotNull.tradeStrategyForm.gid'].message").value("分析銘柄グループが未入力です。"))
+                    .andExpect(jsonPath("$.['NotBlank.tradeStrategyForm.label'].message").value("取引戦略名が未入力です。"))
+                    .andExpect(jsonPath("$.['NotNull.tradeStrategyForm.analysisStartDate'].message").value("分析開始日が未入力です。"))
+                    .andExpect(jsonPath("$.['NotNull.tradeStrategyForm.analysisEndDate'].message").value("分析終了日が未入力です。"))
+                    .andReturn();
+
+            verify(strategyService, never()).createOne(any());
             LOG.info(result.getResponse().getContentAsString());
         }
     }
@@ -178,6 +190,9 @@ class StrategyControllerTest extends ControllerTestBase {
     @Nested
     class update {
 
+        @Captor
+        private ArgumentCaptor<TradeStrategyEntity> captor;
+
         private final String postData = "{" +
             "  \"gid\" : 1," +
             "  \"label\" : \"すごい取引戦略\"," +
@@ -187,18 +202,39 @@ class StrategyControllerTest extends ControllerTestBase {
             "  \"memo\" : \"とてもすごい取引戦略です\"" +
             "}";
 
+        @BeforeEach
+        void setUp() {
+            reset(strategyService);
+        }
+
         @Test
         @DisplayName("正しい引数が与えられたとき、取引戦略を更新する")
         @WithMockUser
         void _001() throws Exception {
-            doNothing().when(strategyService).updateOne(anyInt(), anyInt(), any());
+            when(userService.findUserId(anyString())).thenReturn(1);
+            doNothing().when(strategyService).updateOne(captor.capture());
             MvcResult result = mockMvc.perform(
                 put("/api/strategy/1")
                     .content(postData)
                     .contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON)
-            )
-            .andExpect(status().isNoContent())
-            .andReturn();
+                    .with(SecurityMockMvcRequestPostProcessors.csrf())
+                )
+                .andExpect(status().isNoContent())
+                .andReturn();
+            verify(strategyService, times(1)).updateOne(any());
+
+            assertEquals(
+                TradeStrategyEntity.builder()
+                    .uid(1)
+                    .sid(1)
+                    .gid(1)
+                    .label("すごい取引戦略")
+                    .analysisStartDate(LocalDate.of(2017, 1, 1))
+                    .analysisEndDate(LocalDate.of(2017, 12, 31))
+                    .memo("とてもすごい取引戦略です")
+                    .build(),
+                captor.getValue());
+
             LOG.info(result.getResponse().getContentAsString());
         }
 
@@ -206,14 +242,72 @@ class StrategyControllerTest extends ControllerTestBase {
         @DisplayName("パスで受け取る取引戦略IDがnullで入力チェックエラー")
         @WithMockUser
         void _002() throws Exception {
-            doNothing().when(strategyService).updateOne(anyInt(), anyInt(), any());
             MvcResult result = mockMvc.perform(
-                put("/api/strategy/1")
+                put("/api/strategy/")
                     .content(postData)
                     .contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON)
+                    .with(SecurityMockMvcRequestPostProcessors.csrf())
+                )
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.['NotNull.StrategyController.update.sid'].message").value("取引戦略IDが未指定です。"))
+                .andReturn();
+            verify(strategyService, never()).updateOne(any());
+            LOG.info(result.getResponse().getContentAsString());
+        }
+
+        @Test
+        @DisplayName("パスで受け取る取引戦略IDが型違いでタイプミスマッチ")
+        @WithMockUser
+        void _003() throws Exception {
+            MvcResult result = mockMvc.perform(
+                put("/api/strategy/aaa")
+                    .content(postData)
+                    .contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON)
+                    .with(SecurityMockMvcRequestPostProcessors.csrf())
             )
-            .andExpect(status().isNoContent())
-            .andReturn();
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.['w.stex.sy.0001'].message").value("不正な値が送信されました。"))
+                .andReturn();
+            verify(strategyService, never()).updateOne(any());
+            LOG.info(result.getResponse().getContentAsString());
+        }
+    }
+
+    /**
+     * {@link StrategyController#delete}
+     */
+    @Nested
+    class delete {
+
+        @BeforeEach
+        void setUp() {
+            reset(strategyService);
+        }
+
+        @Test
+        @DisplayName("正しい引数が与えられたとき、取引戦略を削除する")
+        @WithMockUser
+        void _001() throws Exception {
+            doNothing().when(strategyService).deleteOne(anyInt(), anyInt());
+            MvcResult result = mockMvc
+                .perform(delete("/api/strategy/1").with(SecurityMockMvcRequestPostProcessors.csrf()))
+                .andExpect(status().isNoContent())
+                .andReturn();
+            verify(strategyService, times(1)).deleteOne(anyInt(), anyInt());
+
+            LOG.info(result.getResponse().getContentAsString());
+        }
+
+        @Test
+        @DisplayName("パスで受け取る取引戦略IDがnullで入力チェックエラー")
+        @WithMockUser
+        void _002() throws Exception {
+            MvcResult result = mockMvc
+                .perform(delete("/api/strategy/").with(SecurityMockMvcRequestPostProcessors.csrf()))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.['NotNull.StrategyController.delete.sid'].message").value("取引戦略IDが未指定です。"))
+                .andReturn();
+            verify(strategyService, never()).deleteOne(anyInt(), anyInt());
             LOG.info(result.getResponse().getContentAsString());
         }
     }

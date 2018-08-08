@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.experimental.Accessors;
 
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -20,12 +21,18 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+@Accessors(chain=true)
 public class TradeStrategyEntity implements Serializable {
 
     /**
      * シリアルID
      */
     private static final long serialVersionUID = -4766420741788947937L;
+
+    /**
+     * ユーザID
+     */
+    private int uid;
 
     /**
      * 取引戦略ID

@@ -5,7 +5,7 @@ import jp.co.stex.base.exception.StexBusinessException;
 import jp.co.stex.base.exception.StexSystemException;
 import jp.co.stex.domain.model.base.ResponseMessage;
 import jp.co.stex.domain.model.base.code.ErrorLevel;
-import jp.co.stex.domain.service.base.MessageService;
+import jp.co.stex.domain.service.base.MessageServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -18,7 +18,9 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
+import javax.validation.ConstraintViolationException;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
@@ -38,12 +40,21 @@ public class GlobalRestExceptionHandler {
     /**
      * メッセージサービス
      */
-    private final MessageService messageService;
+    private final MessageServiceImpl messageService;
 
     /**
      * ロガー
      */
     private final Logger LOG = LogManager.getLogger(getClass().getName());
+
+    @ExceptionHandler(value = ConstraintViolationException.class)
+    public ResponseEntity<Map<String, ResponseMessage>> handleException(ConstraintViolationException e) {
+        return ResponseEntity.badRequest().body(
+            e.getConstraintViolations().stream()
+                .map(v -> messageService.makeResponesMessage(v, ErrorLevel.WARNING))
+                .collect(toMap(ResponseMessage::getCode, m -> m, (m1, m2) -> m1))
+        );
+    }
 
     /**
      * <p>入力チェックエラーを処理する例外ハンドラです。</p>
@@ -116,6 +127,21 @@ public class GlobalRestExceptionHandler {
             .map(error -> messageService.makeResponesMessage(error, ErrorLevel.WARNING))
             .collect(toMap(ResponseMessage::getCode, m -> m, (m1, m2) -> m1));
         LOG.error(messageMap);
+        return ResponseEntity.badRequest().body(messageMap);
+    }
+
+    /**
+     * <p>引数の異常による例外を処理する例外ハンドラです。</p>
+     *
+     * @param e 例外
+     * @return 画面メッセージ
+     */
+    @ExceptionHandler(value = MethodArgumentTypeMismatchException.class)
+    public ResponseEntity<Map<String, ResponseMessage>> handleException(MethodArgumentTypeMismatchException e) {
+        ResponseMessage message = messageService.makeResponesMessage(MessageCode.W0001);
+        Map<String, ResponseMessage> messageMap = new HashMap<>();
+        messageMap.put(MessageCode.W0001.getCode(), message);
+        LOG.error(message, e);
         return ResponseEntity.badRequest().body(messageMap);
     }
 

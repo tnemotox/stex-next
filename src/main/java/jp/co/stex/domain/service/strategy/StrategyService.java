@@ -22,18 +22,23 @@ public interface StrategyService {
     /**
      * <p>取引戦略を新規作成する。</p>
      *
-     * @param uid ユーザID
      * @param tradeStrategy 取引戦略
      * @return 取引戦略戦略ID
      */
-    int createOne(int uid, TradeStrategyEntity tradeStrategy);
+    int createOne(TradeStrategyEntity tradeStrategy);
 
     /**
      * <p>取引戦略を更新する。</p>
      *
-     * @param uid ユーザID
-     * @param sid 取引戦略ID
      * @param tradeStrategy 取引戦略
      */
-    void updateOne(int uid, int sid, TradeStrategyEntity tradeStrategy);
+    void updateOne(TradeStrategyEntity tradeStrategy);
+
+    /**
+     * <p>取引戦略を削除する</p>
+     *
+     * @param uid ユーザID
+     * @param sid 取引戦略ID
+     */
+    void deleteOne(int uid, int sid);
 }

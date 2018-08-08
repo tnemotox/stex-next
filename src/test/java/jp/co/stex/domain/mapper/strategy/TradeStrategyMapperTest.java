@@ -32,6 +32,7 @@ class TradeStrategyMapperTest extends MapperTestBase {
 
     private final List<TradeStrategyEntity> initialData = Arrays.asList(
         TradeStrategyEntity.builder()
+            .uid(uid)
             .sid(1)
             .gid(1)
             .label("label1")
@@ -41,6 +42,7 @@ class TradeStrategyMapperTest extends MapperTestBase {
             .memo("memo1")
             .build(),
         TradeStrategyEntity.builder()
+            .uid(uid)
             .sid(2)
             .gid(1)
             .label("label2")
@@ -101,6 +103,7 @@ class TradeStrategyMapperTest extends MapperTestBase {
         @DisplayName("取引戦略を1件追加する")
         void _001() {
             TradeStrategyEntity created = TradeStrategyEntity.builder()
+                .uid(uid)
                 .gid(1)
                 .label("label4")
                 .analysisStartDate(LocalDate.of(2017, 1, 1))
@@ -127,6 +130,7 @@ class TradeStrategyMapperTest extends MapperTestBase {
         @DisplayName("取引戦略を1件更新する")
         void _001() {
             TradeStrategyEntity updated = TradeStrategyEntity.builder()
+                .uid(uid)
                 .sid(sid)
                 .gid(1)
                 .label("updated")

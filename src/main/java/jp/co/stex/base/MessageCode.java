@@ -15,6 +15,8 @@ public enum MessageCode {
 
     TEST_F("f.stex.ts.0001"),
 
+    W0001("w.stex.sy.0001"),
+
     E0001("e.stex.sy.0001"),
 
     E0002("e.stex.sy.0002"),
