@@ -26,7 +26,7 @@ public class AnalysisBrandGroupEntity implements Serializable {
      * シリアルID
      */
     private static final long serialVersionUID = -3459117299010275314L;
-    
+
     /**
      * ユーザID
      */
@@ -38,7 +38,7 @@ public class AnalysisBrandGroupEntity implements Serializable {
     private int gid;
 
     /**
-     * ラベル
+     * 分析対象銘柄グループ名
      */
     private String label;
 

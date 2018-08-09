@@ -94,10 +94,9 @@ public class TradeStrategyController {
      *
      * @param sid 取引戦略ID
      * @return なし
-     * @throws BindException バインド例外
      */
     @RequestMapping(path = {"/", "/{sid}"}, method = RequestMethod.DELETE)
-    public ResponseEntity<Void> delete(@PathVariable(value = "sid", required = false) @NotNull Integer sid) throws BindException {
+    public ResponseEntity<Void> delete(@PathVariable(value = "sid", required = false) @NotNull Integer sid) {
         strategyService.deleteOneTradeStrategy(findUserId(), sid);
         return ResponseEntity.noContent().build();
     }

@@ -25,7 +25,9 @@ import java.util.List;
 import javax.validation.constraints.NotNull;
 
 /**
- * 分析対象銘柄を操作するコントローラです。
+ * <p>分析対象銘柄を操作するコントローラです。</p>
+ *
+ * @author t.nemoto.x
  */
 @RestController
 @RequestMapping("/api/analysis-brand-group")
@@ -85,7 +87,7 @@ public class AnalysisBrandGroupController {
      * @return なし
      * @throws BindException バインド例外
      */
-    @RequestMapping(path = "/{gid}", method = RequestMethod.PUT)
+    @RequestMapping(path = {"/", "/{gid}"}, method = RequestMethod.PUT)
     public ResponseEntity<Void> update(@PathVariable(value = "gid", required = false) @NotNull Integer gid, @RequestBody @Validated AnalysisBrandGroupForm form, BindingResult bd) throws BindException {
         if (bd.hasErrors()) {
             throw new BindException(bd);
@@ -99,10 +101,9 @@ public class AnalysisBrandGroupController {
      *
      * @param gid 分析対象銘柄ID
      * @return なし
-     * @throws BindException バインド例外
      */
-    @RequestMapping(path = "/{gid}", method = RequestMethod.PUT)
-    public ResponseEntity<Void> update(@PathVariable(value = "gid", required = false) @NotNull Integer gid) throws BindException {
+    @RequestMapping(path = {"/", "/{gid}"}, method = RequestMethod.DELETE)
+    public ResponseEntity<Void> delete(@PathVariable(value = "gid", required = false) @NotNull Integer gid) {
         strategyService.deleteOneAnalysisBrandGroup(findUserId(), gid);
         return ResponseEntity.noContent().build();
     }

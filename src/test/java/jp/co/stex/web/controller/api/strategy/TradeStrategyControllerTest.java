@@ -251,7 +251,7 @@ class TradeStrategyControllerTest extends ControllerTestBase {
                     .with(SecurityMockMvcRequestPostProcessors.csrf())
                 )
                 .andExpect(status().isBadRequest())
-                .andExpect(jsonPath("$.['NotNull.StrategyController.update.sid'].message").value("取引戦略IDが未指定です。"))
+                .andExpect(jsonPath("$.['NotNull.TradeStrategyController.update.sid'].message").value("取引戦略IDが未指定です。"))
                 .andReturn();
             verify(strategyService, never()).updateOneTradeStrategy(any());
             LOG.info(result.getResponse().getContentAsString());
@@ -307,7 +307,7 @@ class TradeStrategyControllerTest extends ControllerTestBase {
             MvcResult result = mockMvc
                 .perform(delete("/api/strategy/").with(SecurityMockMvcRequestPostProcessors.csrf()))
                 .andExpect(status().isBadRequest())
-                .andExpect(jsonPath("$.['NotNull.StrategyController.delete.sid'].message").value("取引戦略IDが未指定です。"))
+                .andExpect(jsonPath("$.['NotNull.TradeStrategyController.delete.sid'].message").value("取引戦略IDが未指定です。"))
                 .andReturn();
             verify(strategyService, never()).deleteOneTradeStrategy(anyInt(), anyInt());
             LOG.info(result.getResponse().getContentAsString());
