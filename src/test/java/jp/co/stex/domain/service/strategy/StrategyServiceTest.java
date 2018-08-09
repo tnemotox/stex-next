@@ -67,8 +67,8 @@ class StrategyServiceTest {
         @DisplayName("取引戦略を全件取得する")
         @Test
         void _001() {
-            when(target.findAll(anyInt())).thenReturn(expected);
-            List<TradeStrategyEntity> actual = target.findAll(uid);
+            when(target.findAllTradeStrategy(anyInt())).thenReturn(expected);
+            List<TradeStrategyEntity> actual = target.findAllTradeStrategy(uid);
             verify(mapper, times(1)).findAll(anyInt());
             assertEquals(expected, actual);
         }
@@ -82,8 +82,8 @@ class StrategyServiceTest {
         @DisplayName("取引戦略を0件取得する")
         @Test
         void _002() {
-            when(target.findAll(anyInt())).thenReturn(Collections.emptyList());
-            List<TradeStrategyEntity> actual = target.findAll(uid);
+            when(target.findAllTradeStrategy(anyInt())).thenReturn(Collections.emptyList());
+            List<TradeStrategyEntity> actual = target.findAllTradeStrategy(uid);
             verify(mapper, times(1)).findAll(anyInt());
             assertEquals(Collections.emptyList(), actual);
         }
@@ -117,8 +117,8 @@ class StrategyServiceTest {
         @DisplayName("取引戦略を追加する")
         @Test
         void _001() {
-            when(target.createOne(captor.capture())).thenReturn(sid);
-            int actual = target.createOne(args);
+            when(target.createOneTradeStrategy(captor.capture())).thenReturn(sid);
+            int actual = target.createOneTradeStrategy(args);
             verify(mapper, times(1)).createOne(any());
             assertEquals(args, captor.getValue());
             assertEquals(actual, sid);
@@ -155,7 +155,7 @@ class StrategyServiceTest {
         @Test
         void _001() {
             doNothing().when(mapper).updateOne(captor.capture());
-            target.updateOne(args);
+            target.updateOneTradeStrategy(args);
             verify(mapper, times(1)).updateOne(any());
             assertEquals(args, captor.getValue());
         }
@@ -177,7 +177,7 @@ class StrategyServiceTest {
         @Test
         void _001() {
             doNothing().when(mapper).deleteOne(anyInt(), anyInt());
-            target.deleteOne(uid, sid);
+            target.deleteOneTradeStrategy(uid, sid);
             verify(mapper, times(1)).deleteOne(anyInt(), anyInt());
         }
     }

@@ -1,4 +1,4 @@
-package jp.co.stex.web.controller.api;
+package jp.co.stex.web.controller.api.strategy;
 
 import jp.co.stex.domain.model.strategy.TradeStrategyEntity;
 import jp.co.stex.domain.service.base.UserService;
@@ -26,7 +26,7 @@ import java.util.List;
 @RequestMapping("/api/strategy")
 @RequiredArgsConstructor
 @Validated
-public class StrategyController {
+public class TradeStrategyController {
 
     /**
      * dozerマッパー
@@ -50,7 +50,7 @@ public class StrategyController {
      */
     @RequestMapping(path = "", method = RequestMethod.GET)
     public ResponseEntity<List<TradeStrategyEntity>> fetch() {
-        return ResponseEntity.ok(strategyService.findAll(findUserId()));
+        return ResponseEntity.ok(strategyService.findAllTradeStrategy(findUserId()));
     }
 
     /**
@@ -67,7 +67,7 @@ public class StrategyController {
         if (bd.hasErrors()) {
             throw new BindException(bd);
         }
-        int sid = strategyService.createOne(dozerMapper.map(form, TradeStrategyEntity.class).setUid(findUserId()));
+        int sid = strategyService.createOneTradeStrategy(dozerMapper.map(form, TradeStrategyEntity.class).setUid(findUserId()));
         return ResponseEntity.created(uriBuilder.path("/api/strategy/{sid}").buildAndExpand(sid).toUri()).build();
     }
 
@@ -85,7 +85,7 @@ public class StrategyController {
         if (bd.hasErrors()) {
             throw new BindException(bd);
         }
-        strategyService.updateOne(dozerMapper.map(form, TradeStrategyEntity.class).setUid(findUserId()).setSid(sid));
+        strategyService.updateOneTradeStrategy(dozerMapper.map(form, TradeStrategyEntity.class).setUid(findUserId()).setSid(sid));
         return ResponseEntity.noContent().build();
     }
 
@@ -98,7 +98,7 @@ public class StrategyController {
      */
     @RequestMapping(path = {"/", "/{sid}"}, method = RequestMethod.DELETE)
     public ResponseEntity<Void> delete(@PathVariable(value = "sid", required = false) @NotNull Integer sid) throws BindException {
-        strategyService.deleteOne(findUserId(), sid);
+        strategyService.deleteOneTradeStrategy(findUserId(), sid);
         return ResponseEntity.noContent().build();
     }
 

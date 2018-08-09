@@ -4,12 +4,13 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.experimental.Accessors;
 
 import java.io.Serializable;
 import java.util.List;
 
 /**
- * <p>TODO 概要を記述してください</p>
+ * <p>分析対象銘柄を格納するエンティティです。</p>
  *
  * @author t.nemoto.x
  * @since 1.0
@@ -18,12 +19,18 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+@Accessors(chain = true)
 public class AnalysisBrandGroupEntity implements Serializable {
 
     /**
      * シリアルID
      */
     private static final long serialVersionUID = -3459117299010275314L;
+    
+    /**
+     * ユーザID
+     */
+    private int uid;
 
     /**
      * 分析銘柄グループID

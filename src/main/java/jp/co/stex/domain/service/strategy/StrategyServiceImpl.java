@@ -1,6 +1,7 @@
 package jp.co.stex.domain.service.strategy;
 
 import jp.co.stex.domain.mapper.strategy.TradeStrategyMapper;
+import jp.co.stex.domain.model.strategy.AnalysisBrandGroupEntity;
 import jp.co.stex.domain.model.strategy.TradeStrategyEntity;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -22,7 +23,7 @@ public class StrategyServiceImpl implements StrategyService {
      * {@inheritDoc}
      */
     @Override
-    public List<TradeStrategyEntity> findAll(int loginUserId) {
+    public List<TradeStrategyEntity> findAllTradeStrategy(int loginUserId) {
         return tradeStrategyMapper.findAll(loginUserId);
     }
 
@@ -30,7 +31,7 @@ public class StrategyServiceImpl implements StrategyService {
      * {@inheritDoc}
      */
     @Override
-    public int createOne(TradeStrategyEntity tradeStrategy) {
+    public int createOneTradeStrategy(TradeStrategyEntity tradeStrategy) {
         return tradeStrategyMapper.createOne(tradeStrategy);
     }
 
@@ -38,7 +39,7 @@ public class StrategyServiceImpl implements StrategyService {
      * {@inheritDoc}
      */
     @Override
-    public void updateOne(TradeStrategyEntity tradeStrategy) {
+    public void updateOneTradeStrategy(TradeStrategyEntity tradeStrategy) {
         tradeStrategyMapper.updateOne(tradeStrategy);
     }
 
@@ -46,7 +47,43 @@ public class StrategyServiceImpl implements StrategyService {
      * {@inheritDoc}
      */
     @Override
-    public void deleteOne(int uid, int sid) {
+    public void deleteOneTradeStrategy(int uid, int sid) {
         tradeStrategyMapper.deleteOne(uid, sid);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public List<AnalysisBrandGroupEntity> findAllAnalysisBrandGroup(int uid) {
+        // TODO 空のメソッド
+        return null;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public int createOneAnalysisBrandGroup(AnalysisBrandGroupEntity analysisBrandGroup) {
+        // TODO 空のメソッド
+        return 0;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void updateOneAnalysisBrandGroup(AnalysisBrandGroupEntity analysisBrandGroup) {
+        // TODO 空のメソッド
+        
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void deleteOneAnalysisBrandGroup(int uid, int sid) {
+        // TODO 空のメソッド
+        
     }
 }

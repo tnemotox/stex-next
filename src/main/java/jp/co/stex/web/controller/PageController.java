@@ -12,11 +12,21 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 public class PageController {
 
+    /**
+     * <p>ホーム画面に遷移する。</p>
+     *
+     * @return ホーム画面
+     */
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String index() {
         return "stex";
     }
 
+    /**
+     * <p>ログイン画面に遷移する。</p>
+     *
+     * @return ログイン画面
+     */
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String login() {
         return "login";

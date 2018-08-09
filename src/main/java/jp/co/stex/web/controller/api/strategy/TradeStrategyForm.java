@@ -1,4 +1,4 @@
-package jp.co.stex.web.controller.api;
+package jp.co.stex.web.controller.api.strategy;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

@@ -1,8 +1,7 @@
 package jp.co.stex.domain.mapper.strategy;
 
 import jp.co.stex.domain.model.strategy.TradeRuleEntity;
-import jp.co.stex.domain.model.strategy.TradeStrategyCardEntity;
-import jp.co.stex.domain.model.strategy.TradeStrategyEntity;
+
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;

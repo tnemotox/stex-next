@@ -22,6 +22,7 @@ public interface TradeStrategyMapper {
      * <p>指定した取引戦略を1件取得する。</p>
      *
      * @param uid ユーザID
+     * @param sid 取引戦略ID
      * @return 取引戦略リスト
      */
     TradeStrategyEntity findOne(@Param("uid") int uid, @Param("sid") int sid);

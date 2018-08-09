@@ -47,6 +47,12 @@ public class GlobalRestExceptionHandler {
      */
     private final Logger LOG = LogManager.getLogger(getClass().getName());
 
+    /**
+     * <p>メソッドバリデーションを処理する例外ハンドラです。</p>
+     *
+     * @param e 制約違反例外
+     * @return 画面メッセージ
+     */
     @ExceptionHandler(value = ConstraintViolationException.class)
     public ResponseEntity<Map<String, ResponseMessage>> handleException(ConstraintViolationException e) {
         return ResponseEntity.badRequest().body(
