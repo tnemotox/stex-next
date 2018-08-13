@@ -77,7 +77,7 @@ class AnalysisBrandGroupControllerTest extends ControllerTestBase {
             "  \"gid\" : 2," +
             "  \"label\" : \"分析対象銘柄2\"," +
             "  \"orderBy\" : 2," +
-            "  \"brands\" : [1111, 2222]" +
+            "  \"brands\" : [3333, 4444]" +
             "}" +
             "]";
 
@@ -155,9 +155,9 @@ class AnalysisBrandGroupControllerTest extends ControllerTestBase {
                     )
                     .andExpect(status().isBadRequest())
                     .andExpect(jsonPath("$.*", hasSize(3)))
-                    .andExpect(jsonPath("$.['NotBlank.analysisBrandGroupForm.label'].message").value("分析対象銘柄グループが未入力です。"))
-                    .andExpect(jsonPath("$.['NotBlank.analysisBrandGroupForm.brands'].message").value("分析対象銘柄グループが正しく設定されていません。"))
-                    .andExpect(jsonPath("$.['NotBlank.analysisBrandGroupForm.orderBy'].message").value("分析対象銘柄グループが正しく設定されていません。"))
+                    .andExpect(jsonPath("$.['NotBlank.analysisBrandGroupForm.label'].message").value("分析対象銘柄グループ名が未入力です。"))
+                    .andExpect(jsonPath("$.['NotNull.analysisBrandGroupForm.brands'].message").value("分析対象銘柄グループが正しく設定されていません。"))
+                    .andExpect(jsonPath("$.['NotNull.analysisBrandGroupForm.orderBy'].message").value("分析対象銘柄グループが正しく設定されていません。"))
                     .andReturn();
 
             verify(strategyService, never()).createOneAnalysisBrandGroup(any());

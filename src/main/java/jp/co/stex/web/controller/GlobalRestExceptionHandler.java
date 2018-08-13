@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.core.convert.ConversionFailedException;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
@@ -179,5 +180,20 @@ public class GlobalRestExceptionHandler {
         Map<String, ResponseMessage> messageMap = new HashMap<>();
         messageMap.put(message.getCode(), message);
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(messageMap);
+    }
+
+    /**
+     * <p>データベースでの一意制約性違反に関する例外を処理する例外ハンドラです。</p>
+     *
+     * @param e 例外
+     * @return 画面メッセージ
+     */
+    @ExceptionHandler(value = DataIntegrityViolationException.class)
+    public ResponseEntity<Map<String, ResponseMessage>> handleException(DataIntegrityViolationException e) {
+        ResponseMessage message = messageService.makeResponesMessage(W0002);
+        LOG.warn(message, e);
+        Map<String, ResponseMessage> messageMap = new HashMap<>();
+        messageMap.put(message.getCode(), message);
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(messageMap);
     }
 }

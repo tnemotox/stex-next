@@ -17,6 +17,8 @@ public enum MessageCode {
 
     W0001("w.stex.sy.0001"),
 
+    W0002("w.stex.sy.0002"),
+
     E0001("e.stex.sy.0001"),
 
     E0002("e.stex.sy.0002"),

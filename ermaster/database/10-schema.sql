@@ -22,10 +22,10 @@ CREATE TABLE analysis_brand_groups
 (
 	-- 分析銘柄ID
 	gid serial NOT NULL,
+	-- ユーザID
+	uid int NOT NULL,
 	-- ラベル
 	label varchar NOT NULL,
-	-- 順序
-	order_by int NOT NULL,
 	-- 分析対象銘柄
 	brands text NOT NULL,
 	PRIMARY KEY (gid)
@@ -330,6 +330,14 @@ ALTER TABLE trade_strategy_cards
 ;
 
 
+ALTER TABLE analysis_brand_groups
+	ADD FOREIGN KEY (uid)
+	REFERENCES users (uid)
+	ON UPDATE RESTRICT
+	ON DELETE CASCADE
+;
+
+
 ALTER TABLE analysis_histories
 	ADD FOREIGN KEY (uid)
 	REFERENCES users (uid)
@@ -383,8 +391,8 @@ ALTER TABLE trade_strategy_palettes
 
 COMMENT ON TABLE analysis_brand_groups IS '分析銘柄グループ';
 COMMENT ON COLUMN analysis_brand_groups.gid IS '分析銘柄ID';
+COMMENT ON COLUMN analysis_brand_groups.uid IS 'ユーザID';
 COMMENT ON COLUMN analysis_brand_groups.label IS 'ラベル';
-COMMENT ON COLUMN analysis_brand_groups.order_by IS '順序';
 COMMENT ON COLUMN analysis_brand_groups.brands IS '分析対象銘柄';
 COMMENT ON TABLE analysis_histories IS '分析履歴';
 COMMENT ON COLUMN analysis_histories.id IS 'ID';

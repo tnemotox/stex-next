@@ -10,7 +10,7 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
- * <p>分析対象銘柄を格納するエンティティです。</p>
+ * <p>分析銘柄グループを格納するエンティティです。</p>
  *
  * @author t.nemoto.x
  * @since 1.0
@@ -38,7 +38,7 @@ public class AnalysisBrandGroupEntity implements Serializable {
     private int gid;
 
     /**
-     * 分析対象銘柄グループ名
+     * 分析銘柄グループ名
      */
     private String label;
 
@@ -48,12 +48,12 @@ public class AnalysisBrandGroupEntity implements Serializable {
     private int orderBy;
 
     /**
-     * 分析対象銘柄
+     * 分析銘柄
      */
     private List<Integer> brands;
 
     /**
-     * 分析対象銘柄（JSON）
+     * 分析銘柄（JSON）
      */
     private String brandsOfJson;
 }

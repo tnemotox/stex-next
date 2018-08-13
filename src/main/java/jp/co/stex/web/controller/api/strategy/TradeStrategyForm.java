@@ -19,7 +19,7 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class TradeStrategyForm implements Serializable {
+class TradeStrategyForm implements Serializable {
 
     /**
      * シリアルID

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="jp.co.stex.domain.mapper.strategy.AnalysisBrandGroupMapper">
+
+  <select id="findOne" resultType="AnalysisBrandGroupEntity">
+    SELECT
+      gid,
+      uid,
+      label,
+      brands brandsOfJson
+    FROM
+      analysis_brand_groups
+    WHERE
+      uid = #{uid}
+    AND
+      gid = #{gid}
+  </select>
+
+  <select id="findAll" resultType="AnalysisBrandGroupEntity">
+    SELECT
+      gid,
+      uid,
+      label,
+      brands brandsOfJson
+    FROM
+      analysis_brand_groups
+    WHERE
+      uid = #{uid}
+    ORDER BY gid
+  </select>
+
+  <select id="createOne" resultType="java.lang.Integer">
+    INSERT INTO analysis_brand_groups (
+      uid,
+      label,
+      brands
+    )
+    VALUES (
+      #{analysisBrandGroup.uid},
+      #{analysisBrandGroup.label},
+      #{analysisBrandGroup.brandsOfJson}
+    )
+    RETURNING gid
+  </select>
+
+  <update id="updateOne">
+    UPDATE analysis_brand_groups
+    SET
+      label = #{analysisBrandGroup.label},
+      brands = #{analysisBrandGroup.brandsOfJson}
+    WHERE
+      uid = #{analysisBrandGroup.uid}
+    AND
+      gid = #{analysisBrandGroup.gid}
+  </update>
+
+  <delete id="deleteOne">
+    DELETE FROM analysis_brand_groups
+    WHERE
+      uid = #{uid}
+    AND
+      gid = #{gid}
+  </delete>
+
+</mapper>

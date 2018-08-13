@@ -74,7 +74,7 @@ public class AnalysisBrandGroupController {
         if (bd.hasErrors()) {
             throw new BindException(bd);
         }
-        int gid = strategyService.createOneAnalysisBrandGroup(dozerMapper.map(form, AnalysisBrandGroupEntity.class));
+        int gid = strategyService.createOneAnalysisBrandGroup(dozerMapper.map(form, AnalysisBrandGroupEntity.class).setUid(findUserId()));
         return ResponseEntity.created(uriBuilder.path("/api/analysis-brand-group/{gid}").buildAndExpand(gid).toUri()).build();
     }
 

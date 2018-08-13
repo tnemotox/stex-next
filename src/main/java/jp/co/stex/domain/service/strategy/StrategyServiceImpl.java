@@ -1,5 +1,6 @@
 package jp.co.stex.domain.service.strategy;
 
+import jp.co.stex.domain.mapper.strategy.AnalysisBrandGroupMapper;
 import jp.co.stex.domain.mapper.strategy.TradeStrategyMapper;
 import jp.co.stex.domain.model.strategy.AnalysisBrandGroupEntity;
 import jp.co.stex.domain.model.strategy.TradeStrategyEntity;
@@ -18,6 +19,8 @@ import java.util.List;
 public class StrategyServiceImpl implements StrategyService {
 
     private final TradeStrategyMapper tradeStrategyMapper;
+
+    private final AnalysisBrandGroupMapper analysisBrandGroupMapper;
 
     /**
      * {@inheritDoc}
@@ -56,8 +59,7 @@ public class StrategyServiceImpl implements StrategyService {
      */
     @Override
     public List<AnalysisBrandGroupEntity> findAllAnalysisBrandGroup(int uid) {
-        // TODO 空のメソッド
-        return null;
+        return analysisBrandGroupMapper.findAll(uid);
     }
 
     /**
@@ -65,8 +67,7 @@ public class StrategyServiceImpl implements StrategyService {
      */
     @Override
     public int createOneAnalysisBrandGroup(AnalysisBrandGroupEntity analysisBrandGroup) {
-        // TODO 空のメソッド
-        return 0;
+        return analysisBrandGroupMapper.createOne(analysisBrandGroup);
     }
 
     /**
@@ -74,8 +75,7 @@ public class StrategyServiceImpl implements StrategyService {
      */
     @Override
     public void updateOneAnalysisBrandGroup(AnalysisBrandGroupEntity analysisBrandGroup) {
-        // TODO 空のメソッド
-        
+        analysisBrandGroupMapper.updateOne(analysisBrandGroup);
     }
 
     /**
@@ -83,7 +83,6 @@ public class StrategyServiceImpl implements StrategyService {
      */
     @Override
     public void deleteOneAnalysisBrandGroup(int uid, int sid) {
-        // TODO 空のメソッド
-        
+        analysisBrandGroupMapper.deleteOne(uid, sid);
     }
 }
