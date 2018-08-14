@@ -438,7 +438,6 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 
   data: function data() {
     return {
-      analysisBrandGroups: [],
       analysisBrandGroupTableFilter: '',
       analysisBrandGroupEditDialog: {
         visible: false
@@ -498,7 +497,8 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
   },
 
   computed: _extends({}, Object(vuex_map_fields__WEBPACK_IMPORTED_MODULE_0__["mapFields"])({
-    analysisBrandGroupForm: 'analysisBrandGroupForm'
+    analysisBrandGroupForm: 'analysisBrandGroupForm',
+    analysisBrandGroups: 'analysisBrandGroups'
   }), {
 
     filteredAnalysisBrandGroup: function filteredAnalysisBrandGroup() {
@@ -2429,11 +2429,11 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
   computed: _extends({}, Object(vuex_map_fields__WEBPACK_IMPORTED_MODULE_0__["mapFields"])({
     cards: 'strategyForm.cards',
-    inRules: 'strategyForm.inRules',
-    exitRules: 'strategyForm.exitRules'
+    inRules: 'strategyForm.rules.in',
+    exitRules: 'strategyForm.rules.exit'
   }), Object(vuex_map_fields__WEBPACK_IMPORTED_MODULE_0__["mapMultiRowFields"])({
-    inRulesMulti: 'strategyForm.inRules',
-    exitRulesMulti: 'strategyForm.exitRules'
+    inRulesMulti: 'strategyForm.rules.in',
+    exitRulesMulti: 'strategyForm.rules.exit'
   }), {
 
     /**
@@ -2657,6 +2657,10 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 //
 //
 //
+//
+//
+//
+//
 
 
 
@@ -2678,6 +2682,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 
   data: function data() {
     return {
+      tabName: 'card',
       rules: {
         label: [{
           required: true,
@@ -2797,7 +2802,8 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
     sid: 'strategyForm.sid',
     label: 'strategyForm.label',
     gid: 'strategyForm.gid',
-    analysisDate: 'strategyForm.analysisDate'
+    analysisDate: 'strategyForm.analysisDate',
+    analysisBrandGroups: 'analysisBrandGroups'
   }))
 });
 
@@ -3990,7 +3996,7 @@ var render = function() {
         ]),
         _vm._v(" "),
         _c("p", [
-          _vm._v("分析銘柄グループに含まれる取引ルールも削除されます。")
+          _vm._v("分析銘柄グループを利用している取引戦略は未選択になります。")
         ])
       ]),
       _vm._v(" "),
@@ -6084,6 +6090,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
 var render = function() {
+  var this$1 = this
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
@@ -6184,12 +6191,15 @@ var render = function() {
                     expression: "gid"
                   }
                 },
-                [
-                  _c("el-option", { attrs: { label: "Zone one", value: 1 } }),
-                  _vm._v(" "),
-                  _c("el-option", { attrs: { label: "Zone two", value: 2 } })
-                ],
-                1
+                _vm._l(_vm.analysisBrandGroups, function(analysisBrandGroup) {
+                  return _c("el-option", {
+                    key: "analysis-brand-group-" + analysisBrandGroup.gid,
+                    attrs: {
+                      label: analysisBrandGroup.label,
+                      value: analysisBrandGroup.gid
+                    }
+                  })
+                })
               )
             ],
             1
@@ -6231,33 +6241,48 @@ var render = function() {
         [
           _c(
             "el-tabs",
-            { attrs: { type: "border-card", stretch: "" } },
+            {
+              attrs: { type: "border-card", stretch: "", value: _vm.tabName },
+              on: {
+                "tab-click": function(tab) {
+                  return (this$1.tabName = tab.name)
+                }
+              }
+            },
             [
               _c(
                 "el-tab-pane",
-                { attrs: { label: "カード" } },
-                [_c("card-holder", { attrs: { id: "card-holder" } })],
-                1
-              ),
-              _vm._v(" "),
-              _c(
-                "el-tab-pane",
-                { attrs: { label: "仕掛けルール" } },
+                { attrs: { label: "カード", name: "card" } },
                 [
-                  _c("strategy-board", {
-                    attrs: { "in-or-exit": true, id: "in-trade-rule" }
-                  })
+                  _vm.tabName === "card"
+                    ? _c("card-holder", { attrs: { id: "card-holder" } })
+                    : _vm._e()
                 ],
                 1
               ),
               _vm._v(" "),
               _c(
                 "el-tab-pane",
-                { attrs: { label: "手仕舞いルール" } },
+                { attrs: { label: "仕掛けルール", name: "in-rule" } },
                 [
-                  _c("strategy-board", {
-                    attrs: { "in-or-exit": false, id: "exit-trade-rule" }
-                  })
+                  _vm.tabName === "in-rule"
+                    ? _c("strategy-board", {
+                        attrs: { "in-or-exit": true, id: "in-trade-rule" }
+                      })
+                    : _vm._e()
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "el-tab-pane",
+                { attrs: { label: "手仕舞いルール", name: "exit-rule" } },
+                [
+                  _vm.tabName === "exit-rule"
+                    ? _c("strategy-board", {
+                        attrs: { "in-or-exit": false, id: "exit-trade-rule" }
+                      })
+                    : _vm._e()
                 ],
                 1
               )
@@ -8447,6 +8472,7 @@ __webpack_require__.r(__webpack_exports__);
   state: {
     strategies: [],
     brands: [],
+    analysisBrandGroups: [],
     analysisBrandGroupForm: {
       gid: null,
       label: '',
@@ -8455,12 +8481,12 @@ __webpack_require__.r(__webpack_exports__);
     strategyForm: {
       sid: null,
       label: '',
-      gid: 1,
+      gid: null,
       analysisDate: [moment__WEBPACK_IMPORTED_MODULE_1___default()().subtract(1, 'years').format('YYYY-MM-DD'), moment__WEBPACK_IMPORTED_MODULE_1___default()().format('YYYY-MM-DD')],
       cards: [],
       rules: {
-        in: {},
-        exit: {}
+        in: [],
+        exit: []
       }
     },
     ruleForm: {}

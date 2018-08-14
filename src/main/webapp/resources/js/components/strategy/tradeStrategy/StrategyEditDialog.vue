@@ -36,8 +36,12 @@
         prop="gid"
       >
         <el-select v-model="gid" value="1">
-          <el-option label="Zone one" :value="1"/>
-          <el-option label="Zone two" :value="2"/>
+          <el-option
+            v-for="analysisBrandGroup in analysisBrandGroups"
+            :label="analysisBrandGroup.label"
+            :value="analysisBrandGroup.gid"
+            :key="`analysis-brand-group-${analysisBrandGroup.gid}`"
+          />
         </el-select>
       </el-form-item>
       <el-form-item
@@ -58,15 +62,15 @@
     </el-form>
     <h3>取引ルール</h3>
     <div id="rule-tabs">
-      <el-tabs type="border-card" stretch>
-        <el-tab-pane label="カード">
-          <card-holder id="card-holder" />
+      <el-tabs type="border-card" stretch :value="tabName" @tab-click="tab => this.tabName = tab.name">
+        <el-tab-pane label="カード" name="card">
+          <card-holder id="card-holder" v-if="tabName === 'card'"/>
         </el-tab-pane>
-        <el-tab-pane label="仕掛けルール">
-          <strategy-board :in-or-exit="true" id="in-trade-rule"/>
+        <el-tab-pane label="仕掛けルール" name="in-rule">
+          <strategy-board :in-or-exit="true" id="in-trade-rule" v-if="tabName === 'in-rule'"/>
         </el-tab-pane>
-        <el-tab-pane label="手仕舞いルール">
-          <strategy-board :in-or-exit="false" id="exit-trade-rule"/>
+        <el-tab-pane label="手仕舞いルール" name="exit-rule">
+          <strategy-board :in-or-exit="false" id="exit-trade-rule" v-if="tabName === 'exit-rule'"/>
         </el-tab-pane>
       </el-tabs>
     </div>
@@ -115,6 +119,7 @@
 
     data() {
       return {
+        tabName: 'card',
         rules: {
           label: [
             {
@@ -182,7 +187,8 @@
         sid: 'strategyForm.sid',
         label: 'strategyForm.label',
         gid: 'strategyForm.gid',
-        analysisDate: 'strategyForm.analysisDate'
+        analysisDate: 'strategyForm.analysisDate',
+        analysisBrandGroups: 'analysisBrandGroups',
       }),
     }
   }

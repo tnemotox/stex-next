@@ -102,7 +102,6 @@
 
     data() {
       return {
-        analysisBrandGroups: [],
         analysisBrandGroupTableFilter: '',
         analysisBrandGroupEditDialog: {
           visible: false
@@ -145,6 +144,7 @@
     computed: {
       ...mapFields({
         analysisBrandGroupForm: 'analysisBrandGroupForm',
+        analysisBrandGroups: 'analysisBrandGroups'
       }),
 
       filteredAnalysisBrandGroup: function() {

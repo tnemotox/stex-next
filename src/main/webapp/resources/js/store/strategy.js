@@ -5,6 +5,7 @@ export default {
   state: {
     strategies: [],
     brands: [],
+    analysisBrandGroups: [],
     analysisBrandGroupForm: {
       gid: null,
       label: '',
@@ -13,15 +14,15 @@ export default {
     strategyForm: {
       sid: null,
       label: '',
-      gid: 1,
+      gid: null,
       analysisDate: [
         moment().subtract(1, 'years').format('YYYY-MM-DD'),
         moment().format('YYYY-MM-DD'),
       ],
       cards: [],
       rules: {
-        in: {},
-        exit: {}
+        in: [],
+        exit: []
       }
     },
     ruleForm: {}
