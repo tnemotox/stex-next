@@ -5,12 +5,19 @@
 
 <mapper namespace="jp.co.stex.domain.mapper.strategy.AnalysisBrandGroupMapper">
 
-  <select id="findOne" resultType="AnalysisBrandGroupEntity">
+  <resultMap type="AnalysisBrandGroupEntity" id="analysisBrandGroupMap">
+    <id column="gid" property="gid"/>
+    <result column="uid" property="uid"/>
+    <result column="label" property="label"/>
+    <result column="brands" property="brands" typeHandler="ListToJsonHandler"/>
+  </resultMap>
+
+  <select id="findOne" resultMap="analysisBrandGroupMap">
     SELECT
       gid,
       uid,
       label,
-      brands brandsOfJson
+      brands
     FROM
       analysis_brand_groups
     WHERE
@@ -19,12 +26,12 @@
       gid = #{gid}
   </select>
 
-  <select id="findAll" resultType="AnalysisBrandGroupEntity">
+  <select id="findAll" resultMap="analysisBrandGroupMap">
     SELECT
       gid,
       uid,
       label,
-      brands brandsOfJson
+      brands
     FROM
       analysis_brand_groups
     WHERE
@@ -32,7 +39,7 @@
     ORDER BY gid
   </select>
 
-  <select id="createOne" resultType="java.lang.Integer">
+  <select id="createOne" resultType="int">
     INSERT INTO analysis_brand_groups (
       uid,
       label,
@@ -41,7 +48,7 @@
     VALUES (
       #{analysisBrandGroup.uid},
       #{analysisBrandGroup.label},
-      #{analysisBrandGroup.brandsOfJson}
+      #{analysisBrandGroup.brands,typeHandler=ListToJsonHandler}
     )
     RETURNING gid
   </select>
@@ -50,7 +57,7 @@
     UPDATE analysis_brand_groups
     SET
       label = #{analysisBrandGroup.label},
-      brands = #{analysisBrandGroup.brandsOfJson}
+      brands = #{analysisBrandGroup.brands,typeHandler=ListToJsonHandler}
     WHERE
       uid = #{analysisBrandGroup.uid}
     AND

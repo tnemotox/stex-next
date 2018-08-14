@@ -26,7 +26,7 @@
       AND cid = #{cid}
   </select>
 
-  <select id="createOne" resultType="java.lang.Integer">
+  <select id="createOne" resultType="int">
     INSERT INTO trade_strategy_cards (
       uid,
       pid,

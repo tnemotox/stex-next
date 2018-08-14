@@ -10,6 +10,35 @@ server.listen(port, () => {
   console.log(`JSON Server is running at: http://localhost:${port}/`);
 });
 
+server.get(`${prefix}/brand`, (req, res) => {
+  res.status(200).jsonp([
+    {
+      code: 1111,
+      name: '銘柄1',
+      market: '市場1',
+      detail: '説明1',
+    },
+    {
+      code: 2222,
+      name: '銘柄2',
+      market: '市場2',
+      detail: '説明2',
+    },
+    {
+      code: 3333,
+      name: '銘柄3',
+      market: '市場3',
+      detail: '説明3',
+    },
+    {
+      code: 4444,
+      name: '銘柄4',
+      market: '市場4',
+      detail: '説明4',
+    },
+  ])
+})
+
 server.get(`${prefix}/strategy`, (req, res) => {
   res.status(200).jsonp([
     {
@@ -275,6 +304,35 @@ server.put(`${prefix}/card/1`, (req, res) => {
 })
 
 server.delete(`${prefix}/card/1`, (req, res) => {
+  res.status(200).jsonp()
+})
+
+server.get(`${prefix}/analysis-brand-group`, (req, res) => {
+  res.status(200).jsonp([
+    {
+      uid: 1,
+      gid: 1,
+      label: '分析銘柄グループ1',
+      brands: [1111, 2222]
+    },
+    {
+      uid: 1,
+      gid: 2,
+      label: '分析銘柄グループ2',
+      brands: [3333, 4444]
+    },
+  ])
+})
+
+server.post(`${prefix}/analysis-brand-group`, (req, res) => {
+  res.status(200).jsonp()
+})
+
+server.put(`${prefix}/analysis-brand-group/1`, (req, res) => {
+  res.status(200).jsonp()
+})
+
+server.delete(`${prefix}/analysis-brand-group/1`, (req, res) => {
   res.status(200).jsonp()
 })
 

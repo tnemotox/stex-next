@@ -172,7 +172,7 @@ CREATE TABLE trade_strategies
 	-- ユーザID
 	uid int NOT NULL,
 	-- 分析銘柄グループID
-	gid int NOT NULL,
+	gid int,
 	-- ラベル
 	label varchar NOT NULL,
 	-- 分析開始日
@@ -294,7 +294,7 @@ ALTER TABLE trade_strategies
 	ADD FOREIGN KEY (gid)
 	REFERENCES analysis_brand_groups (gid)
 	ON UPDATE RESTRICT
-	ON DELETE RESTRICT
+	ON DELETE SET NULL
 ;
 
 

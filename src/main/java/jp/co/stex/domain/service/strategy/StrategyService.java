@@ -1,6 +1,7 @@
 package jp.co.stex.domain.service.strategy;
 
 import jp.co.stex.domain.model.strategy.AnalysisBrandGroupEntity;
+import jp.co.stex.domain.model.strategy.BrandEntity;
 import jp.co.stex.domain.model.strategy.TradeStrategyEntity;
 
 import java.util.List;
@@ -42,10 +43,10 @@ public interface StrategyService {
      * @param sid 取引戦略ID
      */
     void deleteOneTradeStrategy(int uid, int sid);
-    
+
     /**
      * <p>分析対象銘柄を取得する。</p>
-     * 
+     *
      * @param uid ユーザID
      * @return 分析対象銘柄リスト
      */
@@ -73,4 +74,11 @@ public interface StrategyService {
      * @param sid 取引戦略ID
      */
     void deleteOneAnalysisBrandGroup(int uid, int sid);
+
+    /**
+     * <p>銘柄一覧を取得する。</p>
+     *
+     * @return 銘柄一覧
+     */
+    List<BrandEntity> findAllBrands();
 }

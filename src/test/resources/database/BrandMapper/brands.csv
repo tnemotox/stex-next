@@ -1,0 +1,4 @@
+code,name,market,detail,enabled
+1111,銘柄1,東証一部,説明1,true
+2222,銘柄2,東証一部,説明2,false
+3333,銘柄3,東証二部,説明3,true

@@ -35,13 +35,6 @@ class AnalysisBrandGroupForm implements Serializable {
     private String label;
 
     /**
-     * 順序
-     */
-    @NotNull
-    @Min(1)
-    private Integer orderBy;
-
-    /**
      * 分析銘柄グループ
      */
     @NotNull

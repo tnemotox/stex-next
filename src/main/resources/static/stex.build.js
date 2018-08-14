@@ -172,8 +172,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
 
 
 
@@ -197,10 +195,338 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vuex_map_fields__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex-map-fields */ "./node_modules/vuex-map-fields/dist/index.esm.js");
+/* harmony import */ var _strategy_TradeStrategy__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./strategy/TradeStrategy */ "./src/main/webapp/resources/js/components/strategy/TradeStrategy.vue");
+/* harmony import */ var _strategy_AnalysisBrandGroup__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./strategy/AnalysisBrandGroup */ "./src/main/webapp/resources/js/components/strategy/AnalysisBrandGroup.vue");
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
+
+//
+//
+//
+//
+//
+//
+//
+
+
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  components: {
+    TradeStrategy: _strategy_TradeStrategy__WEBPACK_IMPORTED_MODULE_1__["default"],
+    AnalysisBrandGroup: _strategy_AnalysisBrandGroup__WEBPACK_IMPORTED_MODULE_2__["default"]
+  },
+  created: function created() {
+    var _this = this;
+
+    return _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
+      var response;
+      return regeneratorRuntime.wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              _context.next = 2;
+              return _this.$http.brand.$fetch();
+
+            case 2:
+              response = _context.sent;
+
+              _this.brands = response.data;
+
+            case 4:
+            case 'end':
+              return _context.stop();
+          }
+        }
+      }, _callee, _this);
+    }))();
+  },
+
+  computed: _extends({}, Object(vuex_map_fields__WEBPACK_IMPORTED_MODULE_0__["mapFields"])({
+    brands: 'brands'
+  }))
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js!./node_modules/vue-loader/lib/index.js?!./src/main/webapp/resources/js/components/common/ElLabel.vue?vue&type=script&lang=js&":
+/*!*******************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib!./node_modules/vue-loader/lib??vue-loader-options!./src/main/webapp/resources/js/components/common/ElLabel.vue?vue&type=script&lang=js& ***!
+  \*******************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: {
+    width: Number
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js!./node_modules/vue-loader/lib/index.js?!./src/main/webapp/resources/js/components/common/PageHeader.vue?vue&type=script&lang=js&":
+/*!**********************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib!./node_modules/vue-loader/lib??vue-loader-options!./src/main/webapp/resources/js/components/common/PageHeader.vue?vue&type=script&lang=js& ***!
+  \**********************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      activeIndex: '1'
+    };
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js!./node_modules/vue-loader/lib/index.js?!./src/main/webapp/resources/js/components/strategy/AnalysisBrandGroup.vue?vue&type=script&lang=js&":
+/*!********************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib!./node_modules/vue-loader/lib??vue-loader-options!./src/main/webapp/resources/js/components/strategy/AnalysisBrandGroup.vue?vue&type=script&lang=js& ***!
+  \********************************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var vuex_map_fields__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex-map-fields */ "./node_modules/vuex-map-fields/dist/index.esm.js");
+/* harmony import */ var _analysisBrandGroup_AnalysisBrandGroupEditDialog__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./analysisBrandGroup/AnalysisBrandGroupEditDialog */ "./src/main/webapp/resources/js/components/strategy/analysisBrandGroup/AnalysisBrandGroupEditDialog.vue");
+/* harmony import */ var _analysisBrandGroup_AnalysisBrandGroupDeleteDialog__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./analysisBrandGroup/AnalysisBrandGroupDeleteDialog */ "./src/main/webapp/resources/js/components/strategy/analysisBrandGroup/AnalysisBrandGroupDeleteDialog.vue");
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+
+function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+
+  components: {
+    AnalysisBrandGroupDeleteDialog: _analysisBrandGroup_AnalysisBrandGroupDeleteDialog__WEBPACK_IMPORTED_MODULE_2__["default"],
+    AnalysisBrandGroupEditDialog: _analysisBrandGroup_AnalysisBrandGroupEditDialog__WEBPACK_IMPORTED_MODULE_1__["default"]
+  },
+
+  data: function data() {
+    return {
+      analysisBrandGroups: [],
+      analysisBrandGroupTableFilter: '',
+      analysisBrandGroupEditDialog: {
+        visible: false
+      },
+      analysisBrandGroupDeleteDialog: {
+        visible: false
+      }
+    };
+  },
+  created: function created() {
+    this.reloadTable();
+  },
+
+
+  methods: {
+    reloadTable: function reloadTable() {
+      var _this = this;
+
+      return _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
+        var analysisBrandGroups;
+        return regeneratorRuntime.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                _context.next = 2;
+                return _this.$http.analysisBrandGroup.$fetch().then(function (res) {
+                  return res.data;
+                });
+
+              case 2:
+                analysisBrandGroups = _context.sent;
+
+                _this.analysisBrandGroups = [].concat(_toConsumableArray(analysisBrandGroups));
+
+              case 4:
+              case 'end':
+                return _context.stop();
+            }
+          }
+        }, _callee, _this);
+      }))();
+    },
+    closeDialog: function closeDialog() {
+      this.reloadTable();
+      this.analysisBrandGroupEditDialog.visible = false;
+      this.analysisBrandGroupDeleteDialog.visible = false;
+      this.$store.commit('initAnalysisBrandForm');
+    },
+    showUpdateDialog: function showUpdateDialog(analysisBrandGroup) {
+      this.analysisBrandGroupEditDialog.visible = true;
+      this.analysisBrandGroupForm = Object.assign({}, analysisBrandGroup);
+    },
+    showDeleteDialog: function showDeleteDialog(analysisBrandGroup) {
+      this.analysisBrandGroupDeleteDialog.visible = true;
+      this.analysisBrandGroupForm = analysisBrandGroup;
+    }
+  },
+
+  computed: _extends({}, Object(vuex_map_fields__WEBPACK_IMPORTED_MODULE_0__["mapFields"])({
+    analysisBrandGroupForm: 'analysisBrandGroupForm'
+  }), {
+
+    filteredAnalysisBrandGroup: function filteredAnalysisBrandGroup() {
+      var _this2 = this;
+
+      return this.analysisBrandGroupTableFilter === '' ? this.analysisBrandGroups : this.analysisBrandGroups.filter(function (s) {
+        return s.label.includes(_this2.analysisBrandGroupTableFilter) || s.gid.toString().includes(_this2.analysisBrandGroupTableFilter);
+      });
+    }
+  })
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js!./node_modules/vue-loader/lib/index.js?!./src/main/webapp/resources/js/components/strategy/TradeStrategy.vue?vue&type=script&lang=js&":
+/*!***************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib!./node_modules/vue-loader/lib??vue-loader-options!./src/main/webapp/resources/js/components/strategy/TradeStrategy.vue?vue&type=script&lang=js& ***!
+  \***************************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var vuex_map_fields__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex-map-fields */ "./node_modules/vuex-map-fields/dist/index.esm.js");
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _strategy_StrategyEditDialog__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./strategy/StrategyEditDialog */ "./src/main/webapp/resources/js/components/strategy/StrategyEditDialog.vue");
-/* harmony import */ var _strategy_StrategyDeleteDialog__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./strategy/StrategyDeleteDialog */ "./src/main/webapp/resources/js/components/strategy/StrategyDeleteDialog.vue");
+/* harmony import */ var _tradeStrategy_StrategyEditDialog__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./tradeStrategy/StrategyEditDialog */ "./src/main/webapp/resources/js/components/strategy/tradeStrategy/StrategyEditDialog.vue");
+/* harmony import */ var _tradeStrategy_StrategyDeleteDialog__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./tradeStrategy/StrategyDeleteDialog */ "./src/main/webapp/resources/js/components/strategy/tradeStrategy/StrategyDeleteDialog.vue");
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
@@ -343,8 +669,8 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 /* harmony default export */ __webpack_exports__["default"] = ({
 
   components: {
-    StrategyEditDialog: _strategy_StrategyEditDialog__WEBPACK_IMPORTED_MODULE_2__["default"],
-    StrategyDeleteDialog: _strategy_StrategyDeleteDialog__WEBPACK_IMPORTED_MODULE_3__["default"]
+    StrategyEditDialog: _tradeStrategy_StrategyEditDialog__WEBPACK_IMPORTED_MODULE_2__["default"],
+    StrategyDeleteDialog: _tradeStrategy_StrategyDeleteDialog__WEBPACK_IMPORTED_MODULE_3__["default"]
   },
 
   data: function data() {
@@ -433,15 +759,20 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 
 /***/ }),
 
-/***/ "./node_modules/babel-loader/lib/index.js!./node_modules/vue-loader/lib/index.js?!./src/main/webapp/resources/js/components/common/ElLabel.vue?vue&type=script&lang=js&":
-/*!*******************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib!./node_modules/vue-loader/lib??vue-loader-options!./src/main/webapp/resources/js/components/common/ElLabel.vue?vue&type=script&lang=js& ***!
-  \*******************************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js!./node_modules/vue-loader/lib/index.js?!./src/main/webapp/resources/js/components/strategy/analysisBrandGroup/AnalysisBrandGroupDeleteDialog.vue?vue&type=script&lang=js&":
+/*!***************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib!./node_modules/vue-loader/lib??vue-loader-options!./src/main/webapp/resources/js/components/strategy/analysisBrandGroup/AnalysisBrandGroupDeleteDialog.vue?vue&type=script&lang=js& ***!
+  \***************************************************************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var vuex_map_fields__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex-map-fields */ "./node_modules/vuex-map-fields/dist/index.esm.js");
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
+
 //
 //
 //
@@ -451,24 +782,134 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
-    width: Number
-  }
+    visible: Boolean
+  },
+
+  methods: {
+    remove: function remove() {
+      var _this = this;
+
+      return _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
+        return regeneratorRuntime.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                _context.next = 2;
+                return _this.$http.analysisBrandGroup.$delete(_this.gid).then(function () {
+                  _this.$notify({
+                    type: 'info',
+                    message: '分析銘柄グループを削除しました。',
+                    position: 'bottom-right'
+                  });
+                  _this.$emit('close');
+                });
+
+              case 2:
+              case 'end':
+                return _context.stop();
+            }
+          }
+        }, _callee, _this);
+      }))();
+    }
+  },
+
+  computed: _extends({}, Object(vuex_map_fields__WEBPACK_IMPORTED_MODULE_0__["mapFields"])({
+    gid: 'analysisBrandGroupForm.gid',
+    label: 'analysisBrandGroupForm.label',
+    brands: 'analysisBrandGroupForm.brands'
+  }))
 });
 
 /***/ }),
 
-/***/ "./node_modules/babel-loader/lib/index.js!./node_modules/vue-loader/lib/index.js?!./src/main/webapp/resources/js/components/common/PageHeader.vue?vue&type=script&lang=js&":
-/*!**********************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib!./node_modules/vue-loader/lib??vue-loader-options!./src/main/webapp/resources/js/components/common/PageHeader.vue?vue&type=script&lang=js& ***!
-  \**********************************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js!./node_modules/vue-loader/lib/index.js?!./src/main/webapp/resources/js/components/strategy/analysisBrandGroup/AnalysisBrandGroupEditDialog.vue?vue&type=script&lang=js&":
+/*!*************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib!./node_modules/vue-loader/lib??vue-loader-options!./src/main/webapp/resources/js/components/strategy/analysisBrandGroup/AnalysisBrandGroupEditDialog.vue?vue&type=script&lang=js& ***!
+  \*************************************************************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var vuex_map_fields__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex-map-fields */ "./node_modules/vuex-map-fields/dist/index.esm.js");
+/* harmony import */ var _common_ElLabel__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../common/ElLabel */ "./src/main/webapp/resources/js/components/common/ElLabel.vue");
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -488,20 +929,144 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 
+
+
+
 /* harmony default export */ __webpack_exports__["default"] = ({
+
+  components: {
+    ElLabel: _common_ElLabel__WEBPACK_IMPORTED_MODULE_1__["default"]
+  },
+
+  props: {
+    visible: Boolean
+  },
+
   data: function data() {
     return {
-      activeIndex: '1'
+      rules: {
+        label: [{
+          required: true,
+          message: '取引戦略名を入力してください。',
+          trigger: 'blur'
+        }]
+      }
     };
-  }
+  },
+
+
+  methods: {
+    create: function create() {
+      var _this = this;
+
+      this.$refs.analysisBrandGroupForm.validate(function () {
+        var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(valid) {
+          return regeneratorRuntime.wrap(function _callee$(_context) {
+            while (1) {
+              switch (_context.prev = _context.next) {
+                case 0:
+                  if (!valid) {
+                    _context.next = 3;
+                    break;
+                  }
+
+                  _context.next = 3;
+                  return _this.$http.analysisBrandGroup.$create(_this.analysisBrandGroupForm).then(function () {
+                    _this.$notify({
+                      type: 'info',
+                      message: '分析銘柄グループを作成しました。',
+                      position: 'bottom-right'
+                    });
+                    _this.$emit('close');
+                  });
+
+                case 3:
+                case 'end':
+                  return _context.stop();
+              }
+            }
+          }, _callee, _this);
+        }));
+
+        return function (_x) {
+          return _ref.apply(this, arguments);
+        };
+      }());
+    },
+    update: function update() {
+      var _this2 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3() {
+        return regeneratorRuntime.wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                _this2.$refs.analysisBrandGroupForm.validate(function () {
+                  var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(valid) {
+                    return regeneratorRuntime.wrap(function _callee2$(_context2) {
+                      while (1) {
+                        switch (_context2.prev = _context2.next) {
+                          case 0:
+                            if (!valid) {
+                              _context2.next = 3;
+                              break;
+                            }
+
+                            _context2.next = 3;
+                            return _this2.$http.analysisBrandGroup.$update(_this2.analysisBrandGroupForm).then(function () {
+                              _this2.$notify({
+                                type: 'info',
+                                message: '分析銘柄グループを更新しました。',
+                                position: 'bottom-right'
+                              });
+                              _this2.$emit('close');
+                            });
+
+                          case 3:
+                          case 'end':
+                            return _context2.stop();
+                        }
+                      }
+                    }, _callee2, _this2);
+                  }));
+
+                  return function (_x2) {
+                    return _ref2.apply(this, arguments);
+                  };
+                }());
+
+              case 1:
+              case 'end':
+                return _context3.stop();
+            }
+          }
+        }, _callee3, _this2);
+      }))();
+    }
+  },
+
+  computed: _extends({}, Object(vuex_map_fields__WEBPACK_IMPORTED_MODULE_0__["mapFields"])({
+    analysisBrandGroupForm: 'analysisBrandGroupForm',
+    gid: 'analysisBrandGroupForm.gid',
+    label: 'analysisBrandGroupForm.label',
+    selectedBrands: 'analysisBrandGroupForm.brands',
+    brands: 'brands'
+  }), {
+
+    allBrands: function allBrands() {
+      return this.brands.map(function (b) {
+        return { key: b.code, label: b.code + '\u3000-\u3000' + b.name + '\u3000-\u3000' + b.market };
+      });
+    }
+  })
 });
 
 /***/ }),
 
-/***/ "./node_modules/babel-loader/lib/index.js!./node_modules/vue-loader/lib/index.js?!./src/main/webapp/resources/js/components/strategy/CardCreatorDeleteDialog.vue?vue&type=script&lang=js&":
-/*!*************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib!./node_modules/vue-loader/lib??vue-loader-options!./src/main/webapp/resources/js/components/strategy/CardCreatorDeleteDialog.vue?vue&type=script&lang=js& ***!
-  \*************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js!./node_modules/vue-loader/lib/index.js?!./src/main/webapp/resources/js/components/strategy/tradeStrategy/CardCreatorDeleteDialog.vue?vue&type=script&lang=js&":
+/*!***************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib!./node_modules/vue-loader/lib??vue-loader-options!./src/main/webapp/resources/js/components/strategy/tradeStrategy/CardCreatorDeleteDialog.vue?vue&type=script&lang=js& ***!
+  \***************************************************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -633,10 +1198,10 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 
 /***/ }),
 
-/***/ "./node_modules/babel-loader/lib/index.js!./node_modules/vue-loader/lib/index.js?!./src/main/webapp/resources/js/components/strategy/CardCreatorEditDialog.vue?vue&type=script&lang=js&":
-/*!***********************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib!./node_modules/vue-loader/lib??vue-loader-options!./src/main/webapp/resources/js/components/strategy/CardCreatorEditDialog.vue?vue&type=script&lang=js& ***!
-  \***********************************************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js!./node_modules/vue-loader/lib/index.js?!./src/main/webapp/resources/js/components/strategy/tradeStrategy/CardCreatorEditDialog.vue?vue&type=script&lang=js&":
+/*!*************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib!./node_modules/vue-loader/lib??vue-loader-options!./src/main/webapp/resources/js/components/strategy/tradeStrategy/CardCreatorEditDialog.vue?vue&type=script&lang=js& ***!
+  \*************************************************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -1046,18 +1611,18 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 
 /***/ }),
 
-/***/ "./node_modules/babel-loader/lib/index.js!./node_modules/vue-loader/lib/index.js?!./src/main/webapp/resources/js/components/strategy/CardHolder.vue?vue&type=script&lang=js&":
-/*!************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib!./node_modules/vue-loader/lib??vue-loader-options!./src/main/webapp/resources/js/components/strategy/CardHolder.vue?vue&type=script&lang=js& ***!
-  \************************************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js!./node_modules/vue-loader/lib/index.js?!./src/main/webapp/resources/js/components/strategy/tradeStrategy/CardHolder.vue?vue&type=script&lang=js&":
+/*!**************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib!./node_modules/vue-loader/lib??vue-loader-options!./src/main/webapp/resources/js/components/strategy/tradeStrategy/CardHolder.vue?vue&type=script&lang=js& ***!
+  \**************************************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vuex_map_fields__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex-map-fields */ "./node_modules/vuex-map-fields/dist/index.esm.js");
-/* harmony import */ var _CardCreatorEditDialog__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./CardCreatorEditDialog */ "./src/main/webapp/resources/js/components/strategy/CardCreatorEditDialog.vue");
-/* harmony import */ var _CardCreatorDeleteDialog__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./CardCreatorDeleteDialog */ "./src/main/webapp/resources/js/components/strategy/CardCreatorDeleteDialog.vue");
+/* harmony import */ var _CardCreatorEditDialog__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./CardCreatorEditDialog */ "./src/main/webapp/resources/js/components/strategy/tradeStrategy/CardCreatorEditDialog.vue");
+/* harmony import */ var _CardCreatorDeleteDialog__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./CardCreatorDeleteDialog */ "./src/main/webapp/resources/js/components/strategy/tradeStrategy/CardCreatorDeleteDialog.vue");
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 //
@@ -1222,10 +1787,10 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 /***/ }),
 
-/***/ "./node_modules/babel-loader/lib/index.js!./node_modules/vue-loader/lib/index.js?!./src/main/webapp/resources/js/components/strategy/StrategyBoard.vue?vue&type=script&lang=js&":
-/*!***************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib!./node_modules/vue-loader/lib??vue-loader-options!./src/main/webapp/resources/js/components/strategy/StrategyBoard.vue?vue&type=script&lang=js& ***!
-  \***************************************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js!./node_modules/vue-loader/lib/index.js?!./src/main/webapp/resources/js/components/strategy/tradeStrategy/StrategyBoard.vue?vue&type=script&lang=js&":
+/*!*****************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib!./node_modules/vue-loader/lib??vue-loader-options!./src/main/webapp/resources/js/components/strategy/tradeStrategy/StrategyBoard.vue?vue&type=script&lang=js& ***!
+  \*****************************************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -1891,10 +2456,10 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 /***/ }),
 
-/***/ "./node_modules/babel-loader/lib/index.js!./node_modules/vue-loader/lib/index.js?!./src/main/webapp/resources/js/components/strategy/StrategyDeleteDialog.vue?vue&type=script&lang=js&":
-/*!**********************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib!./node_modules/vue-loader/lib??vue-loader-options!./src/main/webapp/resources/js/components/strategy/StrategyDeleteDialog.vue?vue&type=script&lang=js& ***!
-  \**********************************************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js!./node_modules/vue-loader/lib/index.js?!./src/main/webapp/resources/js/components/strategy/tradeStrategy/StrategyDeleteDialog.vue?vue&type=script&lang=js&":
+/*!************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib!./node_modules/vue-loader/lib??vue-loader-options!./src/main/webapp/resources/js/components/strategy/tradeStrategy/StrategyDeleteDialog.vue?vue&type=script&lang=js& ***!
+  \************************************************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -1979,19 +2544,19 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 
 /***/ }),
 
-/***/ "./node_modules/babel-loader/lib/index.js!./node_modules/vue-loader/lib/index.js?!./src/main/webapp/resources/js/components/strategy/StrategyEditDialog.vue?vue&type=script&lang=js&":
-/*!********************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib!./node_modules/vue-loader/lib??vue-loader-options!./src/main/webapp/resources/js/components/strategy/StrategyEditDialog.vue?vue&type=script&lang=js& ***!
-  \********************************************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js!./node_modules/vue-loader/lib/index.js?!./src/main/webapp/resources/js/components/strategy/tradeStrategy/StrategyEditDialog.vue?vue&type=script&lang=js&":
+/*!**********************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib!./node_modules/vue-loader/lib??vue-loader-options!./src/main/webapp/resources/js/components/strategy/tradeStrategy/StrategyEditDialog.vue?vue&type=script&lang=js& ***!
+  \**********************************************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vuex_map_fields__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex-map-fields */ "./node_modules/vuex-map-fields/dist/index.esm.js");
-/* harmony import */ var _common_ElLabel__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../common/ElLabel */ "./src/main/webapp/resources/js/components/common/ElLabel.vue");
-/* harmony import */ var _StrategyBoard__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./StrategyBoard */ "./src/main/webapp/resources/js/components/strategy/StrategyBoard.vue");
-/* harmony import */ var _CardHolder__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./CardHolder */ "./src/main/webapp/resources/js/components/strategy/CardHolder.vue");
+/* harmony import */ var _common_ElLabel__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../common/ElLabel */ "./src/main/webapp/resources/js/components/common/ElLabel.vue");
+/* harmony import */ var _StrategyBoard__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./StrategyBoard */ "./src/main/webapp/resources/js/components/strategy/tradeStrategy/StrategyBoard.vue");
+/* harmony import */ var _CardHolder__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./CardHolder */ "./src/main/webapp/resources/js/components/strategy/tradeStrategy/CardHolder.vue");
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
@@ -2250,7 +2815,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../../node_module
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -2269,7 +2834,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../../node_module
 
 
 // module
-exports.push([module.i, "\n#strategy-pagination[data-v-14f15755] {\n  text-align: center;\n}\n#strategy-table[data-v-14f15755] {\n  margin-top: 5px;\n  margin-bottom: 10px;\n}\n.el-pagination[data-v-14f15755] .el-select .el-input {\n  width: 150px !important;\n}\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -2314,66 +2879,9 @@ exports.push([module.i, "\n#menu[data-v-46430fee] {\n  background-color: #545c64
 
 /***/ }),
 
-/***/ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/vue-loader/lib/index.js?!./src/main/webapp/resources/js/components/strategy/CardCreatorEditDialog.vue?vue&type=style&index=0&id=08bf6f14&scoped=true&lang=css&":
-/*!**********************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/css-loader!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/vue-loader/lib??vue-loader-options!./src/main/webapp/resources/js/components/strategy/CardCreatorEditDialog.vue?vue&type=style&index=0&id=08bf6f14&scoped=true&lang=css& ***!
-  \**********************************************************************************************************************************************************************************************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(/*! ../../../../../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
-// imports
-
-
-// module
-exports.push([module.i, "\n.creator[data-v-08bf6f14] {\n  display: inline;\n  margin-left: 10px;\n}\n.creator-input[data-v-08bf6f14] {\n  display: inline-block;\n  width: 70px;\n  top: 1px;\n}\n.creator-input[data-v-08bf6f14] input {\n  padding: 0 10px !important;\n  font-size: 12px !important;\n}\n.el-radio-button--small[data-v-08bf6f14] .el-radio-button__inner {\n  padding: 9px 10px;\n}\n.creator-text[data-v-08bf6f14] {\n  vertical-align: middle;\n}\n.creator-row[data-v-08bf6f14] {\n  margin-bottom: 10px;\n}\n\n", ""]);
-
-// exports
-
-
-/***/ }),
-
-/***/ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/vue-loader/lib/index.js?!./src/main/webapp/resources/js/components/strategy/CardHolder.vue?vue&type=style&index=0&id=7cd61274&scoped=true&lang=css&":
-/*!***********************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/css-loader!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/vue-loader/lib??vue-loader-options!./src/main/webapp/resources/js/components/strategy/CardHolder.vue?vue&type=style&index=0&id=7cd61274&scoped=true&lang=css& ***!
-  \***********************************************************************************************************************************************************************************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(/*! ../../../../../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
-// imports
-
-
-// module
-exports.push([module.i, "\n#card-pagination[data-v-7cd61274] {\n  text-align: center;\n}\n#card-table[data-v-7cd61274] {\n  margin-top: 5px;\n  margin-bottom: 10px;\n}\n.el-pagination > .el-select .el-input[data-v-7cd61274] {\n  width: 150px !important;\n}\n", ""]);
-
-// exports
-
-
-/***/ }),
-
-/***/ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/vue-loader/lib/index.js?!./src/main/webapp/resources/js/components/strategy/StrategyBoard.vue?vue&type=style&index=0&id=5119a9b9&scoped=true&lang=css&":
-/*!**************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/css-loader!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/vue-loader/lib??vue-loader-options!./src/main/webapp/resources/js/components/strategy/StrategyBoard.vue?vue&type=style&index=0&id=5119a9b9&scoped=true&lang=css& ***!
-  \**************************************************************************************************************************************************************************************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(/*! ../../../../../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
-// imports
-
-
-// module
-exports.push([module.i, "\n#wrapper[data-v-5119a9b9] {\n  padding: 0 10px 10px;\n}\n.rule-area[data-v-5119a9b9] {\n  border: solid 1px #dddddd;\n  -webkit-border-radius: 4px;\n  -moz-border-radius: 4px;\n  border-radius: 4px;\n  padding: 10px;\n  margin-bottom: 10px;\n}\n.palette-item[data-v-5119a9b9] {\n  margin-bottom: 2px;\n  height: 41px;\n}\n.palette-item-button[data-v-5119a9b9] {\n  width: 100%;\n  height: 100%;\n}\n.palette-item-card[data-v-5119a9b9] .el-select {\n  width: 100%;\n}\n.palette-item-card[data-v-5119a9b9] .el-select .el-input input {\n  height: 41px;\n}\n.palette-item-header[data-v-5119a9b9] {\n  border: solid 1px #dedede;\n  background-color: #efefef;\n  -webkit-border-radius: 4px;\n  -moz-border-radius: 4px;\n  border-radius: 4px;\n  padding: 9px;\n  margin-bottom: 2px;\n  text-align: center;\n}\n.el-button--small[data-v-5119a9b9] {\n  padding: 9px 10px !important;\n}\n.rule-form[data-v-5119a9b9] {\n  margin-top: 8px;\n}\n.rule[data-v-5119a9b9] {\n  display: inline;\n}\n.limit-order-value[data-v-5119a9b9] {\n  display: table-cell;\n  width: 50px;\n  top: 1px;\n}\n.limit-order-value[data-v-5119a9b9] input {\n  padding: 0 10px !important;\n  font-size: 12px !important;\n}\n.el-radio-button--small[data-v-5119a9b9] .el-radio-button__inner {\n  padding: 9px 10px;\n}\n.rule-text[data-v-5119a9b9] {\n  vertical-align: middle;\n}\n.palette-item-manipulate[data-v-5119a9b9] {\n  border: solid 1px #dedede;\n  -webkit-border-radius: 4px;\n  -moz-border-radius: 4px;\n  border-radius: 4px;\n  text-align: center;\n  padding: 5px 0;\n}\n.el-button--mini[data-v-5119a9b9] {\n  padding: 7px;\n}\n.rule-area[data-v-5119a9b9] div div div div .el-form-item__error {\n  top: -16px;\n}\n.rule-area[data-v-5119a9b9] div div .el-form-item {\n  margin: 0;\n}\n.rule-area[data-v-5119a9b9] div div div .el-form-item__content {\n  top: 5px;\n}\n.rule-header[data-v-5119a9b9] {\n  border-bottom: solid 1px #dedede;\n  margin-bottom: 15px;\n  padding: 10px;\n}\n\n", ""]);
-
-// exports
-
-
-/***/ }),
-
-/***/ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/vue-loader/lib/index.js?!./src/main/webapp/resources/js/components/strategy/StrategyEditDialog.vue?vue&type=style&index=0&id=3a60732f&scoped=true&lang=css&":
+/***/ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/vue-loader/lib/index.js?!./src/main/webapp/resources/js/components/strategy/AnalysisBrandGroup.vue?vue&type=style&index=0&id=2f8a19c4&scoped=true&lang=css&":
 /*!*******************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/css-loader!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/vue-loader/lib??vue-loader-options!./src/main/webapp/resources/js/components/strategy/StrategyEditDialog.vue?vue&type=style&index=0&id=3a60732f&scoped=true&lang=css& ***!
+  !*** ./node_modules/css-loader!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/vue-loader/lib??vue-loader-options!./src/main/webapp/resources/js/components/strategy/AnalysisBrandGroup.vue?vue&type=style&index=0&id=2f8a19c4&scoped=true&lang=css& ***!
   \*******************************************************************************************************************************************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
@@ -2383,7 +2891,121 @@ exports = module.exports = __webpack_require__(/*! ../../../../../../../node_mod
 
 
 // module
-exports.push([module.i, "\n#strategy-form[data-v-3a60732f] {\n  padding-left: 10px;\n  padding-bottom: 10px;\n}\n#rule-tabs[data-v-3a60732f] {\n  padding: 10px;\n}\n", ""]);
+exports.push([module.i, "\n#analysis-brand-group-area[data-v-2f8a19c4] {\n  margin-top: 50px;\n}\n#analysis-brand-group-pagination[data-v-2f8a19c4] {\n  text-align: center;\n}\n#analysis-brand-group-table[data-v-2f8a19c4] {\n  margin-top: 5px;\n  margin-bottom: 10px;\n}\n.el-pagination[data-v-2f8a19c4] .el-select .el-input {\n  width: 150px !important;\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/vue-loader/lib/index.js?!./src/main/webapp/resources/js/components/strategy/TradeStrategy.vue?vue&type=style&index=0&id=b07c1d06&scoped=true&lang=css&":
+/*!**************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/vue-loader/lib??vue-loader-options!./src/main/webapp/resources/js/components/strategy/TradeStrategy.vue?vue&type=style&index=0&id=b07c1d06&scoped=true&lang=css& ***!
+  \**************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(/*! ../../../../../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n#strategy-pagination[data-v-b07c1d06] {\n  text-align: center;\n}\n#strategy-table[data-v-b07c1d06] {\n  margin-top: 5px;\n  margin-bottom: 10px;\n}\n.el-pagination[data-v-b07c1d06] .el-select .el-input {\n  width: 150px !important;\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/vue-loader/lib/index.js?!./src/main/webapp/resources/js/components/strategy/analysisBrandGroup/AnalysisBrandGroupEditDialog.vue?vue&type=style&index=0&id=353ce8f2&scoped=true&lang=css&":
+/*!************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/vue-loader/lib??vue-loader-options!./src/main/webapp/resources/js/components/strategy/analysisBrandGroup/AnalysisBrandGroupEditDialog.vue?vue&type=style&index=0&id=353ce8f2&scoped=true&lang=css& ***!
+  \************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(/*! ../../../../../../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n.el-transfer[data-v-353ce8f2] .el-transfer-panel {\n  width: 40% !important;\n}\n#analysis-brand-group-form[data-v-353ce8f2] {\n  padding-left: 10px;\n  padding-bottom: 10px;\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/vue-loader/lib/index.js?!./src/main/webapp/resources/js/components/strategy/tradeStrategy/CardCreatorEditDialog.vue?vue&type=style&index=0&id=ecb24108&scoped=true&lang=css&":
+/*!************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/vue-loader/lib??vue-loader-options!./src/main/webapp/resources/js/components/strategy/tradeStrategy/CardCreatorEditDialog.vue?vue&type=style&index=0&id=ecb24108&scoped=true&lang=css& ***!
+  \************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(/*! ../../../../../../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n.creator[data-v-ecb24108] {\n  display: inline;\n  margin-left: 10px;\n}\n.creator-input[data-v-ecb24108] {\n  display: inline-block;\n  width: 70px;\n  top: 1px;\n}\n.creator-input[data-v-ecb24108] input {\n  padding: 0 10px !important;\n  font-size: 12px !important;\n}\n.el-radio-button--small[data-v-ecb24108] .el-radio-button__inner {\n  padding: 9px 10px;\n}\n.creator-text[data-v-ecb24108] {\n  vertical-align: middle;\n}\n.creator-row[data-v-ecb24108] {\n  margin-bottom: 10px;\n}\n\n", ""]);
+
+// exports
+
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/vue-loader/lib/index.js?!./src/main/webapp/resources/js/components/strategy/tradeStrategy/CardHolder.vue?vue&type=style&index=0&id=31efb75e&scoped=true&lang=css&":
+/*!*************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/vue-loader/lib??vue-loader-options!./src/main/webapp/resources/js/components/strategy/tradeStrategy/CardHolder.vue?vue&type=style&index=0&id=31efb75e&scoped=true&lang=css& ***!
+  \*************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(/*! ../../../../../../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n#card-pagination[data-v-31efb75e] {\n  text-align: center;\n}\n#card-table[data-v-31efb75e] {\n  margin-top: 5px;\n  margin-bottom: 10px;\n}\n.el-pagination > .el-select .el-input[data-v-31efb75e] {\n  width: 150px !important;\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/vue-loader/lib/index.js?!./src/main/webapp/resources/js/components/strategy/tradeStrategy/StrategyBoard.vue?vue&type=style&index=0&id=220c0221&scoped=true&lang=css&":
+/*!****************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/vue-loader/lib??vue-loader-options!./src/main/webapp/resources/js/components/strategy/tradeStrategy/StrategyBoard.vue?vue&type=style&index=0&id=220c0221&scoped=true&lang=css& ***!
+  \****************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(/*! ../../../../../../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n#wrapper[data-v-220c0221] {\n  padding: 0 10px 10px;\n}\n.rule-area[data-v-220c0221] {\n  border: solid 1px #dddddd;\n  -webkit-border-radius: 4px;\n  -moz-border-radius: 4px;\n  border-radius: 4px;\n  padding: 10px;\n  margin-bottom: 10px;\n}\n.palette-item[data-v-220c0221] {\n  margin-bottom: 2px;\n  height: 41px;\n}\n.palette-item-button[data-v-220c0221] {\n  width: 100%;\n  height: 100%;\n}\n.palette-item-card[data-v-220c0221] .el-select {\n  width: 100%;\n}\n.palette-item-card[data-v-220c0221] .el-select .el-input input {\n  height: 41px;\n}\n.palette-item-header[data-v-220c0221] {\n  border: solid 1px #dedede;\n  background-color: #efefef;\n  -webkit-border-radius: 4px;\n  -moz-border-radius: 4px;\n  border-radius: 4px;\n  padding: 9px;\n  margin-bottom: 2px;\n  text-align: center;\n}\n.el-button--small[data-v-220c0221] {\n  padding: 9px 10px !important;\n}\n.rule-form[data-v-220c0221] {\n  margin-top: 8px;\n}\n.rule[data-v-220c0221] {\n  display: inline;\n}\n.limit-order-value[data-v-220c0221] {\n  display: table-cell;\n  width: 50px;\n  top: 1px;\n}\n.limit-order-value[data-v-220c0221] input {\n  padding: 0 10px !important;\n  font-size: 12px !important;\n}\n.el-radio-button--small[data-v-220c0221] .el-radio-button__inner {\n  padding: 9px 10px;\n}\n.rule-text[data-v-220c0221] {\n  vertical-align: middle;\n}\n.palette-item-manipulate[data-v-220c0221] {\n  border: solid 1px #dedede;\n  -webkit-border-radius: 4px;\n  -moz-border-radius: 4px;\n  border-radius: 4px;\n  text-align: center;\n  padding: 5px 0;\n}\n.el-button--mini[data-v-220c0221] {\n  padding: 7px;\n}\n.rule-area[data-v-220c0221] div div div div .el-form-item__error {\n  top: -16px;\n}\n.rule-area[data-v-220c0221] div div .el-form-item {\n  margin: 0;\n}\n.rule-area[data-v-220c0221] div div div .el-form-item__content {\n  top: 5px;\n}\n.rule-header[data-v-220c0221] {\n  border-bottom: solid 1px #dedede;\n  margin-bottom: 15px;\n  padding: 10px;\n}\n\n", ""]);
+
+// exports
+
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/vue-loader/lib/index.js?!./src/main/webapp/resources/js/components/strategy/tradeStrategy/StrategyEditDialog.vue?vue&type=style&index=0&id=0c9d1bc7&scoped=true&lang=css&":
+/*!*********************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/vue-loader/lib??vue-loader-options!./src/main/webapp/resources/js/components/strategy/tradeStrategy/StrategyEditDialog.vue?vue&type=style&index=0&id=0c9d1bc7&scoped=true&lang=css& ***!
+  \*********************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(/*! ../../../../../../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n#strategy-form[data-v-0c9d1bc7] {\n  padding-left: 10px;\n  padding-bottom: 10px;\n}\n#rule-tabs[data-v-0c9d1bc7] {\n  padding: 10px;\n}\n", ""]);
 
 // exports
 
@@ -2753,6 +3375,338 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
+    [_c("trade-strategy"), _vm._v(" "), _c("analysis-brand-group")],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./src/main/webapp/resources/js/components/common/ElLabel.vue?vue&type=template&id=079f138b&scoped=true&":
+/*!*********************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./src/main/webapp/resources/js/components/common/ElLabel.vue?vue&type=template&id=079f138b&scoped=true& ***!
+  \*********************************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "span",
+    { staticClass: "label-text", style: "width: " + _vm.width + "px" },
+    [_vm._t("default")],
+    2
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./src/main/webapp/resources/js/components/common/PageHeader.vue?vue&type=template&id=46430fee&scoped=true&":
+/*!************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./src/main/webapp/resources/js/components/common/PageHeader.vue?vue&type=template&id=46430fee&scoped=true& ***!
+  \************************************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "el-menu",
+    {
+      attrs: {
+        id: "menu",
+        "default-active": _vm.activeIndex,
+        mode: "horizontal",
+        "background-color": "#545c64",
+        "text-color": "#fff",
+        "active-text-color": "#ffd04b"
+      }
+    },
+    [
+      _c(
+        "el-menu-item",
+        { attrs: { index: "1" } },
+        [_c("router-link", { attrs: { to: "/" } }, [_vm._v("ホーム")])],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "el-menu-item",
+        { attrs: { index: "2" } },
+        [
+          _c("router-link", { attrs: { to: "/strategy" } }, [
+            _vm._v("取引戦略")
+          ])
+        ],
+        1
+      )
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./src/main/webapp/resources/js/components/common/PageLayout.vue?vue&type=template&id=367cdbea&":
+/*!************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./src/main/webapp/resources/js/components/common/PageLayout.vue?vue&type=template&id=367cdbea& ***!
+  \************************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "el-row",
+    [_c("el-col", { attrs: { offset: 1, span: 22 } }, [_c("router-view")], 1)],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./src/main/webapp/resources/js/components/strategy/AnalysisBrandGroup.vue?vue&type=template&id=2f8a19c4&scoped=true&":
+/*!**********************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./src/main/webapp/resources/js/components/strategy/AnalysisBrandGroup.vue?vue&type=template&id=2f8a19c4&scoped=true& ***!
+  \**********************************************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    { attrs: { id: "analysis-brand-group-area" } },
+    [
+      _c("h2", [_vm._v("分析銘柄グループ")]),
+      _vm._v(" "),
+      _c(
+        "el-row",
+        [
+          _c(
+            "el-col",
+            { attrs: { sm: 12, xs: 16 } },
+            [
+              _c(
+                "el-button",
+                {
+                  attrs: { type: "primary", size: "small", plain: "" },
+                  on: {
+                    click: function($event) {
+                      _vm.analysisBrandGroupEditDialog = { visible: true }
+                    }
+                  }
+                },
+                [_vm._v("追加\n      ")]
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "el-col",
+            { attrs: { sm: 12, xs: 8 } },
+            [
+              _c("el-input", {
+                attrs: {
+                  size: "small",
+                  placeholder: "フィルター",
+                  "prefix-icon": "el-icon-search"
+                },
+                model: {
+                  value: _vm.analysisBrandGroupTableFilter,
+                  callback: function($$v) {
+                    _vm.analysisBrandGroupTableFilter = $$v
+                  },
+                  expression: "analysisBrandGroupTableFilter"
+                }
+              })
+            ],
+            1
+          )
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "el-table",
+        {
+          attrs: {
+            id: "analysis-brand-group-table",
+            data: _vm.filteredAnalysisBrandGroup,
+            border: ""
+          }
+        },
+        [
+          _c("el-table-column", {
+            attrs: { prop: "gid", label: "ID", width: "50" }
+          }),
+          _vm._v(" "),
+          _c("el-table-column", {
+            attrs: { prop: "label", label: "分析銘柄グループ名" }
+          }),
+          _vm._v(" "),
+          _c("el-table-column", {
+            attrs: { label: "操作", width: "150" },
+            scopedSlots: _vm._u([
+              {
+                key: "default",
+                fn: function(slot) {
+                  return [
+                    _c(
+                      "el-button",
+                      {
+                        attrs: { type: "primary", size: "small", plain: "" },
+                        on: {
+                          click: function($event) {
+                            _vm.showUpdateDialog(slot.row)
+                          }
+                        }
+                      },
+                      [_vm._v("更新\n        ")]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "el-button",
+                      {
+                        attrs: { type: "danger", size: "small", plain: "" },
+                        on: {
+                          click: function($event) {
+                            _vm.showDeleteDialog(slot.row)
+                          }
+                        }
+                      },
+                      [_vm._v("削除\n        ")]
+                    )
+                  ]
+                }
+              }
+            ])
+          })
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "el-row",
+        [
+          _c(
+            "el-col",
+            { attrs: { sm: 6 } },
+            [
+              _c(
+                "el-button",
+                {
+                  attrs: { type: "primary", size: "small", plain: "" },
+                  on: {
+                    click: function($event) {
+                      _vm.analysisBrandGroupEditDialog = { visible: true }
+                    }
+                  }
+                },
+                [_vm._v("追加\n      ")]
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "el-col",
+            { attrs: { sm: 12 } },
+            [
+              _c("el-pagination", {
+                attrs: {
+                  id: "analysis-brand-group-pagination",
+                  layout: "prev, pager, next",
+                  "page-size": 10,
+                  total: _vm.analysisBrandGroups.length
+                }
+              })
+            ],
+            1
+          )
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c("analysis-brand-group-edit-dialog", {
+        attrs: { visible: _vm.analysisBrandGroupEditDialog.visible },
+        on: { close: _vm.closeDialog }
+      }),
+      _vm._v(" "),
+      _c("analysis-brand-group-delete-dialog", {
+        attrs: { visible: _vm.analysisBrandGroupDeleteDialog.visible },
+        on: { close: _vm.closeDialog }
+      })
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./src/main/webapp/resources/js/components/strategy/TradeStrategy.vue?vue&type=template&id=b07c1d06&scoped=true&":
+/*!*****************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./src/main/webapp/resources/js/components/strategy/TradeStrategy.vue?vue&type=template&id=b07c1d06&scoped=true& ***!
+  \*****************************************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    { attrs: { id: "trade-strategy-area" } },
     [
       _c("h2", [_vm._v("取引戦略")]),
       _vm._v(" "),
@@ -2984,10 +3938,10 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./src/main/webapp/resources/js/components/common/ElLabel.vue?vue&type=template&id=079f138b&scoped=true&":
-/*!*********************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./src/main/webapp/resources/js/components/common/ElLabel.vue?vue&type=template&id=079f138b&scoped=true& ***!
-  \*********************************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./src/main/webapp/resources/js/components/strategy/analysisBrandGroup/AnalysisBrandGroupDeleteDialog.vue?vue&type=template&id=97b47ab0&":
+/*!*****************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./src/main/webapp/resources/js/components/strategy/analysisBrandGroup/AnalysisBrandGroupDeleteDialog.vue?vue&type=template&id=97b47ab0& ***!
+  \*****************************************************************************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -3000,61 +3954,75 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c(
-    "span",
-    { staticClass: "label-text", style: "width: " + _vm.width + "px" },
-    [_vm._t("default")],
-    2
-  )
-}
-var staticRenderFns = []
-render._withStripped = true
-
-
-
-/***/ }),
-
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./src/main/webapp/resources/js/components/common/PageHeader.vue?vue&type=template&id=46430fee&scoped=true&":
-/*!************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./src/main/webapp/resources/js/components/common/PageHeader.vue?vue&type=template&id=46430fee&scoped=true& ***!
-  \************************************************************************************************************************************************************************************************************************************************/
-/*! exports provided: render, staticRenderFns */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c(
-    "el-menu",
+    "el-dialog",
     {
       attrs: {
-        id: "menu",
-        "default-active": _vm.activeIndex,
-        mode: "horizontal",
-        "background-color": "#545c64",
-        "text-color": "#fff",
-        "active-text-color": "#ffd04b"
+        width: "90%",
+        visible: _vm.visible,
+        "before-close": function() {
+          return _vm.$emit("close")
+        }
+      },
+      on: {
+        "update:visible": function($event) {
+          _vm.visible = $event
+        }
       }
     },
     [
       _c(
-        "el-menu-item",
-        { attrs: { index: "1" } },
-        [_c("router-link", { attrs: { to: "/" } }, [_vm._v("ホーム")])],
-        1
+        "el-row",
+        {
+          staticClass: "dialog-header",
+          attrs: { slot: "title" },
+          slot: "title"
+        },
+        [_vm._v("\n    分析銘柄グループ削除\n  ")]
       ),
       _vm._v(" "),
+      _c("el-row", [
+        _c("p", [
+          _vm._v(
+            "分析銘柄グループ（" +
+              _vm._s(_vm.label) +
+              "）を削除してよろしいですか？"
+          )
+        ]),
+        _vm._v(" "),
+        _c("p", [
+          _vm._v("分析銘柄グループに含まれる取引ルールも削除されます。")
+        ])
+      ]),
+      _vm._v(" "),
       _c(
-        "el-menu-item",
-        { attrs: { index: "2" } },
+        "el-row",
+        {
+          staticClass: "dialog-footer",
+          attrs: { slot: "footer" },
+          slot: "footer"
+        },
         [
-          _c("router-link", { attrs: { to: "/strategy" } }, [
-            _vm._v("取引戦略")
-          ])
+          _c(
+            "el-button",
+            {
+              attrs: { size: "small" },
+              on: {
+                click: function() {
+                  return _vm.$emit("close")
+                }
+              }
+            },
+            [_vm._v("キャンセル\n    ")]
+          ),
+          _vm._v(" "),
+          _c(
+            "el-button",
+            {
+              attrs: { type: "danger", size: "small" },
+              on: { click: _vm.remove }
+            },
+            [_vm._v("削除\n    ")]
+          )
         ],
         1
       )
@@ -3069,10 +4037,10 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./src/main/webapp/resources/js/components/common/PageLayout.vue?vue&type=template&id=367cdbea&":
-/*!************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./src/main/webapp/resources/js/components/common/PageLayout.vue?vue&type=template&id=367cdbea& ***!
-  \************************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./src/main/webapp/resources/js/components/strategy/analysisBrandGroup/AnalysisBrandGroupEditDialog.vue?vue&type=template&id=353ce8f2&scoped=true&":
+/*!***************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./src/main/webapp/resources/js/components/strategy/analysisBrandGroup/AnalysisBrandGroupEditDialog.vue?vue&type=template&id=353ce8f2&scoped=true& ***!
+  \***************************************************************************************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -3085,8 +4053,153 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c(
-    "el-row",
-    [_c("el-col", { attrs: { offset: 1, span: 22 } }, [_c("router-view")], 1)],
+    "el-dialog",
+    {
+      attrs: {
+        width: "90%",
+        visible: _vm.visible,
+        "before-close": function() {
+          return _vm.$emit("close")
+        }
+      },
+      on: {
+        "update:visible": function($event) {
+          _vm.visible = $event
+        }
+      }
+    },
+    [
+      _c(
+        "el-row",
+        {
+          staticClass: "dialog-header",
+          attrs: { slot: "title" },
+          slot: "title"
+        },
+        [
+          _vm._v(
+            "\n    " +
+              _vm._s(
+                _vm.gid ? "分析銘柄グループ更新" : "分析銘柄グループ追加"
+              ) +
+              "\n  "
+          )
+        ]
+      ),
+      _vm._v(" "),
+      _c(
+        "el-form",
+        {
+          ref: "analysisBrandGroupForm",
+          attrs: {
+            id: "analysis-brand-group-form",
+            model: _vm.analysisBrandGroupForm,
+            rules: _vm.rules,
+            "label-position": "top"
+          }
+        },
+        [
+          _vm.gid
+            ? _c(
+                "el-form-item",
+                { attrs: { label: "分析銘柄グループID" } },
+                [
+                  _c("el-label", { attrs: { width: 150 } }, [
+                    _vm._v("\n        " + _vm._s(_vm.gid) + "\n      ")
+                  ])
+                ],
+                1
+              )
+            : _vm._e(),
+          _vm._v(" "),
+          _c(
+            "el-form-item",
+            {
+              staticStyle: { width: "400px" },
+              attrs: { label: "分析銘柄グループ名", prop: "label" }
+            },
+            [
+              _c("el-input", {
+                attrs: { placeholder: "分析銘柄グループ名", clearable: "" },
+                model: {
+                  value: _vm.label,
+                  callback: function($$v) {
+                    _vm.label = $$v
+                  },
+                  expression: "label"
+                }
+              })
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "el-form-item",
+            { attrs: { label: "対象銘柄" } },
+            [
+              _c("el-transfer", {
+                attrs: {
+                  filterable: "",
+                  data: _vm.allBrands,
+                  titles: ["未選択の銘柄", "選択済の銘柄"]
+                },
+                model: {
+                  value: _vm.selectedBrands,
+                  callback: function($$v) {
+                    _vm.selectedBrands = $$v
+                  },
+                  expression: "selectedBrands"
+                }
+              })
+            ],
+            1
+          )
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "el-row",
+        {
+          staticClass: "dialog-footer",
+          attrs: { slot: "footer" },
+          slot: "footer"
+        },
+        [
+          _c(
+            "el-button",
+            {
+              attrs: { size: "small" },
+              on: {
+                click: function() {
+                  return _vm.$emit("close")
+                }
+              }
+            },
+            [_vm._v("キャンセル\n    ")]
+          ),
+          _vm._v(" "),
+          _vm.gid
+            ? _c(
+                "el-button",
+                {
+                  attrs: { type: "primary", size: "small" },
+                  on: { click: _vm.update }
+                },
+                [_vm._v("更新\n    ")]
+              )
+            : _c(
+                "el-button",
+                {
+                  attrs: { type: "primary", size: "small" },
+                  on: { click: _vm.create }
+                },
+                [_vm._v("追加\n    ")]
+              )
+        ],
+        1
+      )
+    ],
     1
   )
 }
@@ -3097,10 +4210,10 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./src/main/webapp/resources/js/components/strategy/CardCreatorDeleteDialog.vue?vue&type=template&id=7798f6f5&":
-/*!***************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./src/main/webapp/resources/js/components/strategy/CardCreatorDeleteDialog.vue?vue&type=template&id=7798f6f5& ***!
-  \***************************************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./src/main/webapp/resources/js/components/strategy/tradeStrategy/CardCreatorDeleteDialog.vue?vue&type=template&id=5c65ed5d&":
+/*!*****************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./src/main/webapp/resources/js/components/strategy/tradeStrategy/CardCreatorDeleteDialog.vue?vue&type=template&id=5c65ed5d& ***!
+  \*****************************************************************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -3195,10 +4308,10 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./src/main/webapp/resources/js/components/strategy/CardCreatorEditDialog.vue?vue&type=template&id=08bf6f14&scoped=true&":
-/*!*************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./src/main/webapp/resources/js/components/strategy/CardCreatorEditDialog.vue?vue&type=template&id=08bf6f14&scoped=true& ***!
-  \*************************************************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./src/main/webapp/resources/js/components/strategy/tradeStrategy/CardCreatorEditDialog.vue?vue&type=template&id=ecb24108&scoped=true&":
+/*!***************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./src/main/webapp/resources/js/components/strategy/tradeStrategy/CardCreatorEditDialog.vue?vue&type=template&id=ecb24108&scoped=true& ***!
+  \***************************************************************************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -3876,10 +4989,10 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./src/main/webapp/resources/js/components/strategy/CardHolder.vue?vue&type=template&id=7cd61274&scoped=true&":
-/*!**************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./src/main/webapp/resources/js/components/strategy/CardHolder.vue?vue&type=template&id=7cd61274&scoped=true& ***!
-  \**************************************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./src/main/webapp/resources/js/components/strategy/tradeStrategy/CardHolder.vue?vue&type=template&id=31efb75e&scoped=true&":
+/*!****************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./src/main/webapp/resources/js/components/strategy/tradeStrategy/CardHolder.vue?vue&type=template&id=31efb75e&scoped=true& ***!
+  \****************************************************************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -4106,10 +5219,10 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./src/main/webapp/resources/js/components/strategy/StrategyBoard.vue?vue&type=template&id=5119a9b9&scoped=true&":
-/*!*****************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./src/main/webapp/resources/js/components/strategy/StrategyBoard.vue?vue&type=template&id=5119a9b9&scoped=true& ***!
-  \*****************************************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./src/main/webapp/resources/js/components/strategy/tradeStrategy/StrategyBoard.vue?vue&type=template&id=220c0221&scoped=true&":
+/*!*******************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./src/main/webapp/resources/js/components/strategy/tradeStrategy/StrategyBoard.vue?vue&type=template&id=220c0221&scoped=true& ***!
+  \*******************************************************************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -4864,10 +5977,10 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./src/main/webapp/resources/js/components/strategy/StrategyDeleteDialog.vue?vue&type=template&id=75ed3f60&":
-/*!************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./src/main/webapp/resources/js/components/strategy/StrategyDeleteDialog.vue?vue&type=template&id=75ed3f60& ***!
-  \************************************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./src/main/webapp/resources/js/components/strategy/tradeStrategy/StrategyDeleteDialog.vue?vue&type=template&id=0a837a30&":
+/*!**************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./src/main/webapp/resources/js/components/strategy/tradeStrategy/StrategyDeleteDialog.vue?vue&type=template&id=0a837a30& ***!
+  \**************************************************************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -4959,10 +6072,10 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./src/main/webapp/resources/js/components/strategy/StrategyEditDialog.vue?vue&type=template&id=3a60732f&scoped=true&":
-/*!**********************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./src/main/webapp/resources/js/components/strategy/StrategyEditDialog.vue?vue&type=template&id=3a60732f&scoped=true& ***!
-  \**********************************************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./src/main/webapp/resources/js/components/strategy/tradeStrategy/StrategyEditDialog.vue?vue&type=template&id=0c9d1bc7&scoped=true&":
+/*!************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./src/main/webapp/resources/js/components/strategy/tradeStrategy/StrategyEditDialog.vue?vue&type=template&id=0c9d1bc7&scoped=true& ***!
+  \************************************************************************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -5291,72 +6404,9 @@ if(false) {}
 
 /***/ }),
 
-/***/ "./node_modules/vue-style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/vue-loader/lib/index.js?!./src/main/webapp/resources/js/components/strategy/CardCreatorEditDialog.vue?vue&type=style&index=0&id=08bf6f14&scoped=true&lang=css&":
-/*!******************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-style-loader!./node_modules/css-loader!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/vue-loader/lib??vue-loader-options!./src/main/webapp/resources/js/components/strategy/CardCreatorEditDialog.vue?vue&type=style&index=0&id=08bf6f14&scoped=true&lang=css& ***!
-  \******************************************************************************************************************************************************************************************************************************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__(/*! !../../../../../../../node_modules/css-loader!../../../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./CardCreatorEditDialog.vue?vue&type=style&index=0&id=08bf6f14&scoped=true&lang=css& */ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/vue-loader/lib/index.js?!./src/main/webapp/resources/js/components/strategy/CardCreatorEditDialog.vue?vue&type=style&index=0&id=08bf6f14&scoped=true&lang=css&");
-if(typeof content === 'string') content = [[module.i, content, '']];
-if(content.locals) module.exports = content.locals;
-// add the styles to the DOM
-var add = __webpack_require__(/*! ../../../../../../../node_modules/vue-style-loader/lib/addStylesClient.js */ "./node_modules/vue-style-loader/lib/addStylesClient.js").default
-var update = add("489b3bd3", content, false, {});
-// Hot Module Replacement
-if(false) {}
-
-/***/ }),
-
-/***/ "./node_modules/vue-style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/vue-loader/lib/index.js?!./src/main/webapp/resources/js/components/strategy/CardHolder.vue?vue&type=style&index=0&id=7cd61274&scoped=true&lang=css&":
-/*!*******************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-style-loader!./node_modules/css-loader!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/vue-loader/lib??vue-loader-options!./src/main/webapp/resources/js/components/strategy/CardHolder.vue?vue&type=style&index=0&id=7cd61274&scoped=true&lang=css& ***!
-  \*******************************************************************************************************************************************************************************************************************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__(/*! !../../../../../../../node_modules/css-loader!../../../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./CardHolder.vue?vue&type=style&index=0&id=7cd61274&scoped=true&lang=css& */ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/vue-loader/lib/index.js?!./src/main/webapp/resources/js/components/strategy/CardHolder.vue?vue&type=style&index=0&id=7cd61274&scoped=true&lang=css&");
-if(typeof content === 'string') content = [[module.i, content, '']];
-if(content.locals) module.exports = content.locals;
-// add the styles to the DOM
-var add = __webpack_require__(/*! ../../../../../../../node_modules/vue-style-loader/lib/addStylesClient.js */ "./node_modules/vue-style-loader/lib/addStylesClient.js").default
-var update = add("068ec0c0", content, false, {});
-// Hot Module Replacement
-if(false) {}
-
-/***/ }),
-
-/***/ "./node_modules/vue-style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/vue-loader/lib/index.js?!./src/main/webapp/resources/js/components/strategy/StrategyBoard.vue?vue&type=style&index=0&id=5119a9b9&scoped=true&lang=css&":
-/*!**********************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-style-loader!./node_modules/css-loader!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/vue-loader/lib??vue-loader-options!./src/main/webapp/resources/js/components/strategy/StrategyBoard.vue?vue&type=style&index=0&id=5119a9b9&scoped=true&lang=css& ***!
-  \**********************************************************************************************************************************************************************************************************************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__(/*! !../../../../../../../node_modules/css-loader!../../../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./StrategyBoard.vue?vue&type=style&index=0&id=5119a9b9&scoped=true&lang=css& */ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/vue-loader/lib/index.js?!./src/main/webapp/resources/js/components/strategy/StrategyBoard.vue?vue&type=style&index=0&id=5119a9b9&scoped=true&lang=css&");
-if(typeof content === 'string') content = [[module.i, content, '']];
-if(content.locals) module.exports = content.locals;
-// add the styles to the DOM
-var add = __webpack_require__(/*! ../../../../../../../node_modules/vue-style-loader/lib/addStylesClient.js */ "./node_modules/vue-style-loader/lib/addStylesClient.js").default
-var update = add("198230e9", content, false, {});
-// Hot Module Replacement
-if(false) {}
-
-/***/ }),
-
-/***/ "./node_modules/vue-style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/vue-loader/lib/index.js?!./src/main/webapp/resources/js/components/strategy/StrategyEditDialog.vue?vue&type=style&index=0&id=3a60732f&scoped=true&lang=css&":
+/***/ "./node_modules/vue-style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/vue-loader/lib/index.js?!./src/main/webapp/resources/js/components/strategy/AnalysisBrandGroup.vue?vue&type=style&index=0&id=2f8a19c4&scoped=true&lang=css&":
 /*!***************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-style-loader!./node_modules/css-loader!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/vue-loader/lib??vue-loader-options!./src/main/webapp/resources/js/components/strategy/StrategyEditDialog.vue?vue&type=style&index=0&id=3a60732f&scoped=true&lang=css& ***!
+  !*** ./node_modules/vue-style-loader!./node_modules/css-loader!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/vue-loader/lib??vue-loader-options!./src/main/webapp/resources/js/components/strategy/AnalysisBrandGroup.vue?vue&type=style&index=0&id=2f8a19c4&scoped=true&lang=css& ***!
   \***************************************************************************************************************************************************************************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
@@ -5364,12 +6414,138 @@ if(false) {}
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(/*! !../../../../../../../node_modules/css-loader!../../../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./StrategyEditDialog.vue?vue&type=style&index=0&id=3a60732f&scoped=true&lang=css& */ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/vue-loader/lib/index.js?!./src/main/webapp/resources/js/components/strategy/StrategyEditDialog.vue?vue&type=style&index=0&id=3a60732f&scoped=true&lang=css&");
+var content = __webpack_require__(/*! !../../../../../../../node_modules/css-loader!../../../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./AnalysisBrandGroup.vue?vue&type=style&index=0&id=2f8a19c4&scoped=true&lang=css& */ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/vue-loader/lib/index.js?!./src/main/webapp/resources/js/components/strategy/AnalysisBrandGroup.vue?vue&type=style&index=0&id=2f8a19c4&scoped=true&lang=css&");
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
 var add = __webpack_require__(/*! ../../../../../../../node_modules/vue-style-loader/lib/addStylesClient.js */ "./node_modules/vue-style-loader/lib/addStylesClient.js").default
-var update = add("6b3f527c", content, false, {});
+var update = add("01f58efa", content, false, {});
+// Hot Module Replacement
+if(false) {}
+
+/***/ }),
+
+/***/ "./node_modules/vue-style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/vue-loader/lib/index.js?!./src/main/webapp/resources/js/components/strategy/TradeStrategy.vue?vue&type=style&index=0&id=b07c1d06&scoped=true&lang=css&":
+/*!**********************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-style-loader!./node_modules/css-loader!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/vue-loader/lib??vue-loader-options!./src/main/webapp/resources/js/components/strategy/TradeStrategy.vue?vue&type=style&index=0&id=b07c1d06&scoped=true&lang=css& ***!
+  \**********************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(/*! !../../../../../../../node_modules/css-loader!../../../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./TradeStrategy.vue?vue&type=style&index=0&id=b07c1d06&scoped=true&lang=css& */ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/vue-loader/lib/index.js?!./src/main/webapp/resources/js/components/strategy/TradeStrategy.vue?vue&type=style&index=0&id=b07c1d06&scoped=true&lang=css&");
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var add = __webpack_require__(/*! ../../../../../../../node_modules/vue-style-loader/lib/addStylesClient.js */ "./node_modules/vue-style-loader/lib/addStylesClient.js").default
+var update = add("0c683311", content, false, {});
+// Hot Module Replacement
+if(false) {}
+
+/***/ }),
+
+/***/ "./node_modules/vue-style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/vue-loader/lib/index.js?!./src/main/webapp/resources/js/components/strategy/analysisBrandGroup/AnalysisBrandGroupEditDialog.vue?vue&type=style&index=0&id=353ce8f2&scoped=true&lang=css&":
+/*!********************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-style-loader!./node_modules/css-loader!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/vue-loader/lib??vue-loader-options!./src/main/webapp/resources/js/components/strategy/analysisBrandGroup/AnalysisBrandGroupEditDialog.vue?vue&type=style&index=0&id=353ce8f2&scoped=true&lang=css& ***!
+  \********************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(/*! !../../../../../../../../node_modules/css-loader!../../../../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./AnalysisBrandGroupEditDialog.vue?vue&type=style&index=0&id=353ce8f2&scoped=true&lang=css& */ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/vue-loader/lib/index.js?!./src/main/webapp/resources/js/components/strategy/analysisBrandGroup/AnalysisBrandGroupEditDialog.vue?vue&type=style&index=0&id=353ce8f2&scoped=true&lang=css&");
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var add = __webpack_require__(/*! ../../../../../../../../node_modules/vue-style-loader/lib/addStylesClient.js */ "./node_modules/vue-style-loader/lib/addStylesClient.js").default
+var update = add("fd335626", content, false, {});
+// Hot Module Replacement
+if(false) {}
+
+/***/ }),
+
+/***/ "./node_modules/vue-style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/vue-loader/lib/index.js?!./src/main/webapp/resources/js/components/strategy/tradeStrategy/CardCreatorEditDialog.vue?vue&type=style&index=0&id=ecb24108&scoped=true&lang=css&":
+/*!********************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-style-loader!./node_modules/css-loader!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/vue-loader/lib??vue-loader-options!./src/main/webapp/resources/js/components/strategy/tradeStrategy/CardCreatorEditDialog.vue?vue&type=style&index=0&id=ecb24108&scoped=true&lang=css& ***!
+  \********************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(/*! !../../../../../../../../node_modules/css-loader!../../../../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./CardCreatorEditDialog.vue?vue&type=style&index=0&id=ecb24108&scoped=true&lang=css& */ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/vue-loader/lib/index.js?!./src/main/webapp/resources/js/components/strategy/tradeStrategy/CardCreatorEditDialog.vue?vue&type=style&index=0&id=ecb24108&scoped=true&lang=css&");
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var add = __webpack_require__(/*! ../../../../../../../../node_modules/vue-style-loader/lib/addStylesClient.js */ "./node_modules/vue-style-loader/lib/addStylesClient.js").default
+var update = add("5deeac08", content, false, {});
+// Hot Module Replacement
+if(false) {}
+
+/***/ }),
+
+/***/ "./node_modules/vue-style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/vue-loader/lib/index.js?!./src/main/webapp/resources/js/components/strategy/tradeStrategy/CardHolder.vue?vue&type=style&index=0&id=31efb75e&scoped=true&lang=css&":
+/*!*********************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-style-loader!./node_modules/css-loader!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/vue-loader/lib??vue-loader-options!./src/main/webapp/resources/js/components/strategy/tradeStrategy/CardHolder.vue?vue&type=style&index=0&id=31efb75e&scoped=true&lang=css& ***!
+  \*********************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(/*! !../../../../../../../../node_modules/css-loader!../../../../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./CardHolder.vue?vue&type=style&index=0&id=31efb75e&scoped=true&lang=css& */ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/vue-loader/lib/index.js?!./src/main/webapp/resources/js/components/strategy/tradeStrategy/CardHolder.vue?vue&type=style&index=0&id=31efb75e&scoped=true&lang=css&");
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var add = __webpack_require__(/*! ../../../../../../../../node_modules/vue-style-loader/lib/addStylesClient.js */ "./node_modules/vue-style-loader/lib/addStylesClient.js").default
+var update = add("628ddd95", content, false, {});
+// Hot Module Replacement
+if(false) {}
+
+/***/ }),
+
+/***/ "./node_modules/vue-style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/vue-loader/lib/index.js?!./src/main/webapp/resources/js/components/strategy/tradeStrategy/StrategyBoard.vue?vue&type=style&index=0&id=220c0221&scoped=true&lang=css&":
+/*!************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-style-loader!./node_modules/css-loader!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/vue-loader/lib??vue-loader-options!./src/main/webapp/resources/js/components/strategy/tradeStrategy/StrategyBoard.vue?vue&type=style&index=0&id=220c0221&scoped=true&lang=css& ***!
+  \************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(/*! !../../../../../../../../node_modules/css-loader!../../../../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./StrategyBoard.vue?vue&type=style&index=0&id=220c0221&scoped=true&lang=css& */ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/vue-loader/lib/index.js?!./src/main/webapp/resources/js/components/strategy/tradeStrategy/StrategyBoard.vue?vue&type=style&index=0&id=220c0221&scoped=true&lang=css&");
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var add = __webpack_require__(/*! ../../../../../../../../node_modules/vue-style-loader/lib/addStylesClient.js */ "./node_modules/vue-style-loader/lib/addStylesClient.js").default
+var update = add("4524a8b6", content, false, {});
+// Hot Module Replacement
+if(false) {}
+
+/***/ }),
+
+/***/ "./node_modules/vue-style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/vue-loader/lib/index.js?!./src/main/webapp/resources/js/components/strategy/tradeStrategy/StrategyEditDialog.vue?vue&type=style&index=0&id=0c9d1bc7&scoped=true&lang=css&":
+/*!*****************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-style-loader!./node_modules/css-loader!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/vue-loader/lib??vue-loader-options!./src/main/webapp/resources/js/components/strategy/tradeStrategy/StrategyEditDialog.vue?vue&type=style&index=0&id=0c9d1bc7&scoped=true&lang=css& ***!
+  \*****************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(/*! !../../../../../../../../node_modules/css-loader!../../../../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./StrategyEditDialog.vue?vue&type=style&index=0&id=0c9d1bc7&scoped=true&lang=css& */ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/vue-loader/lib/index.js?!./src/main/webapp/resources/js/components/strategy/tradeStrategy/StrategyEditDialog.vue?vue&type=style&index=0&id=0c9d1bc7&scoped=true&lang=css&");
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var add = __webpack_require__(/*! ../../../../../../../../node_modules/vue-style-loader/lib/addStylesClient.js */ "./node_modules/vue-style-loader/lib/addStylesClient.js").default
+var update = add("2a0b9a58", content, false, {});
 // Hot Module Replacement
 if(false) {}
 
@@ -5648,17 +6824,66 @@ __webpack_require__.r(__webpack_exports__);
 
 var strategy = new _APIClient__WEBPACK_IMPORTED_MODULE_0__["default"]('/strategy');
 var card = new _APIClient__WEBPACK_IMPORTED_MODULE_0__["default"]('/card');
+var analysisBrandGroup = new _APIClient__WEBPACK_IMPORTED_MODULE_0__["default"]('/analysis-brand-group');
+var brand = new _APIClient__WEBPACK_IMPORTED_MODULE_0__["default"]('/brand');
 
 /* harmony default export */ __webpack_exports__["default"] = ({
+
+  brand: {
+    $fetch: function $fetch() {
+      return brand.get();
+    }
+  },
+
+  analysisBrandGroup: {
+
+    /**
+     * 分析対象グループを取得する。
+     */
+    $fetch: function $fetch() {
+      return analysisBrandGroup.get();
+    },
+
+    /**
+     * 分析対象グループを作成する。
+     */
+    $create: function $create(analysisBrandGroupForm) {
+      return analysisBrandGroup.post(analysisBrandGroupForm);
+    },
+
+    /**
+     * 分析対象グループを更新する。
+     */
+    $update: function $update(analysisBrandGroupForm) {
+      return analysisBrandGroup.put(analysisBrandGroupForm, '/' + analysisBrandGroupForm.gid);
+    },
+
+    /**
+     * 分析対象グループを削除する。
+     */
+    $delete: function $delete(gid) {
+      return analysisBrandGroup.delete('/' + gid);
+    }
+  },
   card: {
+
+    /**
+     * 取引戦略カードを作成する。
+     */
     $create: function $create(cardForm) {
       return card.post(cardForm);
     },
 
+    /**
+     * 取引戦略カードを更新する。
+     */
     $update: function $update(cardForm) {
       return card.put(cardForm, '/' + cardForm.cid);
     },
 
+    /**
+     * 取引戦略カードを削除する。
+     */
     $delete: function $delete(cid) {
       return card.delete('/' + cid);
     }
@@ -6363,18 +7588,192 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./src/main/webapp/resources/js/components/strategy/CardCreatorDeleteDialog.vue":
-/*!**************************************************************************************!*\
-  !*** ./src/main/webapp/resources/js/components/strategy/CardCreatorDeleteDialog.vue ***!
-  \**************************************************************************************/
+/***/ "./src/main/webapp/resources/js/components/strategy/AnalysisBrandGroup.vue":
+/*!*********************************************************************************!*\
+  !*** ./src/main/webapp/resources/js/components/strategy/AnalysisBrandGroup.vue ***!
+  \*********************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _CardCreatorDeleteDialog_vue_vue_type_template_id_7798f6f5___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./CardCreatorDeleteDialog.vue?vue&type=template&id=7798f6f5& */ "./src/main/webapp/resources/js/components/strategy/CardCreatorDeleteDialog.vue?vue&type=template&id=7798f6f5&");
-/* harmony import */ var _CardCreatorDeleteDialog_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./CardCreatorDeleteDialog.vue?vue&type=script&lang=js& */ "./src/main/webapp/resources/js/components/strategy/CardCreatorDeleteDialog.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* harmony import */ var _AnalysisBrandGroup_vue_vue_type_template_id_2f8a19c4_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./AnalysisBrandGroup.vue?vue&type=template&id=2f8a19c4&scoped=true& */ "./src/main/webapp/resources/js/components/strategy/AnalysisBrandGroup.vue?vue&type=template&id=2f8a19c4&scoped=true&");
+/* harmony import */ var _AnalysisBrandGroup_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./AnalysisBrandGroup.vue?vue&type=script&lang=js& */ "./src/main/webapp/resources/js/components/strategy/AnalysisBrandGroup.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _AnalysisBrandGroup_vue_vue_type_style_index_0_id_2f8a19c4_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./AnalysisBrandGroup.vue?vue&type=style&index=0&id=2f8a19c4&scoped=true&lang=css& */ "./src/main/webapp/resources/js/components/strategy/AnalysisBrandGroup.vue?vue&type=style&index=0&id=2f8a19c4&scoped=true&lang=css&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
+  _AnalysisBrandGroup_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _AnalysisBrandGroup_vue_vue_type_template_id_2f8a19c4_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _AnalysisBrandGroup_vue_vue_type_template_id_2f8a19c4_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  "2f8a19c4",
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "src/main/webapp/resources/js/components/strategy/AnalysisBrandGroup.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./src/main/webapp/resources/js/components/strategy/AnalysisBrandGroup.vue?vue&type=script&lang=js&":
+/*!**********************************************************************************************************!*\
+  !*** ./src/main/webapp/resources/js/components/strategy/AnalysisBrandGroup.vue?vue&type=script&lang=js& ***!
+  \**********************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_node_modules_vue_loader_lib_index_js_vue_loader_options_AnalysisBrandGroup_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../node_modules/babel-loader/lib!../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./AnalysisBrandGroup.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js!./node_modules/vue-loader/lib/index.js?!./src/main/webapp/resources/js/components/strategy/AnalysisBrandGroup.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_node_modules_vue_loader_lib_index_js_vue_loader_options_AnalysisBrandGroup_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./src/main/webapp/resources/js/components/strategy/AnalysisBrandGroup.vue?vue&type=style&index=0&id=2f8a19c4&scoped=true&lang=css&":
+/*!******************************************************************************************************************************************!*\
+  !*** ./src/main/webapp/resources/js/components/strategy/AnalysisBrandGroup.vue?vue&type=style&index=0&id=2f8a19c4&scoped=true&lang=css& ***!
+  \******************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_vue_loader_lib_index_js_vue_loader_options_AnalysisBrandGroup_vue_vue_type_style_index_0_id_2f8a19c4_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../node_modules/vue-style-loader!../../../../../../../node_modules/css-loader!../../../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./AnalysisBrandGroup.vue?vue&type=style&index=0&id=2f8a19c4&scoped=true&lang=css& */ "./node_modules/vue-style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/vue-loader/lib/index.js?!./src/main/webapp/resources/js/components/strategy/AnalysisBrandGroup.vue?vue&type=style&index=0&id=2f8a19c4&scoped=true&lang=css&");
+/* harmony import */ var _node_modules_vue_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_vue_loader_lib_index_js_vue_loader_options_AnalysisBrandGroup_vue_vue_type_style_index_0_id_2f8a19c4_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_vue_loader_lib_index_js_vue_loader_options_AnalysisBrandGroup_vue_vue_type_style_index_0_id_2f8a19c4_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_vue_loader_lib_index_js_vue_loader_options_AnalysisBrandGroup_vue_vue_type_style_index_0_id_2f8a19c4_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_vue_loader_lib_index_js_vue_loader_options_AnalysisBrandGroup_vue_vue_type_style_index_0_id_2f8a19c4_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_vue_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_vue_loader_lib_index_js_vue_loader_options_AnalysisBrandGroup_vue_vue_type_style_index_0_id_2f8a19c4_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default.a); 
+
+/***/ }),
+
+/***/ "./src/main/webapp/resources/js/components/strategy/AnalysisBrandGroup.vue?vue&type=template&id=2f8a19c4&scoped=true&":
+/*!****************************************************************************************************************************!*\
+  !*** ./src/main/webapp/resources/js/components/strategy/AnalysisBrandGroup.vue?vue&type=template&id=2f8a19c4&scoped=true& ***!
+  \****************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AnalysisBrandGroup_vue_vue_type_template_id_2f8a19c4_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./AnalysisBrandGroup.vue?vue&type=template&id=2f8a19c4&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./src/main/webapp/resources/js/components/strategy/AnalysisBrandGroup.vue?vue&type=template&id=2f8a19c4&scoped=true&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AnalysisBrandGroup_vue_vue_type_template_id_2f8a19c4_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AnalysisBrandGroup_vue_vue_type_template_id_2f8a19c4_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./src/main/webapp/resources/js/components/strategy/TradeStrategy.vue":
+/*!****************************************************************************!*\
+  !*** ./src/main/webapp/resources/js/components/strategy/TradeStrategy.vue ***!
+  \****************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _TradeStrategy_vue_vue_type_template_id_b07c1d06_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./TradeStrategy.vue?vue&type=template&id=b07c1d06&scoped=true& */ "./src/main/webapp/resources/js/components/strategy/TradeStrategy.vue?vue&type=template&id=b07c1d06&scoped=true&");
+/* harmony import */ var _TradeStrategy_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./TradeStrategy.vue?vue&type=script&lang=js& */ "./src/main/webapp/resources/js/components/strategy/TradeStrategy.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _TradeStrategy_vue_vue_type_style_index_0_id_b07c1d06_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./TradeStrategy.vue?vue&type=style&index=0&id=b07c1d06&scoped=true&lang=css& */ "./src/main/webapp/resources/js/components/strategy/TradeStrategy.vue?vue&type=style&index=0&id=b07c1d06&scoped=true&lang=css&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
+  _TradeStrategy_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _TradeStrategy_vue_vue_type_template_id_b07c1d06_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _TradeStrategy_vue_vue_type_template_id_b07c1d06_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  "b07c1d06",
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "src/main/webapp/resources/js/components/strategy/TradeStrategy.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./src/main/webapp/resources/js/components/strategy/TradeStrategy.vue?vue&type=script&lang=js&":
+/*!*****************************************************************************************************!*\
+  !*** ./src/main/webapp/resources/js/components/strategy/TradeStrategy.vue?vue&type=script&lang=js& ***!
+  \*****************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_node_modules_vue_loader_lib_index_js_vue_loader_options_TradeStrategy_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../node_modules/babel-loader/lib!../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./TradeStrategy.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js!./node_modules/vue-loader/lib/index.js?!./src/main/webapp/resources/js/components/strategy/TradeStrategy.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_node_modules_vue_loader_lib_index_js_vue_loader_options_TradeStrategy_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./src/main/webapp/resources/js/components/strategy/TradeStrategy.vue?vue&type=style&index=0&id=b07c1d06&scoped=true&lang=css&":
+/*!*************************************************************************************************************************************!*\
+  !*** ./src/main/webapp/resources/js/components/strategy/TradeStrategy.vue?vue&type=style&index=0&id=b07c1d06&scoped=true&lang=css& ***!
+  \*************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_vue_loader_lib_index_js_vue_loader_options_TradeStrategy_vue_vue_type_style_index_0_id_b07c1d06_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../node_modules/vue-style-loader!../../../../../../../node_modules/css-loader!../../../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./TradeStrategy.vue?vue&type=style&index=0&id=b07c1d06&scoped=true&lang=css& */ "./node_modules/vue-style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/vue-loader/lib/index.js?!./src/main/webapp/resources/js/components/strategy/TradeStrategy.vue?vue&type=style&index=0&id=b07c1d06&scoped=true&lang=css&");
+/* harmony import */ var _node_modules_vue_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_vue_loader_lib_index_js_vue_loader_options_TradeStrategy_vue_vue_type_style_index_0_id_b07c1d06_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_vue_loader_lib_index_js_vue_loader_options_TradeStrategy_vue_vue_type_style_index_0_id_b07c1d06_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_vue_loader_lib_index_js_vue_loader_options_TradeStrategy_vue_vue_type_style_index_0_id_b07c1d06_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_vue_loader_lib_index_js_vue_loader_options_TradeStrategy_vue_vue_type_style_index_0_id_b07c1d06_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_vue_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_vue_loader_lib_index_js_vue_loader_options_TradeStrategy_vue_vue_type_style_index_0_id_b07c1d06_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default.a); 
+
+/***/ }),
+
+/***/ "./src/main/webapp/resources/js/components/strategy/TradeStrategy.vue?vue&type=template&id=b07c1d06&scoped=true&":
+/*!***********************************************************************************************************************!*\
+  !*** ./src/main/webapp/resources/js/components/strategy/TradeStrategy.vue?vue&type=template&id=b07c1d06&scoped=true& ***!
+  \***********************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_TradeStrategy_vue_vue_type_template_id_b07c1d06_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./TradeStrategy.vue?vue&type=template&id=b07c1d06&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./src/main/webapp/resources/js/components/strategy/TradeStrategy.vue?vue&type=template&id=b07c1d06&scoped=true&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_TradeStrategy_vue_vue_type_template_id_b07c1d06_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_TradeStrategy_vue_vue_type_template_id_b07c1d06_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./src/main/webapp/resources/js/components/strategy/analysisBrandGroup/AnalysisBrandGroupDeleteDialog.vue":
+/*!****************************************************************************************************************!*\
+  !*** ./src/main/webapp/resources/js/components/strategy/analysisBrandGroup/AnalysisBrandGroupDeleteDialog.vue ***!
+  \****************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _AnalysisBrandGroupDeleteDialog_vue_vue_type_template_id_97b47ab0___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./AnalysisBrandGroupDeleteDialog.vue?vue&type=template&id=97b47ab0& */ "./src/main/webapp/resources/js/components/strategy/analysisBrandGroup/AnalysisBrandGroupDeleteDialog.vue?vue&type=template&id=97b47ab0&");
+/* harmony import */ var _AnalysisBrandGroupDeleteDialog_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./AnalysisBrandGroupDeleteDialog.vue?vue&type=script&lang=js& */ "./src/main/webapp/resources/js/components/strategy/analysisBrandGroup/AnalysisBrandGroupDeleteDialog.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
 
@@ -6383,9 +7782,9 @@ __webpack_require__.r(__webpack_exports__);
 /* normalize component */
 
 var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
-  _CardCreatorDeleteDialog_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _CardCreatorDeleteDialog_vue_vue_type_template_id_7798f6f5___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _CardCreatorDeleteDialog_vue_vue_type_template_id_7798f6f5___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  _AnalysisBrandGroupDeleteDialog_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _AnalysisBrandGroupDeleteDialog_vue_vue_type_template_id_97b47ab0___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _AnalysisBrandGroupDeleteDialog_vue_vue_type_template_id_97b47ab0___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
   null,
   null,
@@ -6395,56 +7794,212 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 /* hot reload */
 if (false) { var api; }
-component.options.__file = "src/main/webapp/resources/js/components/strategy/CardCreatorDeleteDialog.vue"
+component.options.__file = "src/main/webapp/resources/js/components/strategy/analysisBrandGroup/AnalysisBrandGroupDeleteDialog.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
-/***/ "./src/main/webapp/resources/js/components/strategy/CardCreatorDeleteDialog.vue?vue&type=script&lang=js&":
-/*!***************************************************************************************************************!*\
-  !*** ./src/main/webapp/resources/js/components/strategy/CardCreatorDeleteDialog.vue?vue&type=script&lang=js& ***!
-  \***************************************************************************************************************/
+/***/ "./src/main/webapp/resources/js/components/strategy/analysisBrandGroup/AnalysisBrandGroupDeleteDialog.vue?vue&type=script&lang=js&":
+/*!*****************************************************************************************************************************************!*\
+  !*** ./src/main/webapp/resources/js/components/strategy/analysisBrandGroup/AnalysisBrandGroupDeleteDialog.vue?vue&type=script&lang=js& ***!
+  \*****************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_node_modules_vue_loader_lib_index_js_vue_loader_options_CardCreatorDeleteDialog_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../node_modules/babel-loader/lib!../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./CardCreatorDeleteDialog.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js!./node_modules/vue-loader/lib/index.js?!./src/main/webapp/resources/js/components/strategy/CardCreatorDeleteDialog.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_node_modules_vue_loader_lib_index_js_vue_loader_options_CardCreatorDeleteDialog_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_node_modules_vue_loader_lib_index_js_vue_loader_options_AnalysisBrandGroupDeleteDialog_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../../node_modules/babel-loader/lib!../../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./AnalysisBrandGroupDeleteDialog.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js!./node_modules/vue-loader/lib/index.js?!./src/main/webapp/resources/js/components/strategy/analysisBrandGroup/AnalysisBrandGroupDeleteDialog.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_node_modules_vue_loader_lib_index_js_vue_loader_options_AnalysisBrandGroupDeleteDialog_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
-/***/ "./src/main/webapp/resources/js/components/strategy/CardCreatorDeleteDialog.vue?vue&type=template&id=7798f6f5&":
-/*!*********************************************************************************************************************!*\
-  !*** ./src/main/webapp/resources/js/components/strategy/CardCreatorDeleteDialog.vue?vue&type=template&id=7798f6f5& ***!
-  \*********************************************************************************************************************/
+/***/ "./src/main/webapp/resources/js/components/strategy/analysisBrandGroup/AnalysisBrandGroupDeleteDialog.vue?vue&type=template&id=97b47ab0&":
+/*!***********************************************************************************************************************************************!*\
+  !*** ./src/main/webapp/resources/js/components/strategy/analysisBrandGroup/AnalysisBrandGroupDeleteDialog.vue?vue&type=template&id=97b47ab0& ***!
+  \***********************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_CardCreatorDeleteDialog_vue_vue_type_template_id_7798f6f5___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./CardCreatorDeleteDialog.vue?vue&type=template&id=7798f6f5& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./src/main/webapp/resources/js/components/strategy/CardCreatorDeleteDialog.vue?vue&type=template&id=7798f6f5&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_CardCreatorDeleteDialog_vue_vue_type_template_id_7798f6f5___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AnalysisBrandGroupDeleteDialog_vue_vue_type_template_id_97b47ab0___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./AnalysisBrandGroupDeleteDialog.vue?vue&type=template&id=97b47ab0& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./src/main/webapp/resources/js/components/strategy/analysisBrandGroup/AnalysisBrandGroupDeleteDialog.vue?vue&type=template&id=97b47ab0&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AnalysisBrandGroupDeleteDialog_vue_vue_type_template_id_97b47ab0___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_CardCreatorDeleteDialog_vue_vue_type_template_id_7798f6f5___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AnalysisBrandGroupDeleteDialog_vue_vue_type_template_id_97b47ab0___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 
 /***/ }),
 
-/***/ "./src/main/webapp/resources/js/components/strategy/CardCreatorEditDialog.vue":
-/*!************************************************************************************!*\
-  !*** ./src/main/webapp/resources/js/components/strategy/CardCreatorEditDialog.vue ***!
-  \************************************************************************************/
+/***/ "./src/main/webapp/resources/js/components/strategy/analysisBrandGroup/AnalysisBrandGroupEditDialog.vue":
+/*!**************************************************************************************************************!*\
+  !*** ./src/main/webapp/resources/js/components/strategy/analysisBrandGroup/AnalysisBrandGroupEditDialog.vue ***!
+  \**************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _CardCreatorEditDialog_vue_vue_type_template_id_08bf6f14_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./CardCreatorEditDialog.vue?vue&type=template&id=08bf6f14&scoped=true& */ "./src/main/webapp/resources/js/components/strategy/CardCreatorEditDialog.vue?vue&type=template&id=08bf6f14&scoped=true&");
-/* harmony import */ var _CardCreatorEditDialog_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./CardCreatorEditDialog.vue?vue&type=script&lang=js& */ "./src/main/webapp/resources/js/components/strategy/CardCreatorEditDialog.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _CardCreatorEditDialog_vue_vue_type_style_index_0_id_08bf6f14_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./CardCreatorEditDialog.vue?vue&type=style&index=0&id=08bf6f14&scoped=true&lang=css& */ "./src/main/webapp/resources/js/components/strategy/CardCreatorEditDialog.vue?vue&type=style&index=0&id=08bf6f14&scoped=true&lang=css&");
-/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* harmony import */ var _AnalysisBrandGroupEditDialog_vue_vue_type_template_id_353ce8f2_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./AnalysisBrandGroupEditDialog.vue?vue&type=template&id=353ce8f2&scoped=true& */ "./src/main/webapp/resources/js/components/strategy/analysisBrandGroup/AnalysisBrandGroupEditDialog.vue?vue&type=template&id=353ce8f2&scoped=true&");
+/* harmony import */ var _AnalysisBrandGroupEditDialog_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./AnalysisBrandGroupEditDialog.vue?vue&type=script&lang=js& */ "./src/main/webapp/resources/js/components/strategy/analysisBrandGroup/AnalysisBrandGroupEditDialog.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _AnalysisBrandGroupEditDialog_vue_vue_type_style_index_0_id_353ce8f2_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./AnalysisBrandGroupEditDialog.vue?vue&type=style&index=0&id=353ce8f2&scoped=true&lang=css& */ "./src/main/webapp/resources/js/components/strategy/analysisBrandGroup/AnalysisBrandGroupEditDialog.vue?vue&type=style&index=0&id=353ce8f2&scoped=true&lang=css&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
+  _AnalysisBrandGroupEditDialog_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _AnalysisBrandGroupEditDialog_vue_vue_type_template_id_353ce8f2_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _AnalysisBrandGroupEditDialog_vue_vue_type_template_id_353ce8f2_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  "353ce8f2",
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "src/main/webapp/resources/js/components/strategy/analysisBrandGroup/AnalysisBrandGroupEditDialog.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./src/main/webapp/resources/js/components/strategy/analysisBrandGroup/AnalysisBrandGroupEditDialog.vue?vue&type=script&lang=js&":
+/*!***************************************************************************************************************************************!*\
+  !*** ./src/main/webapp/resources/js/components/strategy/analysisBrandGroup/AnalysisBrandGroupEditDialog.vue?vue&type=script&lang=js& ***!
+  \***************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_node_modules_vue_loader_lib_index_js_vue_loader_options_AnalysisBrandGroupEditDialog_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../../node_modules/babel-loader/lib!../../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./AnalysisBrandGroupEditDialog.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js!./node_modules/vue-loader/lib/index.js?!./src/main/webapp/resources/js/components/strategy/analysisBrandGroup/AnalysisBrandGroupEditDialog.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_node_modules_vue_loader_lib_index_js_vue_loader_options_AnalysisBrandGroupEditDialog_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./src/main/webapp/resources/js/components/strategy/analysisBrandGroup/AnalysisBrandGroupEditDialog.vue?vue&type=style&index=0&id=353ce8f2&scoped=true&lang=css&":
+/*!***********************************************************************************************************************************************************************!*\
+  !*** ./src/main/webapp/resources/js/components/strategy/analysisBrandGroup/AnalysisBrandGroupEditDialog.vue?vue&type=style&index=0&id=353ce8f2&scoped=true&lang=css& ***!
+  \***********************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_vue_loader_lib_index_js_vue_loader_options_AnalysisBrandGroupEditDialog_vue_vue_type_style_index_0_id_353ce8f2_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../../node_modules/vue-style-loader!../../../../../../../../node_modules/css-loader!../../../../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./AnalysisBrandGroupEditDialog.vue?vue&type=style&index=0&id=353ce8f2&scoped=true&lang=css& */ "./node_modules/vue-style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/vue-loader/lib/index.js?!./src/main/webapp/resources/js/components/strategy/analysisBrandGroup/AnalysisBrandGroupEditDialog.vue?vue&type=style&index=0&id=353ce8f2&scoped=true&lang=css&");
+/* harmony import */ var _node_modules_vue_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_vue_loader_lib_index_js_vue_loader_options_AnalysisBrandGroupEditDialog_vue_vue_type_style_index_0_id_353ce8f2_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_vue_loader_lib_index_js_vue_loader_options_AnalysisBrandGroupEditDialog_vue_vue_type_style_index_0_id_353ce8f2_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_vue_loader_lib_index_js_vue_loader_options_AnalysisBrandGroupEditDialog_vue_vue_type_style_index_0_id_353ce8f2_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_vue_loader_lib_index_js_vue_loader_options_AnalysisBrandGroupEditDialog_vue_vue_type_style_index_0_id_353ce8f2_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_vue_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_vue_loader_lib_index_js_vue_loader_options_AnalysisBrandGroupEditDialog_vue_vue_type_style_index_0_id_353ce8f2_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default.a); 
+
+/***/ }),
+
+/***/ "./src/main/webapp/resources/js/components/strategy/analysisBrandGroup/AnalysisBrandGroupEditDialog.vue?vue&type=template&id=353ce8f2&scoped=true&":
+/*!*********************************************************************************************************************************************************!*\
+  !*** ./src/main/webapp/resources/js/components/strategy/analysisBrandGroup/AnalysisBrandGroupEditDialog.vue?vue&type=template&id=353ce8f2&scoped=true& ***!
+  \*********************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AnalysisBrandGroupEditDialog_vue_vue_type_template_id_353ce8f2_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./AnalysisBrandGroupEditDialog.vue?vue&type=template&id=353ce8f2&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./src/main/webapp/resources/js/components/strategy/analysisBrandGroup/AnalysisBrandGroupEditDialog.vue?vue&type=template&id=353ce8f2&scoped=true&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AnalysisBrandGroupEditDialog_vue_vue_type_template_id_353ce8f2_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AnalysisBrandGroupEditDialog_vue_vue_type_template_id_353ce8f2_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./src/main/webapp/resources/js/components/strategy/tradeStrategy/CardCreatorDeleteDialog.vue":
+/*!****************************************************************************************************!*\
+  !*** ./src/main/webapp/resources/js/components/strategy/tradeStrategy/CardCreatorDeleteDialog.vue ***!
+  \****************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _CardCreatorDeleteDialog_vue_vue_type_template_id_5c65ed5d___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./CardCreatorDeleteDialog.vue?vue&type=template&id=5c65ed5d& */ "./src/main/webapp/resources/js/components/strategy/tradeStrategy/CardCreatorDeleteDialog.vue?vue&type=template&id=5c65ed5d&");
+/* harmony import */ var _CardCreatorDeleteDialog_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./CardCreatorDeleteDialog.vue?vue&type=script&lang=js& */ "./src/main/webapp/resources/js/components/strategy/tradeStrategy/CardCreatorDeleteDialog.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _CardCreatorDeleteDialog_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _CardCreatorDeleteDialog_vue_vue_type_template_id_5c65ed5d___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _CardCreatorDeleteDialog_vue_vue_type_template_id_5c65ed5d___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "src/main/webapp/resources/js/components/strategy/tradeStrategy/CardCreatorDeleteDialog.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./src/main/webapp/resources/js/components/strategy/tradeStrategy/CardCreatorDeleteDialog.vue?vue&type=script&lang=js&":
+/*!*****************************************************************************************************************************!*\
+  !*** ./src/main/webapp/resources/js/components/strategy/tradeStrategy/CardCreatorDeleteDialog.vue?vue&type=script&lang=js& ***!
+  \*****************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_node_modules_vue_loader_lib_index_js_vue_loader_options_CardCreatorDeleteDialog_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../../node_modules/babel-loader/lib!../../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./CardCreatorDeleteDialog.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js!./node_modules/vue-loader/lib/index.js?!./src/main/webapp/resources/js/components/strategy/tradeStrategy/CardCreatorDeleteDialog.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_node_modules_vue_loader_lib_index_js_vue_loader_options_CardCreatorDeleteDialog_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./src/main/webapp/resources/js/components/strategy/tradeStrategy/CardCreatorDeleteDialog.vue?vue&type=template&id=5c65ed5d&":
+/*!***********************************************************************************************************************************!*\
+  !*** ./src/main/webapp/resources/js/components/strategy/tradeStrategy/CardCreatorDeleteDialog.vue?vue&type=template&id=5c65ed5d& ***!
+  \***********************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_CardCreatorDeleteDialog_vue_vue_type_template_id_5c65ed5d___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./CardCreatorDeleteDialog.vue?vue&type=template&id=5c65ed5d& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./src/main/webapp/resources/js/components/strategy/tradeStrategy/CardCreatorDeleteDialog.vue?vue&type=template&id=5c65ed5d&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_CardCreatorDeleteDialog_vue_vue_type_template_id_5c65ed5d___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_CardCreatorDeleteDialog_vue_vue_type_template_id_5c65ed5d___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./src/main/webapp/resources/js/components/strategy/tradeStrategy/CardCreatorEditDialog.vue":
+/*!**************************************************************************************************!*\
+  !*** ./src/main/webapp/resources/js/components/strategy/tradeStrategy/CardCreatorEditDialog.vue ***!
+  \**************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _CardCreatorEditDialog_vue_vue_type_template_id_ecb24108_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./CardCreatorEditDialog.vue?vue&type=template&id=ecb24108&scoped=true& */ "./src/main/webapp/resources/js/components/strategy/tradeStrategy/CardCreatorEditDialog.vue?vue&type=template&id=ecb24108&scoped=true&");
+/* harmony import */ var _CardCreatorEditDialog_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./CardCreatorEditDialog.vue?vue&type=script&lang=js& */ "./src/main/webapp/resources/js/components/strategy/tradeStrategy/CardCreatorEditDialog.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _CardCreatorEditDialog_vue_vue_type_style_index_0_id_ecb24108_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./CardCreatorEditDialog.vue?vue&type=style&index=0&id=ecb24108&scoped=true&lang=css& */ "./src/main/webapp/resources/js/components/strategy/tradeStrategy/CardCreatorEditDialog.vue?vue&type=style&index=0&id=ecb24108&scoped=true&lang=css&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
 
@@ -6455,83 +8010,83 @@ __webpack_require__.r(__webpack_exports__);
 
 var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
   _CardCreatorEditDialog_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _CardCreatorEditDialog_vue_vue_type_template_id_08bf6f14_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _CardCreatorEditDialog_vue_vue_type_template_id_08bf6f14_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  _CardCreatorEditDialog_vue_vue_type_template_id_ecb24108_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _CardCreatorEditDialog_vue_vue_type_template_id_ecb24108_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
   null,
-  "08bf6f14",
+  "ecb24108",
   null
   
 )
 
 /* hot reload */
 if (false) { var api; }
-component.options.__file = "src/main/webapp/resources/js/components/strategy/CardCreatorEditDialog.vue"
+component.options.__file = "src/main/webapp/resources/js/components/strategy/tradeStrategy/CardCreatorEditDialog.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
-/***/ "./src/main/webapp/resources/js/components/strategy/CardCreatorEditDialog.vue?vue&type=script&lang=js&":
-/*!*************************************************************************************************************!*\
-  !*** ./src/main/webapp/resources/js/components/strategy/CardCreatorEditDialog.vue?vue&type=script&lang=js& ***!
-  \*************************************************************************************************************/
+/***/ "./src/main/webapp/resources/js/components/strategy/tradeStrategy/CardCreatorEditDialog.vue?vue&type=script&lang=js&":
+/*!***************************************************************************************************************************!*\
+  !*** ./src/main/webapp/resources/js/components/strategy/tradeStrategy/CardCreatorEditDialog.vue?vue&type=script&lang=js& ***!
+  \***************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_node_modules_vue_loader_lib_index_js_vue_loader_options_CardCreatorEditDialog_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../node_modules/babel-loader/lib!../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./CardCreatorEditDialog.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js!./node_modules/vue-loader/lib/index.js?!./src/main/webapp/resources/js/components/strategy/CardCreatorEditDialog.vue?vue&type=script&lang=js&");
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_node_modules_vue_loader_lib_index_js_vue_loader_options_CardCreatorEditDialog_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../../node_modules/babel-loader/lib!../../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./CardCreatorEditDialog.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js!./node_modules/vue-loader/lib/index.js?!./src/main/webapp/resources/js/components/strategy/tradeStrategy/CardCreatorEditDialog.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_node_modules_vue_loader_lib_index_js_vue_loader_options_CardCreatorEditDialog_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
-/***/ "./src/main/webapp/resources/js/components/strategy/CardCreatorEditDialog.vue?vue&type=style&index=0&id=08bf6f14&scoped=true&lang=css&":
-/*!*********************************************************************************************************************************************!*\
-  !*** ./src/main/webapp/resources/js/components/strategy/CardCreatorEditDialog.vue?vue&type=style&index=0&id=08bf6f14&scoped=true&lang=css& ***!
-  \*********************************************************************************************************************************************/
+/***/ "./src/main/webapp/resources/js/components/strategy/tradeStrategy/CardCreatorEditDialog.vue?vue&type=style&index=0&id=ecb24108&scoped=true&lang=css&":
+/*!***********************************************************************************************************************************************************!*\
+  !*** ./src/main/webapp/resources/js/components/strategy/tradeStrategy/CardCreatorEditDialog.vue?vue&type=style&index=0&id=ecb24108&scoped=true&lang=css& ***!
+  \***********************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_vue_loader_lib_index_js_vue_loader_options_CardCreatorEditDialog_vue_vue_type_style_index_0_id_08bf6f14_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../node_modules/vue-style-loader!../../../../../../../node_modules/css-loader!../../../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./CardCreatorEditDialog.vue?vue&type=style&index=0&id=08bf6f14&scoped=true&lang=css& */ "./node_modules/vue-style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/vue-loader/lib/index.js?!./src/main/webapp/resources/js/components/strategy/CardCreatorEditDialog.vue?vue&type=style&index=0&id=08bf6f14&scoped=true&lang=css&");
-/* harmony import */ var _node_modules_vue_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_vue_loader_lib_index_js_vue_loader_options_CardCreatorEditDialog_vue_vue_type_style_index_0_id_08bf6f14_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_vue_loader_lib_index_js_vue_loader_options_CardCreatorEditDialog_vue_vue_type_style_index_0_id_08bf6f14_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__);
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_vue_loader_lib_index_js_vue_loader_options_CardCreatorEditDialog_vue_vue_type_style_index_0_id_08bf6f14_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_vue_loader_lib_index_js_vue_loader_options_CardCreatorEditDialog_vue_vue_type_style_index_0_id_08bf6f14_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
- /* harmony default export */ __webpack_exports__["default"] = (_node_modules_vue_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_vue_loader_lib_index_js_vue_loader_options_CardCreatorEditDialog_vue_vue_type_style_index_0_id_08bf6f14_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default.a); 
+/* harmony import */ var _node_modules_vue_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_vue_loader_lib_index_js_vue_loader_options_CardCreatorEditDialog_vue_vue_type_style_index_0_id_ecb24108_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../../node_modules/vue-style-loader!../../../../../../../../node_modules/css-loader!../../../../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./CardCreatorEditDialog.vue?vue&type=style&index=0&id=ecb24108&scoped=true&lang=css& */ "./node_modules/vue-style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/vue-loader/lib/index.js?!./src/main/webapp/resources/js/components/strategy/tradeStrategy/CardCreatorEditDialog.vue?vue&type=style&index=0&id=ecb24108&scoped=true&lang=css&");
+/* harmony import */ var _node_modules_vue_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_vue_loader_lib_index_js_vue_loader_options_CardCreatorEditDialog_vue_vue_type_style_index_0_id_ecb24108_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_vue_loader_lib_index_js_vue_loader_options_CardCreatorEditDialog_vue_vue_type_style_index_0_id_ecb24108_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_vue_loader_lib_index_js_vue_loader_options_CardCreatorEditDialog_vue_vue_type_style_index_0_id_ecb24108_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_vue_loader_lib_index_js_vue_loader_options_CardCreatorEditDialog_vue_vue_type_style_index_0_id_ecb24108_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_vue_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_vue_loader_lib_index_js_vue_loader_options_CardCreatorEditDialog_vue_vue_type_style_index_0_id_ecb24108_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default.a); 
 
 /***/ }),
 
-/***/ "./src/main/webapp/resources/js/components/strategy/CardCreatorEditDialog.vue?vue&type=template&id=08bf6f14&scoped=true&":
-/*!*******************************************************************************************************************************!*\
-  !*** ./src/main/webapp/resources/js/components/strategy/CardCreatorEditDialog.vue?vue&type=template&id=08bf6f14&scoped=true& ***!
-  \*******************************************************************************************************************************/
+/***/ "./src/main/webapp/resources/js/components/strategy/tradeStrategy/CardCreatorEditDialog.vue?vue&type=template&id=ecb24108&scoped=true&":
+/*!*********************************************************************************************************************************************!*\
+  !*** ./src/main/webapp/resources/js/components/strategy/tradeStrategy/CardCreatorEditDialog.vue?vue&type=template&id=ecb24108&scoped=true& ***!
+  \*********************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_CardCreatorEditDialog_vue_vue_type_template_id_08bf6f14_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./CardCreatorEditDialog.vue?vue&type=template&id=08bf6f14&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./src/main/webapp/resources/js/components/strategy/CardCreatorEditDialog.vue?vue&type=template&id=08bf6f14&scoped=true&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_CardCreatorEditDialog_vue_vue_type_template_id_08bf6f14_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_CardCreatorEditDialog_vue_vue_type_template_id_ecb24108_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./CardCreatorEditDialog.vue?vue&type=template&id=ecb24108&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./src/main/webapp/resources/js/components/strategy/tradeStrategy/CardCreatorEditDialog.vue?vue&type=template&id=ecb24108&scoped=true&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_CardCreatorEditDialog_vue_vue_type_template_id_ecb24108_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_CardCreatorEditDialog_vue_vue_type_template_id_08bf6f14_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_CardCreatorEditDialog_vue_vue_type_template_id_ecb24108_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 
 /***/ }),
 
-/***/ "./src/main/webapp/resources/js/components/strategy/CardHolder.vue":
-/*!*************************************************************************!*\
-  !*** ./src/main/webapp/resources/js/components/strategy/CardHolder.vue ***!
-  \*************************************************************************/
+/***/ "./src/main/webapp/resources/js/components/strategy/tradeStrategy/CardHolder.vue":
+/*!***************************************************************************************!*\
+  !*** ./src/main/webapp/resources/js/components/strategy/tradeStrategy/CardHolder.vue ***!
+  \***************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _CardHolder_vue_vue_type_template_id_7cd61274_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./CardHolder.vue?vue&type=template&id=7cd61274&scoped=true& */ "./src/main/webapp/resources/js/components/strategy/CardHolder.vue?vue&type=template&id=7cd61274&scoped=true&");
-/* harmony import */ var _CardHolder_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./CardHolder.vue?vue&type=script&lang=js& */ "./src/main/webapp/resources/js/components/strategy/CardHolder.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _CardHolder_vue_vue_type_style_index_0_id_7cd61274_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./CardHolder.vue?vue&type=style&index=0&id=7cd61274&scoped=true&lang=css& */ "./src/main/webapp/resources/js/components/strategy/CardHolder.vue?vue&type=style&index=0&id=7cd61274&scoped=true&lang=css&");
-/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* harmony import */ var _CardHolder_vue_vue_type_template_id_31efb75e_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./CardHolder.vue?vue&type=template&id=31efb75e&scoped=true& */ "./src/main/webapp/resources/js/components/strategy/tradeStrategy/CardHolder.vue?vue&type=template&id=31efb75e&scoped=true&");
+/* harmony import */ var _CardHolder_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./CardHolder.vue?vue&type=script&lang=js& */ "./src/main/webapp/resources/js/components/strategy/tradeStrategy/CardHolder.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _CardHolder_vue_vue_type_style_index_0_id_31efb75e_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./CardHolder.vue?vue&type=style&index=0&id=31efb75e&scoped=true&lang=css& */ "./src/main/webapp/resources/js/components/strategy/tradeStrategy/CardHolder.vue?vue&type=style&index=0&id=31efb75e&scoped=true&lang=css&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
 
@@ -6542,83 +8097,83 @@ __webpack_require__.r(__webpack_exports__);
 
 var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
   _CardHolder_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _CardHolder_vue_vue_type_template_id_7cd61274_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _CardHolder_vue_vue_type_template_id_7cd61274_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  _CardHolder_vue_vue_type_template_id_31efb75e_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _CardHolder_vue_vue_type_template_id_31efb75e_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
   null,
-  "7cd61274",
+  "31efb75e",
   null
   
 )
 
 /* hot reload */
 if (false) { var api; }
-component.options.__file = "src/main/webapp/resources/js/components/strategy/CardHolder.vue"
+component.options.__file = "src/main/webapp/resources/js/components/strategy/tradeStrategy/CardHolder.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
-/***/ "./src/main/webapp/resources/js/components/strategy/CardHolder.vue?vue&type=script&lang=js&":
-/*!**************************************************************************************************!*\
-  !*** ./src/main/webapp/resources/js/components/strategy/CardHolder.vue?vue&type=script&lang=js& ***!
-  \**************************************************************************************************/
+/***/ "./src/main/webapp/resources/js/components/strategy/tradeStrategy/CardHolder.vue?vue&type=script&lang=js&":
+/*!****************************************************************************************************************!*\
+  !*** ./src/main/webapp/resources/js/components/strategy/tradeStrategy/CardHolder.vue?vue&type=script&lang=js& ***!
+  \****************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_node_modules_vue_loader_lib_index_js_vue_loader_options_CardHolder_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../node_modules/babel-loader/lib!../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./CardHolder.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js!./node_modules/vue-loader/lib/index.js?!./src/main/webapp/resources/js/components/strategy/CardHolder.vue?vue&type=script&lang=js&");
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_node_modules_vue_loader_lib_index_js_vue_loader_options_CardHolder_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../../node_modules/babel-loader/lib!../../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./CardHolder.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js!./node_modules/vue-loader/lib/index.js?!./src/main/webapp/resources/js/components/strategy/tradeStrategy/CardHolder.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_node_modules_vue_loader_lib_index_js_vue_loader_options_CardHolder_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
-/***/ "./src/main/webapp/resources/js/components/strategy/CardHolder.vue?vue&type=style&index=0&id=7cd61274&scoped=true&lang=css&":
-/*!**********************************************************************************************************************************!*\
-  !*** ./src/main/webapp/resources/js/components/strategy/CardHolder.vue?vue&type=style&index=0&id=7cd61274&scoped=true&lang=css& ***!
-  \**********************************************************************************************************************************/
+/***/ "./src/main/webapp/resources/js/components/strategy/tradeStrategy/CardHolder.vue?vue&type=style&index=0&id=31efb75e&scoped=true&lang=css&":
+/*!************************************************************************************************************************************************!*\
+  !*** ./src/main/webapp/resources/js/components/strategy/tradeStrategy/CardHolder.vue?vue&type=style&index=0&id=31efb75e&scoped=true&lang=css& ***!
+  \************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_vue_loader_lib_index_js_vue_loader_options_CardHolder_vue_vue_type_style_index_0_id_7cd61274_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../node_modules/vue-style-loader!../../../../../../../node_modules/css-loader!../../../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./CardHolder.vue?vue&type=style&index=0&id=7cd61274&scoped=true&lang=css& */ "./node_modules/vue-style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/vue-loader/lib/index.js?!./src/main/webapp/resources/js/components/strategy/CardHolder.vue?vue&type=style&index=0&id=7cd61274&scoped=true&lang=css&");
-/* harmony import */ var _node_modules_vue_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_vue_loader_lib_index_js_vue_loader_options_CardHolder_vue_vue_type_style_index_0_id_7cd61274_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_vue_loader_lib_index_js_vue_loader_options_CardHolder_vue_vue_type_style_index_0_id_7cd61274_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__);
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_vue_loader_lib_index_js_vue_loader_options_CardHolder_vue_vue_type_style_index_0_id_7cd61274_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_vue_loader_lib_index_js_vue_loader_options_CardHolder_vue_vue_type_style_index_0_id_7cd61274_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
- /* harmony default export */ __webpack_exports__["default"] = (_node_modules_vue_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_vue_loader_lib_index_js_vue_loader_options_CardHolder_vue_vue_type_style_index_0_id_7cd61274_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default.a); 
+/* harmony import */ var _node_modules_vue_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_vue_loader_lib_index_js_vue_loader_options_CardHolder_vue_vue_type_style_index_0_id_31efb75e_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../../node_modules/vue-style-loader!../../../../../../../../node_modules/css-loader!../../../../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./CardHolder.vue?vue&type=style&index=0&id=31efb75e&scoped=true&lang=css& */ "./node_modules/vue-style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/vue-loader/lib/index.js?!./src/main/webapp/resources/js/components/strategy/tradeStrategy/CardHolder.vue?vue&type=style&index=0&id=31efb75e&scoped=true&lang=css&");
+/* harmony import */ var _node_modules_vue_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_vue_loader_lib_index_js_vue_loader_options_CardHolder_vue_vue_type_style_index_0_id_31efb75e_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_vue_loader_lib_index_js_vue_loader_options_CardHolder_vue_vue_type_style_index_0_id_31efb75e_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_vue_loader_lib_index_js_vue_loader_options_CardHolder_vue_vue_type_style_index_0_id_31efb75e_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_vue_loader_lib_index_js_vue_loader_options_CardHolder_vue_vue_type_style_index_0_id_31efb75e_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_vue_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_vue_loader_lib_index_js_vue_loader_options_CardHolder_vue_vue_type_style_index_0_id_31efb75e_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default.a); 
 
 /***/ }),
 
-/***/ "./src/main/webapp/resources/js/components/strategy/CardHolder.vue?vue&type=template&id=7cd61274&scoped=true&":
-/*!********************************************************************************************************************!*\
-  !*** ./src/main/webapp/resources/js/components/strategy/CardHolder.vue?vue&type=template&id=7cd61274&scoped=true& ***!
-  \********************************************************************************************************************/
+/***/ "./src/main/webapp/resources/js/components/strategy/tradeStrategy/CardHolder.vue?vue&type=template&id=31efb75e&scoped=true&":
+/*!**********************************************************************************************************************************!*\
+  !*** ./src/main/webapp/resources/js/components/strategy/tradeStrategy/CardHolder.vue?vue&type=template&id=31efb75e&scoped=true& ***!
+  \**********************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_CardHolder_vue_vue_type_template_id_7cd61274_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./CardHolder.vue?vue&type=template&id=7cd61274&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./src/main/webapp/resources/js/components/strategy/CardHolder.vue?vue&type=template&id=7cd61274&scoped=true&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_CardHolder_vue_vue_type_template_id_7cd61274_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_CardHolder_vue_vue_type_template_id_31efb75e_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./CardHolder.vue?vue&type=template&id=31efb75e&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./src/main/webapp/resources/js/components/strategy/tradeStrategy/CardHolder.vue?vue&type=template&id=31efb75e&scoped=true&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_CardHolder_vue_vue_type_template_id_31efb75e_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_CardHolder_vue_vue_type_template_id_7cd61274_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_CardHolder_vue_vue_type_template_id_31efb75e_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 
 /***/ }),
 
-/***/ "./src/main/webapp/resources/js/components/strategy/StrategyBoard.vue":
-/*!****************************************************************************!*\
-  !*** ./src/main/webapp/resources/js/components/strategy/StrategyBoard.vue ***!
-  \****************************************************************************/
+/***/ "./src/main/webapp/resources/js/components/strategy/tradeStrategy/StrategyBoard.vue":
+/*!******************************************************************************************!*\
+  !*** ./src/main/webapp/resources/js/components/strategy/tradeStrategy/StrategyBoard.vue ***!
+  \******************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _StrategyBoard_vue_vue_type_template_id_5119a9b9_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./StrategyBoard.vue?vue&type=template&id=5119a9b9&scoped=true& */ "./src/main/webapp/resources/js/components/strategy/StrategyBoard.vue?vue&type=template&id=5119a9b9&scoped=true&");
-/* harmony import */ var _StrategyBoard_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./StrategyBoard.vue?vue&type=script&lang=js& */ "./src/main/webapp/resources/js/components/strategy/StrategyBoard.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _StrategyBoard_vue_vue_type_style_index_0_id_5119a9b9_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./StrategyBoard.vue?vue&type=style&index=0&id=5119a9b9&scoped=true&lang=css& */ "./src/main/webapp/resources/js/components/strategy/StrategyBoard.vue?vue&type=style&index=0&id=5119a9b9&scoped=true&lang=css&");
-/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* harmony import */ var _StrategyBoard_vue_vue_type_template_id_220c0221_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./StrategyBoard.vue?vue&type=template&id=220c0221&scoped=true& */ "./src/main/webapp/resources/js/components/strategy/tradeStrategy/StrategyBoard.vue?vue&type=template&id=220c0221&scoped=true&");
+/* harmony import */ var _StrategyBoard_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./StrategyBoard.vue?vue&type=script&lang=js& */ "./src/main/webapp/resources/js/components/strategy/tradeStrategy/StrategyBoard.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _StrategyBoard_vue_vue_type_style_index_0_id_220c0221_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./StrategyBoard.vue?vue&type=style&index=0&id=220c0221&scoped=true&lang=css& */ "./src/main/webapp/resources/js/components/strategy/tradeStrategy/StrategyBoard.vue?vue&type=style&index=0&id=220c0221&scoped=true&lang=css&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
 
@@ -6629,82 +8184,82 @@ __webpack_require__.r(__webpack_exports__);
 
 var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
   _StrategyBoard_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _StrategyBoard_vue_vue_type_template_id_5119a9b9_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _StrategyBoard_vue_vue_type_template_id_5119a9b9_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  _StrategyBoard_vue_vue_type_template_id_220c0221_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _StrategyBoard_vue_vue_type_template_id_220c0221_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
   null,
-  "5119a9b9",
+  "220c0221",
   null
   
 )
 
 /* hot reload */
 if (false) { var api; }
-component.options.__file = "src/main/webapp/resources/js/components/strategy/StrategyBoard.vue"
+component.options.__file = "src/main/webapp/resources/js/components/strategy/tradeStrategy/StrategyBoard.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
-/***/ "./src/main/webapp/resources/js/components/strategy/StrategyBoard.vue?vue&type=script&lang=js&":
-/*!*****************************************************************************************************!*\
-  !*** ./src/main/webapp/resources/js/components/strategy/StrategyBoard.vue?vue&type=script&lang=js& ***!
-  \*****************************************************************************************************/
+/***/ "./src/main/webapp/resources/js/components/strategy/tradeStrategy/StrategyBoard.vue?vue&type=script&lang=js&":
+/*!*******************************************************************************************************************!*\
+  !*** ./src/main/webapp/resources/js/components/strategy/tradeStrategy/StrategyBoard.vue?vue&type=script&lang=js& ***!
+  \*******************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_node_modules_vue_loader_lib_index_js_vue_loader_options_StrategyBoard_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../node_modules/babel-loader/lib!../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./StrategyBoard.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js!./node_modules/vue-loader/lib/index.js?!./src/main/webapp/resources/js/components/strategy/StrategyBoard.vue?vue&type=script&lang=js&");
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_node_modules_vue_loader_lib_index_js_vue_loader_options_StrategyBoard_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../../node_modules/babel-loader/lib!../../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./StrategyBoard.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js!./node_modules/vue-loader/lib/index.js?!./src/main/webapp/resources/js/components/strategy/tradeStrategy/StrategyBoard.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_node_modules_vue_loader_lib_index_js_vue_loader_options_StrategyBoard_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
-/***/ "./src/main/webapp/resources/js/components/strategy/StrategyBoard.vue?vue&type=style&index=0&id=5119a9b9&scoped=true&lang=css&":
-/*!*************************************************************************************************************************************!*\
-  !*** ./src/main/webapp/resources/js/components/strategy/StrategyBoard.vue?vue&type=style&index=0&id=5119a9b9&scoped=true&lang=css& ***!
-  \*************************************************************************************************************************************/
+/***/ "./src/main/webapp/resources/js/components/strategy/tradeStrategy/StrategyBoard.vue?vue&type=style&index=0&id=220c0221&scoped=true&lang=css&":
+/*!***************************************************************************************************************************************************!*\
+  !*** ./src/main/webapp/resources/js/components/strategy/tradeStrategy/StrategyBoard.vue?vue&type=style&index=0&id=220c0221&scoped=true&lang=css& ***!
+  \***************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_vue_loader_lib_index_js_vue_loader_options_StrategyBoard_vue_vue_type_style_index_0_id_5119a9b9_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../node_modules/vue-style-loader!../../../../../../../node_modules/css-loader!../../../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./StrategyBoard.vue?vue&type=style&index=0&id=5119a9b9&scoped=true&lang=css& */ "./node_modules/vue-style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/vue-loader/lib/index.js?!./src/main/webapp/resources/js/components/strategy/StrategyBoard.vue?vue&type=style&index=0&id=5119a9b9&scoped=true&lang=css&");
-/* harmony import */ var _node_modules_vue_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_vue_loader_lib_index_js_vue_loader_options_StrategyBoard_vue_vue_type_style_index_0_id_5119a9b9_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_vue_loader_lib_index_js_vue_loader_options_StrategyBoard_vue_vue_type_style_index_0_id_5119a9b9_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__);
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_vue_loader_lib_index_js_vue_loader_options_StrategyBoard_vue_vue_type_style_index_0_id_5119a9b9_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_vue_loader_lib_index_js_vue_loader_options_StrategyBoard_vue_vue_type_style_index_0_id_5119a9b9_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
- /* harmony default export */ __webpack_exports__["default"] = (_node_modules_vue_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_vue_loader_lib_index_js_vue_loader_options_StrategyBoard_vue_vue_type_style_index_0_id_5119a9b9_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default.a); 
+/* harmony import */ var _node_modules_vue_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_vue_loader_lib_index_js_vue_loader_options_StrategyBoard_vue_vue_type_style_index_0_id_220c0221_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../../node_modules/vue-style-loader!../../../../../../../../node_modules/css-loader!../../../../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./StrategyBoard.vue?vue&type=style&index=0&id=220c0221&scoped=true&lang=css& */ "./node_modules/vue-style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/vue-loader/lib/index.js?!./src/main/webapp/resources/js/components/strategy/tradeStrategy/StrategyBoard.vue?vue&type=style&index=0&id=220c0221&scoped=true&lang=css&");
+/* harmony import */ var _node_modules_vue_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_vue_loader_lib_index_js_vue_loader_options_StrategyBoard_vue_vue_type_style_index_0_id_220c0221_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_vue_loader_lib_index_js_vue_loader_options_StrategyBoard_vue_vue_type_style_index_0_id_220c0221_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_vue_loader_lib_index_js_vue_loader_options_StrategyBoard_vue_vue_type_style_index_0_id_220c0221_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_vue_loader_lib_index_js_vue_loader_options_StrategyBoard_vue_vue_type_style_index_0_id_220c0221_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_vue_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_vue_loader_lib_index_js_vue_loader_options_StrategyBoard_vue_vue_type_style_index_0_id_220c0221_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default.a); 
 
 /***/ }),
 
-/***/ "./src/main/webapp/resources/js/components/strategy/StrategyBoard.vue?vue&type=template&id=5119a9b9&scoped=true&":
-/*!***********************************************************************************************************************!*\
-  !*** ./src/main/webapp/resources/js/components/strategy/StrategyBoard.vue?vue&type=template&id=5119a9b9&scoped=true& ***!
-  \***********************************************************************************************************************/
+/***/ "./src/main/webapp/resources/js/components/strategy/tradeStrategy/StrategyBoard.vue?vue&type=template&id=220c0221&scoped=true&":
+/*!*************************************************************************************************************************************!*\
+  !*** ./src/main/webapp/resources/js/components/strategy/tradeStrategy/StrategyBoard.vue?vue&type=template&id=220c0221&scoped=true& ***!
+  \*************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_StrategyBoard_vue_vue_type_template_id_5119a9b9_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./StrategyBoard.vue?vue&type=template&id=5119a9b9&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./src/main/webapp/resources/js/components/strategy/StrategyBoard.vue?vue&type=template&id=5119a9b9&scoped=true&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_StrategyBoard_vue_vue_type_template_id_5119a9b9_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_StrategyBoard_vue_vue_type_template_id_220c0221_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./StrategyBoard.vue?vue&type=template&id=220c0221&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./src/main/webapp/resources/js/components/strategy/tradeStrategy/StrategyBoard.vue?vue&type=template&id=220c0221&scoped=true&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_StrategyBoard_vue_vue_type_template_id_220c0221_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_StrategyBoard_vue_vue_type_template_id_5119a9b9_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_StrategyBoard_vue_vue_type_template_id_220c0221_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 
 /***/ }),
 
-/***/ "./src/main/webapp/resources/js/components/strategy/StrategyDeleteDialog.vue":
-/*!***********************************************************************************!*\
-  !*** ./src/main/webapp/resources/js/components/strategy/StrategyDeleteDialog.vue ***!
-  \***********************************************************************************/
+/***/ "./src/main/webapp/resources/js/components/strategy/tradeStrategy/StrategyDeleteDialog.vue":
+/*!*************************************************************************************************!*\
+  !*** ./src/main/webapp/resources/js/components/strategy/tradeStrategy/StrategyDeleteDialog.vue ***!
+  \*************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _StrategyDeleteDialog_vue_vue_type_template_id_75ed3f60___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./StrategyDeleteDialog.vue?vue&type=template&id=75ed3f60& */ "./src/main/webapp/resources/js/components/strategy/StrategyDeleteDialog.vue?vue&type=template&id=75ed3f60&");
-/* harmony import */ var _StrategyDeleteDialog_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./StrategyDeleteDialog.vue?vue&type=script&lang=js& */ "./src/main/webapp/resources/js/components/strategy/StrategyDeleteDialog.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* harmony import */ var _StrategyDeleteDialog_vue_vue_type_template_id_0a837a30___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./StrategyDeleteDialog.vue?vue&type=template&id=0a837a30& */ "./src/main/webapp/resources/js/components/strategy/tradeStrategy/StrategyDeleteDialog.vue?vue&type=template&id=0a837a30&");
+/* harmony import */ var _StrategyDeleteDialog_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./StrategyDeleteDialog.vue?vue&type=script&lang=js& */ "./src/main/webapp/resources/js/components/strategy/tradeStrategy/StrategyDeleteDialog.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
 
@@ -6714,8 +8269,8 @@ __webpack_require__.r(__webpack_exports__);
 
 var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
   _StrategyDeleteDialog_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _StrategyDeleteDialog_vue_vue_type_template_id_75ed3f60___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _StrategyDeleteDialog_vue_vue_type_template_id_75ed3f60___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  _StrategyDeleteDialog_vue_vue_type_template_id_0a837a30___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _StrategyDeleteDialog_vue_vue_type_template_id_0a837a30___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
   null,
   null,
@@ -6725,56 +8280,56 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 /* hot reload */
 if (false) { var api; }
-component.options.__file = "src/main/webapp/resources/js/components/strategy/StrategyDeleteDialog.vue"
+component.options.__file = "src/main/webapp/resources/js/components/strategy/tradeStrategy/StrategyDeleteDialog.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
-/***/ "./src/main/webapp/resources/js/components/strategy/StrategyDeleteDialog.vue?vue&type=script&lang=js&":
-/*!************************************************************************************************************!*\
-  !*** ./src/main/webapp/resources/js/components/strategy/StrategyDeleteDialog.vue?vue&type=script&lang=js& ***!
-  \************************************************************************************************************/
+/***/ "./src/main/webapp/resources/js/components/strategy/tradeStrategy/StrategyDeleteDialog.vue?vue&type=script&lang=js&":
+/*!**************************************************************************************************************************!*\
+  !*** ./src/main/webapp/resources/js/components/strategy/tradeStrategy/StrategyDeleteDialog.vue?vue&type=script&lang=js& ***!
+  \**************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_node_modules_vue_loader_lib_index_js_vue_loader_options_StrategyDeleteDialog_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../node_modules/babel-loader/lib!../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./StrategyDeleteDialog.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js!./node_modules/vue-loader/lib/index.js?!./src/main/webapp/resources/js/components/strategy/StrategyDeleteDialog.vue?vue&type=script&lang=js&");
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_node_modules_vue_loader_lib_index_js_vue_loader_options_StrategyDeleteDialog_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../../node_modules/babel-loader/lib!../../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./StrategyDeleteDialog.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js!./node_modules/vue-loader/lib/index.js?!./src/main/webapp/resources/js/components/strategy/tradeStrategy/StrategyDeleteDialog.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_node_modules_vue_loader_lib_index_js_vue_loader_options_StrategyDeleteDialog_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
-/***/ "./src/main/webapp/resources/js/components/strategy/StrategyDeleteDialog.vue?vue&type=template&id=75ed3f60&":
-/*!******************************************************************************************************************!*\
-  !*** ./src/main/webapp/resources/js/components/strategy/StrategyDeleteDialog.vue?vue&type=template&id=75ed3f60& ***!
-  \******************************************************************************************************************/
+/***/ "./src/main/webapp/resources/js/components/strategy/tradeStrategy/StrategyDeleteDialog.vue?vue&type=template&id=0a837a30&":
+/*!********************************************************************************************************************************!*\
+  !*** ./src/main/webapp/resources/js/components/strategy/tradeStrategy/StrategyDeleteDialog.vue?vue&type=template&id=0a837a30& ***!
+  \********************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_StrategyDeleteDialog_vue_vue_type_template_id_75ed3f60___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./StrategyDeleteDialog.vue?vue&type=template&id=75ed3f60& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./src/main/webapp/resources/js/components/strategy/StrategyDeleteDialog.vue?vue&type=template&id=75ed3f60&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_StrategyDeleteDialog_vue_vue_type_template_id_75ed3f60___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_StrategyDeleteDialog_vue_vue_type_template_id_0a837a30___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./StrategyDeleteDialog.vue?vue&type=template&id=0a837a30& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./src/main/webapp/resources/js/components/strategy/tradeStrategy/StrategyDeleteDialog.vue?vue&type=template&id=0a837a30&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_StrategyDeleteDialog_vue_vue_type_template_id_0a837a30___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_StrategyDeleteDialog_vue_vue_type_template_id_75ed3f60___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_StrategyDeleteDialog_vue_vue_type_template_id_0a837a30___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 
 /***/ }),
 
-/***/ "./src/main/webapp/resources/js/components/strategy/StrategyEditDialog.vue":
-/*!*********************************************************************************!*\
-  !*** ./src/main/webapp/resources/js/components/strategy/StrategyEditDialog.vue ***!
-  \*********************************************************************************/
+/***/ "./src/main/webapp/resources/js/components/strategy/tradeStrategy/StrategyEditDialog.vue":
+/*!***********************************************************************************************!*\
+  !*** ./src/main/webapp/resources/js/components/strategy/tradeStrategy/StrategyEditDialog.vue ***!
+  \***********************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _StrategyEditDialog_vue_vue_type_template_id_3a60732f_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./StrategyEditDialog.vue?vue&type=template&id=3a60732f&scoped=true& */ "./src/main/webapp/resources/js/components/strategy/StrategyEditDialog.vue?vue&type=template&id=3a60732f&scoped=true&");
-/* harmony import */ var _StrategyEditDialog_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./StrategyEditDialog.vue?vue&type=script&lang=js& */ "./src/main/webapp/resources/js/components/strategy/StrategyEditDialog.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _StrategyEditDialog_vue_vue_type_style_index_0_id_3a60732f_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./StrategyEditDialog.vue?vue&type=style&index=0&id=3a60732f&scoped=true&lang=css& */ "./src/main/webapp/resources/js/components/strategy/StrategyEditDialog.vue?vue&type=style&index=0&id=3a60732f&scoped=true&lang=css&");
-/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* harmony import */ var _StrategyEditDialog_vue_vue_type_template_id_0c9d1bc7_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./StrategyEditDialog.vue?vue&type=template&id=0c9d1bc7&scoped=true& */ "./src/main/webapp/resources/js/components/strategy/tradeStrategy/StrategyEditDialog.vue?vue&type=template&id=0c9d1bc7&scoped=true&");
+/* harmony import */ var _StrategyEditDialog_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./StrategyEditDialog.vue?vue&type=script&lang=js& */ "./src/main/webapp/resources/js/components/strategy/tradeStrategy/StrategyEditDialog.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _StrategyEditDialog_vue_vue_type_style_index_0_id_0c9d1bc7_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./StrategyEditDialog.vue?vue&type=style&index=0&id=0c9d1bc7&scoped=true&lang=css& */ "./src/main/webapp/resources/js/components/strategy/tradeStrategy/StrategyEditDialog.vue?vue&type=style&index=0&id=0c9d1bc7&scoped=true&lang=css&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
 
@@ -6785,65 +8340,65 @@ __webpack_require__.r(__webpack_exports__);
 
 var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
   _StrategyEditDialog_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _StrategyEditDialog_vue_vue_type_template_id_3a60732f_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _StrategyEditDialog_vue_vue_type_template_id_3a60732f_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  _StrategyEditDialog_vue_vue_type_template_id_0c9d1bc7_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _StrategyEditDialog_vue_vue_type_template_id_0c9d1bc7_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
   null,
-  "3a60732f",
+  "0c9d1bc7",
   null
   
 )
 
 /* hot reload */
 if (false) { var api; }
-component.options.__file = "src/main/webapp/resources/js/components/strategy/StrategyEditDialog.vue"
+component.options.__file = "src/main/webapp/resources/js/components/strategy/tradeStrategy/StrategyEditDialog.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
-/***/ "./src/main/webapp/resources/js/components/strategy/StrategyEditDialog.vue?vue&type=script&lang=js&":
-/*!**********************************************************************************************************!*\
-  !*** ./src/main/webapp/resources/js/components/strategy/StrategyEditDialog.vue?vue&type=script&lang=js& ***!
-  \**********************************************************************************************************/
+/***/ "./src/main/webapp/resources/js/components/strategy/tradeStrategy/StrategyEditDialog.vue?vue&type=script&lang=js&":
+/*!************************************************************************************************************************!*\
+  !*** ./src/main/webapp/resources/js/components/strategy/tradeStrategy/StrategyEditDialog.vue?vue&type=script&lang=js& ***!
+  \************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_node_modules_vue_loader_lib_index_js_vue_loader_options_StrategyEditDialog_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../node_modules/babel-loader/lib!../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./StrategyEditDialog.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js!./node_modules/vue-loader/lib/index.js?!./src/main/webapp/resources/js/components/strategy/StrategyEditDialog.vue?vue&type=script&lang=js&");
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_node_modules_vue_loader_lib_index_js_vue_loader_options_StrategyEditDialog_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../../node_modules/babel-loader/lib!../../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./StrategyEditDialog.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js!./node_modules/vue-loader/lib/index.js?!./src/main/webapp/resources/js/components/strategy/tradeStrategy/StrategyEditDialog.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_node_modules_vue_loader_lib_index_js_vue_loader_options_StrategyEditDialog_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
-/***/ "./src/main/webapp/resources/js/components/strategy/StrategyEditDialog.vue?vue&type=style&index=0&id=3a60732f&scoped=true&lang=css&":
-/*!******************************************************************************************************************************************!*\
-  !*** ./src/main/webapp/resources/js/components/strategy/StrategyEditDialog.vue?vue&type=style&index=0&id=3a60732f&scoped=true&lang=css& ***!
-  \******************************************************************************************************************************************/
+/***/ "./src/main/webapp/resources/js/components/strategy/tradeStrategy/StrategyEditDialog.vue?vue&type=style&index=0&id=0c9d1bc7&scoped=true&lang=css&":
+/*!********************************************************************************************************************************************************!*\
+  !*** ./src/main/webapp/resources/js/components/strategy/tradeStrategy/StrategyEditDialog.vue?vue&type=style&index=0&id=0c9d1bc7&scoped=true&lang=css& ***!
+  \********************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_vue_loader_lib_index_js_vue_loader_options_StrategyEditDialog_vue_vue_type_style_index_0_id_3a60732f_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../node_modules/vue-style-loader!../../../../../../../node_modules/css-loader!../../../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./StrategyEditDialog.vue?vue&type=style&index=0&id=3a60732f&scoped=true&lang=css& */ "./node_modules/vue-style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/vue-loader/lib/index.js?!./src/main/webapp/resources/js/components/strategy/StrategyEditDialog.vue?vue&type=style&index=0&id=3a60732f&scoped=true&lang=css&");
-/* harmony import */ var _node_modules_vue_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_vue_loader_lib_index_js_vue_loader_options_StrategyEditDialog_vue_vue_type_style_index_0_id_3a60732f_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_vue_loader_lib_index_js_vue_loader_options_StrategyEditDialog_vue_vue_type_style_index_0_id_3a60732f_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__);
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_vue_loader_lib_index_js_vue_loader_options_StrategyEditDialog_vue_vue_type_style_index_0_id_3a60732f_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_vue_loader_lib_index_js_vue_loader_options_StrategyEditDialog_vue_vue_type_style_index_0_id_3a60732f_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
- /* harmony default export */ __webpack_exports__["default"] = (_node_modules_vue_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_vue_loader_lib_index_js_vue_loader_options_StrategyEditDialog_vue_vue_type_style_index_0_id_3a60732f_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default.a); 
+/* harmony import */ var _node_modules_vue_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_vue_loader_lib_index_js_vue_loader_options_StrategyEditDialog_vue_vue_type_style_index_0_id_0c9d1bc7_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../../node_modules/vue-style-loader!../../../../../../../../node_modules/css-loader!../../../../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./StrategyEditDialog.vue?vue&type=style&index=0&id=0c9d1bc7&scoped=true&lang=css& */ "./node_modules/vue-style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/vue-loader/lib/index.js?!./src/main/webapp/resources/js/components/strategy/tradeStrategy/StrategyEditDialog.vue?vue&type=style&index=0&id=0c9d1bc7&scoped=true&lang=css&");
+/* harmony import */ var _node_modules_vue_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_vue_loader_lib_index_js_vue_loader_options_StrategyEditDialog_vue_vue_type_style_index_0_id_0c9d1bc7_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_vue_loader_lib_index_js_vue_loader_options_StrategyEditDialog_vue_vue_type_style_index_0_id_0c9d1bc7_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_vue_loader_lib_index_js_vue_loader_options_StrategyEditDialog_vue_vue_type_style_index_0_id_0c9d1bc7_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_vue_loader_lib_index_js_vue_loader_options_StrategyEditDialog_vue_vue_type_style_index_0_id_0c9d1bc7_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_vue_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_vue_loader_lib_index_js_vue_loader_options_StrategyEditDialog_vue_vue_type_style_index_0_id_0c9d1bc7_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default.a); 
 
 /***/ }),
 
-/***/ "./src/main/webapp/resources/js/components/strategy/StrategyEditDialog.vue?vue&type=template&id=3a60732f&scoped=true&":
-/*!****************************************************************************************************************************!*\
-  !*** ./src/main/webapp/resources/js/components/strategy/StrategyEditDialog.vue?vue&type=template&id=3a60732f&scoped=true& ***!
-  \****************************************************************************************************************************/
+/***/ "./src/main/webapp/resources/js/components/strategy/tradeStrategy/StrategyEditDialog.vue?vue&type=template&id=0c9d1bc7&scoped=true&":
+/*!******************************************************************************************************************************************!*\
+  !*** ./src/main/webapp/resources/js/components/strategy/tradeStrategy/StrategyEditDialog.vue?vue&type=template&id=0c9d1bc7&scoped=true& ***!
+  \******************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_StrategyEditDialog_vue_vue_type_template_id_3a60732f_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./StrategyEditDialog.vue?vue&type=template&id=3a60732f&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./src/main/webapp/resources/js/components/strategy/StrategyEditDialog.vue?vue&type=template&id=3a60732f&scoped=true&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_StrategyEditDialog_vue_vue_type_template_id_3a60732f_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_StrategyEditDialog_vue_vue_type_template_id_0c9d1bc7_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./StrategyEditDialog.vue?vue&type=template&id=0c9d1bc7&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./src/main/webapp/resources/js/components/strategy/tradeStrategy/StrategyEditDialog.vue?vue&type=template&id=0c9d1bc7&scoped=true&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_StrategyEditDialog_vue_vue_type_template_id_0c9d1bc7_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_StrategyEditDialog_vue_vue_type_template_id_3a60732f_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_StrategyEditDialog_vue_vue_type_template_id_0c9d1bc7_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 
@@ -6891,6 +8446,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   state: {
     strategies: [],
+    brands: [],
+    analysisBrandGroupForm: {
+      gid: null,
+      label: '',
+      brands: []
+    },
     strategyForm: {
       sid: null,
       label: '',
@@ -6909,6 +8470,13 @@ __webpack_require__.r(__webpack_exports__);
   },
   mutations: {
     updateField: vuex_map_fields__WEBPACK_IMPORTED_MODULE_0__["updateField"],
+    initAnalysisBrandForm: function initAnalysisBrandForm(state) {
+      state.analysisBrandGroupForm = Object.assign(state.analysisBrandGroupForm, {
+        gid: null,
+        label: '',
+        brands: []
+      });
+    },
     initStrategyForm: function initStrategyForm(state) {
       state.strategyForm = Object.assign(state.strategyForm, {
         sid: null,

@@ -1,8 +1,10 @@
 package jp.co.stex.domain.service.strategy;
 
 import jp.co.stex.domain.mapper.strategy.AnalysisBrandGroupMapper;
+import jp.co.stex.domain.mapper.strategy.BrandMapper;
 import jp.co.stex.domain.mapper.strategy.TradeStrategyMapper;
 import jp.co.stex.domain.model.strategy.AnalysisBrandGroupEntity;
+import jp.co.stex.domain.model.strategy.BrandEntity;
 import jp.co.stex.domain.model.strategy.TradeStrategyEntity;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -21,6 +23,8 @@ public class StrategyServiceImpl implements StrategyService {
     private final TradeStrategyMapper tradeStrategyMapper;
 
     private final AnalysisBrandGroupMapper analysisBrandGroupMapper;
+
+    private final BrandMapper brandMapper;
 
     /**
      * {@inheritDoc}
@@ -84,5 +88,13 @@ public class StrategyServiceImpl implements StrategyService {
     @Override
     public void deleteOneAnalysisBrandGroup(int uid, int sid) {
         analysisBrandGroupMapper.deleteOne(uid, sid);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public List<BrandEntity> findAllBrands() {
+        return brandMapper.findAll();
     }
 }

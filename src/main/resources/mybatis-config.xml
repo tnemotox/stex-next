@@ -12,10 +12,11 @@
   <typeAliases>
     <package name="jp.co.stex.domain.model.base"/>
     <package name="jp.co.stex.domain.model.strategy"/>
+    <package name="jp.co.stex.domain.mapper.typehandler"/>
   </typeAliases>
 
   <typeHandlers>
-    <package name="jp.co.stex.domain.mapper.typehandler"/>
+    <package name="jp.co.stex.domain.mapper.typehandler" />
   </typeHandlers>
 
   <mappers>

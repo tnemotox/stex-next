@@ -1,9 +1,12 @@
 package jp.co.stex.domain.service.strategy;
 
 import jp.co.stex.domain.mapper.strategy.AnalysisBrandGroupMapper;
+import jp.co.stex.domain.mapper.strategy.BrandMapper;
 import jp.co.stex.domain.mapper.strategy.TradeStrategyMapper;
 import jp.co.stex.domain.model.strategy.AnalysisBrandGroupEntity;
+import jp.co.stex.domain.model.strategy.BrandEntity;
 import jp.co.stex.domain.model.strategy.TradeStrategyEntity;
+import jp.co.stex.domain.model.strategy.code.MarketType;
 import org.junit.jupiter.api.*;
 import org.mockito.*;
 
@@ -29,6 +32,9 @@ class StrategyServiceTest {
     @Mock
     private AnalysisBrandGroupMapper analysisBrandGroupMapper;
 
+    @Mock
+    private BrandMapper brandMapper;
+
     @InjectMocks
     private StrategyServiceImpl target;
 
@@ -43,7 +49,8 @@ class StrategyServiceTest {
         MockitoAnnotations.initMocks(this);
         target = new StrategyServiceImpl(
             tradeStrategyMapper,
-            analysisBrandGroupMapper
+            analysisBrandGroupMapper,
+            brandMapper
         );
     }
 
@@ -203,13 +210,13 @@ class StrategyServiceTest {
                 .uid(uid)
                 .gid(gid)
                 .label("分析銘柄グループ1")
-                .brandsOfJson("json1")
+                .brands(Arrays.asList(1111, 2222))
                 .build(),
             AnalysisBrandGroupEntity.builder()
                 .uid(uid)
                 .gid(2)
+                .brands(Arrays.asList(3333, 4444))
                 .label("分析銘柄グループ2")
-                .brandsOfJson("json2")
                 .build()
         );
 
@@ -251,7 +258,7 @@ class StrategyServiceTest {
             .uid(uid)
             .gid(gid)
             .label("分析銘柄グループ1")
-            .brandsOfJson("json1")
+            .brands(Arrays.asList(1111, 2222))
             .build();
 
         @BeforeEach
@@ -263,9 +270,10 @@ class StrategyServiceTest {
         @DisplayName("分析銘柄グループを追加する")
         @Test
         void _001() {
-            when(target.createOneAnalysisBrandGroup(captor.capture())).thenReturn(gid);
+            when(target.createOneAnalysisBrandGroup(args)).thenReturn(gid);
             int actual = target.createOneAnalysisBrandGroup(args);
             verify(analysisBrandGroupMapper, times(1)).createOne(any());
+            verify(analysisBrandGroupMapper).createOne(captor.capture());
             assertEquals(args, captor.getValue());
             assertEquals(actual, gid);
         }
@@ -284,7 +292,7 @@ class StrategyServiceTest {
             .uid(uid)
             .gid(gid)
             .label("分析銘柄グループ1")
-            .brandsOfJson("json1")
+            .brands(Arrays.asList(1111, 2222))
             .build();
 
         @BeforeEach
@@ -321,6 +329,43 @@ class StrategyServiceTest {
             doNothing().when(analysisBrandGroupMapper).deleteOne(anyInt(), anyInt());
             target.deleteOneAnalysisBrandGroup(uid, sid);
             verify(analysisBrandGroupMapper, times(1)).deleteOne(anyInt(), anyInt());
+        }
+    }
+
+    /**
+     * {@link StrategyService#findAllBrands}
+     */
+    @Nested
+    class findAllBrands {
+
+        private final List<BrandEntity> expected = Arrays.asList(
+            BrandEntity.builder()
+                .code(1111)
+                .name("銘柄1")
+                .market(MarketType.TSE_FIRST)
+                .detail("説明1")
+                .build(),
+            BrandEntity.builder()
+                .code(3333)
+                .name("銘柄3")
+                .market(MarketType.TSE_SECOND)
+                .detail("説明3")
+                .build()
+        );
+
+        @BeforeEach
+        void setUp() {
+            reset(brandMapper);
+            MockitoAnnotations.initMocks(this);
+        }
+
+        @DisplayName("銘柄を取得する")
+        @Test
+        void _001() {
+            when(brandMapper.findAll()).thenReturn(expected);
+            List<BrandEntity> actual = target.findAllBrands();
+            verify(brandMapper, times(1)).findAll();
+            assertEquals(expected, actual);
         }
     }
 }

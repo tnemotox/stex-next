@@ -52,14 +52,12 @@ class AnalysisBrandGroupControllerTest extends ControllerTestBase {
                 .uid(1)
                 .gid(1)
                 .label("分析対象銘柄1")
-                .orderBy(1)
                 .brands(Arrays.asList(1111, 2222))
                 .build(),
             AnalysisBrandGroupEntity.builder()
                 .uid(1)
                 .gid(2)
                 .label("分析対象銘柄2")
-                .orderBy(2)
                 .brands(Arrays.asList(3333, 4444))
                 .build()
         );
@@ -69,14 +67,12 @@ class AnalysisBrandGroupControllerTest extends ControllerTestBase {
             "  \"uid\" : 1," +
             "  \"gid\" : 1," +
             "  \"label\" : \"分析対象銘柄1\"," +
-            "  \"orderBy\" : 1," +
             "  \"brands\" : [1111, 2222]" +
             "}," +
             "{" +
             "  \"uid\" : 1," +
             "  \"gid\" : 2," +
             "  \"label\" : \"分析対象銘柄2\"," +
-            "  \"orderBy\" : 2," +
             "  \"brands\" : [3333, 4444]" +
             "}" +
             "]";
@@ -106,7 +102,6 @@ class AnalysisBrandGroupControllerTest extends ControllerTestBase {
 
         private final String postData = "{" +
             "  \"label\" : \"分析対象銘柄1\"," +
-            "  \"orderBy\" : 1," +
             "  \"brands\" : [1111, 2222]" +
             "}";
 
@@ -135,7 +130,6 @@ class AnalysisBrandGroupControllerTest extends ControllerTestBase {
                 AnalysisBrandGroupEntity.builder()
                     .uid(1)
                     .label("分析対象銘柄1")
-                    .orderBy(1)
                     .brands(Arrays.asList(1111, 2222))
                     .build(),
                 captor.getValue());
@@ -154,10 +148,9 @@ class AnalysisBrandGroupControllerTest extends ControllerTestBase {
                         .with(SecurityMockMvcRequestPostProcessors.csrf())
                     )
                     .andExpect(status().isBadRequest())
-                    .andExpect(jsonPath("$.*", hasSize(3)))
+                    .andExpect(jsonPath("$.*", hasSize(2)))
                     .andExpect(jsonPath("$.['NotBlank.analysisBrandGroupForm.label'].message").value("分析対象銘柄グループ名が未入力です。"))
                     .andExpect(jsonPath("$.['NotNull.analysisBrandGroupForm.brands'].message").value("分析対象銘柄グループが正しく設定されていません。"))
-                    .andExpect(jsonPath("$.['NotNull.analysisBrandGroupForm.orderBy'].message").value("分析対象銘柄グループが正しく設定されていません。"))
                     .andReturn();
 
             verify(strategyService, never()).createOneAnalysisBrandGroup(any());
@@ -176,7 +169,6 @@ class AnalysisBrandGroupControllerTest extends ControllerTestBase {
 
         private final String postData = "{" +
             "  \"label\" : \"分析対象銘柄1\"," +
-            "  \"orderBy\" : 1," +
             "  \"brands\" : [1111, 2222]" +
             "}";
 
@@ -206,7 +198,6 @@ class AnalysisBrandGroupControllerTest extends ControllerTestBase {
                     .uid(1)
                     .gid(1)
                     .label("分析対象銘柄1")
-                    .orderBy(1)
                     .brands(Arrays.asList(1111, 2222))
                     .build(),
                 captor.getValue());

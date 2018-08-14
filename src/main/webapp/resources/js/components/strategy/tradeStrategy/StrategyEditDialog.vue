@@ -96,7 +96,7 @@
 
 <script>
   import { mapFields } from 'vuex-map-fields'
-  import ElLabel from '../common/ElLabel'
+  import ElLabel from '../../common/ElLabel'
   import StrategyBoard from './StrategyBoard'
   import CardHolder from './CardHolder'
 

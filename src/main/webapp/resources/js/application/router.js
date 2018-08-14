@@ -1,8 +1,8 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 
-import home from '../components/Home';
-import strategy from '../components/Strategy';
+import home from '../components/Home'
+import Strategy from '../components/Strategy'
 
 Vue.use(VueRouter);
 
@@ -13,8 +13,8 @@ const routes = [
   },
   {
     path: '/strategy',
-    component: strategy
-  }
+    component: Strategy
+  },
 ]
 
 new VueRouter({

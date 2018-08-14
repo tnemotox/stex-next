@@ -35,7 +35,7 @@
     ORDER BY sid
   </select>
 
-  <select id="createOne" resultType="java.lang.Integer">
+  <select id="createOne" resultType="int">
     INSERT INTO trade_strategies (
       uid,
       gid,

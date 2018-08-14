@@ -1,9 +1,7 @@
 <template>
     <div>
         <page-header />
-        <page-layout>
-
-        </page-layout>
+        <page-layout />
     </div>
 </template>
 

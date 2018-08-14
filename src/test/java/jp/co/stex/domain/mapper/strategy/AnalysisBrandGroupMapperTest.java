@@ -12,6 +12,7 @@ import org.springframework.dao.DuplicateKeyException;
 
 import java.time.LocalDate;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -35,13 +36,13 @@ class AnalysisBrandGroupMapperTest extends MapperTestBase {
             .uid(uid)
             .gid(gid)
             .label("分析銘柄グループ1")
-            .brandsOfJson("json1")
+            .brands(Arrays.asList(1111, 2222))
             .build(),
         AnalysisBrandGroupEntity.builder()
             .uid(uid)
             .gid(2)
             .label("分析銘柄グループ2")
-            .brandsOfJson("json2")
+            .brands(Arrays.asList(3333, 4444))
             .build()
     );
 
@@ -81,7 +82,7 @@ class AnalysisBrandGroupMapperTest extends MapperTestBase {
             AnalysisBrandGroupEntity created = AnalysisBrandGroupEntity.builder()
                 .uid(uid)
                 .label("分析銘柄グループ3")
-                .brandsOfJson("json3")
+                .brands(Arrays.asList(5555, 6666))
                 .build();
 
             int gid = target.createOne(created);
@@ -105,7 +106,7 @@ class AnalysisBrandGroupMapperTest extends MapperTestBase {
                 .uid(uid)
                 .gid(gid)
                 .label("分析銘柄グループ3")
-                .brandsOfJson("json3")
+                .brands(Arrays.asList(5555, 6666))
                 .build();
 
             target.updateOne(updated);

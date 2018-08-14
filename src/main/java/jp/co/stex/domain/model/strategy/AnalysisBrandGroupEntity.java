@@ -1,11 +1,17 @@
 package jp.co.stex.domain.model.strategy;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import jp.co.stex.base.exception.StexSystemException;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.List;
 
@@ -43,17 +49,7 @@ public class AnalysisBrandGroupEntity implements Serializable {
     private String label;
 
     /**
-     * 順序
-     */
-    private int orderBy;
-
-    /**
      * 分析銘柄
      */
     private List<Integer> brands;
-
-    /**
-     * 分析銘柄（JSON）
-     */
-    private String brandsOfJson;
 }

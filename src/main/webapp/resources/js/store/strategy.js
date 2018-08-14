@@ -4,6 +4,12 @@ import moment from 'moment'
 export default {
   state: {
     strategies: [],
+    brands: [],
+    analysisBrandGroupForm: {
+      gid: null,
+      label: '',
+      brands: []
+    },
     strategyForm: {
       sid: null,
       label: '',
@@ -25,6 +31,13 @@ export default {
   },
   mutations: {
     updateField,
+    initAnalysisBrandForm(state) {
+      state.analysisBrandGroupForm = Object.assign(state.analysisBrandGroupForm, {
+        gid: null,
+        label: '',
+        brands: []
+      })
+    },
     initStrategyForm(state) {
       state.strategyForm = Object.assign(state.strategyForm, {
         sid: null,
