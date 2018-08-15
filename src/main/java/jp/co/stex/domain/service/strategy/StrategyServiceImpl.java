@@ -5,6 +5,7 @@ import jp.co.stex.domain.mapper.strategy.BrandMapper;
 import jp.co.stex.domain.mapper.strategy.TradeStrategyMapper;
 import jp.co.stex.domain.model.strategy.AnalysisBrandGroupEntity;
 import jp.co.stex.domain.model.strategy.BrandEntity;
+import jp.co.stex.domain.model.strategy.TradeStrategyCardEntity;
 import jp.co.stex.domain.model.strategy.TradeStrategyEntity;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -96,5 +97,20 @@ public class StrategyServiceImpl implements StrategyService {
     @Override
     public List<BrandEntity> findAllBrands() {
         return brandMapper.findAll();
+    }
+
+    @Override
+    public int createOneTradeStrategyCard(TradeStrategyCardEntity tradeStrategyCard) {
+        return 0;
+    }
+
+    @Override
+    public void updateOneTradeStrategyCard(TradeStrategyCardEntity tradeStrategyCard) {
+
+    }
+
+    @Override
+    public void deleteOneTradeStrategyCard(int uid, Integer cid) {
+
     }
 }

@@ -7,19 +7,17 @@ import lombok.Getter;
 import org.apache.commons.lang3.ObjectUtils;
 
 /**
- * <p>カード種別を表す列挙型です。</p>
+ * <p>交差種別を表す列挙型です。</p>
  *
  * @author t.nemoto.x
  */
 @Getter
 @AllArgsConstructor
-public enum CardType {
+public enum CrossType {
 
-    COMPARE(1, "比較"),
+    GO_UP(1, "上抜け"),
 
-    CROSS(2, "交差"),
-
-    TIME(3, "時間");
+    GO_DOWN(2, "下抜け");
 
     /**
      * ID
@@ -39,8 +37,8 @@ public enum CardType {
      * @return IDに紐付く列挙型
      */
     @JsonCreator
-    public static CardType findById(int id) {
-        for(CardType value: CardType.values()) {
+    public static CrossType findById(int id) {
+        for(CrossType value: CrossType.values()) {
             if (value.getId() == id) {
                 return value;
             }
@@ -54,8 +52,8 @@ public enum CardType {
      * @param label ラベル
      * @return IDに紐付く列挙型
      */
-    public static CardType findByLabel(String label) {
-        for(CardType value: CardType.values()) {
+    public static CrossType findByLabel(String label) {
+        for(CrossType value: CrossType.values()) {
             if (ObjectUtils.equals(value.getLabel(), label)) {
                 return value;
             }

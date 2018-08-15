@@ -14,6 +14,7 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.util.CollectionUtils;
 import org.springframework.validation.BindException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -65,11 +66,22 @@ public class GlobalRestExceptionHandler {
 
     /**
      * <p>入力チェックエラーを処理する例外ハンドラです。</p>
+     * <p>単項目チェックの場合はFieldError、相関チェックの場合はGlobalErrorを持つ。</p>
+     *
      * @param e バインド例外
      * @return 画面メッセージ
      */
     @ExceptionHandler(value = BindException.class)
     public ResponseEntity<Map<String, ResponseMessage>> handleException(BindException e) {
+        // Validatorクラスによる相関チェックエラーの場合
+        if (CollectionUtils.isEmpty(e.getFieldErrors())) {
+            return ResponseEntity.badRequest().body(
+                e.getGlobalErrors().stream()
+                    .map(error -> messageService.makeResponesMessage(error, ErrorLevel.WARNING))
+                    .collect(toMap(ResponseMessage::getCode, m -> m, (m1, m2) -> m1))
+            );
+        }
+        // Formクラスによる単項目チェックエラーの場合
         return ResponseEntity.badRequest().body(
             e.getFieldErrors().stream()
                 .map(error -> messageService.makeResponesMessage(error, ErrorLevel.WARNING))

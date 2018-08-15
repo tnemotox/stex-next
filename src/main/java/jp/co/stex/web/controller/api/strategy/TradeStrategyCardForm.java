@@ -1,4 +1,4 @@
-package jp.co.stex.domain.model.strategy;
+package jp.co.stex.web.controller.api.strategy;
 
 import jp.co.stex.domain.model.strategy.code.CardType;
 import jp.co.stex.domain.model.strategy.code.ComparisonType;
@@ -8,56 +8,30 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.experimental.Accessors;
 
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 /**
- * <p>取引戦略カードを格納するエンティティです。</p>
+ * <p>取引戦略カードを格納するフォームです。</p>
  *
  * @author t.nemoto.x
- * @since 1.0
  */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@Accessors(chain=true)
-public class TradeStrategyCardEntity implements Serializable {
+class TradeStrategyCardForm implements Serializable {
 
     /**
      * シリアルID
      */
-    private static final long serialVersionUID = 2635887942024944051L;
-
-    /**
-     * 取引戦略カードID
-     */
-    private int cid;
-
-    /**
-     * ユーザID
-     */
-    private int uid;
-
-    /**
-     * 取引戦略パレットID
-     */
-    private int pid;
-
-    /**
-     * ラベル
-     */
-    private String label;
-
-    /**
-     * 利用フラグ
-     */
-    private boolean used;
+    private static final long serialVersionUID = -2211279206291574346L;
 
     /**
      * カード種別
      */
+    @NotNull
     private CardType cardType;
 
     /**
@@ -68,7 +42,12 @@ public class TradeStrategyCardEntity implements Serializable {
     /**
      * 左辺日数
      */
-    private int leftSideDays;
+    private Integer leftSideDays;
+
+    /**
+     * 右辺種別フラグ
+     */
+    private Boolean rightSideFixOrFlex;
 
     /**
      * 右辺指標種別
@@ -78,22 +57,17 @@ public class TradeStrategyCardEntity implements Serializable {
     /**
      * 右辺日数
      */
-    private int rightSideDays;
-
-    /**
-     * 右辺種別フラグ
-     */
-    private boolean rightSideFixOrFlex;
+    private Integer rightSideDays;
 
     /**
      * 右辺固定値
      */
-    private int rightSideFixValue;
+    private Integer rightSideFixValue;
 
     /**
      * 係数
      */
-    private double coefficient;
+    private Double coefficient;
 
     /**
      * 比較種別
@@ -108,5 +82,5 @@ public class TradeStrategyCardEntity implements Serializable {
     /**
      * 経過日数
      */
-    private int elapsedDay;
+    private Integer elapsedDay;
 }

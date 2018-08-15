@@ -1,6 +1,6 @@
 package jp.co.stex.web.controller.api.strategy;
 
-import jp.co.stex.domain.model.strategy.TradeStrategyEntity;
+import jp.co.stex.domain.model.strategy.TradeStrategyCardEntity;
 import jp.co.stex.domain.service.base.UserService;
 import jp.co.stex.domain.service.strategy.StrategyService;
 import lombok.RequiredArgsConstructor;
@@ -11,22 +11,22 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.validation.BindException;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.validation.constraints.NotNull;
-import java.util.List;
 
 /**
- * <p>取引戦略の操作を行うコントローラです。</p>
+ * <p>取引戦略カードの操作を行うコントローラです。</p>
  *
  * @author t.nemoto.x
  */
 @RestController
-@RequestMapping("/api/trade-strategy")
+@RequestMapping("/api/trade-strategy-card")
 @RequiredArgsConstructor
 @Validated
-public class TradeStrategyController {
+public class TradeStrategyCardController {
 
     /**
      * dozerマッパー
@@ -44,60 +44,75 @@ public class TradeStrategyController {
     private final UserService userService;
 
     /**
-     * <p>取引戦略の一覧を取得する。</p>
-     *
-     * @return 取引戦略リスト
+     * 取引戦略カードバリデータ
      */
-    @RequestMapping(path = "", method = RequestMethod.GET)
-    public ResponseEntity<List<TradeStrategyEntity>> fetch() {
-        return ResponseEntity.ok(strategyService.findAllTradeStrategy(findUserId()));
+    private final TradeStrategyCardFormValidator tradeStrategyCardFormValidator;
+
+    /**
+     * <p>バリデーターを追加する。</p>
+     *
+     * @param webDataBinder バインダ
+     */
+    @InitBinder
+    public void initBinder(WebDataBinder webDataBinder) {
+        webDataBinder.addValidators(tradeStrategyCardFormValidator);
     }
 
     /**
-     * <p>取引戦略を作成する。</p>
+     * <p></p>
      *
-     * @param form 取引戦略フォーム
+     * @return 取引戦略カードフォーム
+     */
+    @ModelAttribute
+    public TradeStrategyCardForm setupForm() {
+        return new TradeStrategyCardForm();
+    }
+
+    /**
+     * <p>取引戦略カードを作成する。</p>
+     *
+     * @param form 取引戦略カードフォーム
      * @param bd バインド結果
      * @param uriBuilder URIビルダー
      * @return なし
      * @throws BindException バインド例外
      */
     @RequestMapping(path = "", method = RequestMethod.POST)
-    public ResponseEntity<Void> create(@RequestBody @Validated TradeStrategyForm form, BindingResult bd, UriComponentsBuilder uriBuilder) throws BindException {
+    public ResponseEntity<Void> create(@RequestBody @Validated TradeStrategyCardForm form, BindingResult bd, UriComponentsBuilder uriBuilder) throws BindException {
         if (bd.hasErrors()) {
             throw new BindException(bd);
         }
-        int sid = strategyService.createOneTradeStrategy(dozerMapper.map(form, TradeStrategyEntity.class).setUid(findUserId()));
-        return ResponseEntity.created(uriBuilder.path("/api/strategy/{sid}").buildAndExpand(sid).toUri()).build();
+        int cid = strategyService.createOneTradeStrategyCard(dozerMapper.map(form, TradeStrategyCardEntity.class).setUid(findUserId()));
+        return ResponseEntity.created(uriBuilder.path("/api/trade-strategy-card/{cid}").buildAndExpand(cid).toUri()).build();
     }
 
     /**
-     * <p>取引戦略を更新する。</p>
+     * <p>取引戦略カードを更新する。</p>
      *
-     * @param sid 取引戦略ID
-     * @param form 取引戦略フォーム
+     * @param cid 取引戦略カードID
+     * @param form 取引戦略カードフォーム
      * @param bd バインド結果
      * @return なし
      * @throws BindException バインド例外
      */
-    @RequestMapping(path = {"/", "/{sid}"}, method = RequestMethod.PUT)
-    public ResponseEntity<Void> update(@PathVariable(value = "sid", required = false) @NotNull Integer sid, @RequestBody @Validated TradeStrategyForm form, BindingResult bd) throws BindException {
+    @RequestMapping(path = {"/", "/{cid}"}, method = RequestMethod.PUT)
+    public ResponseEntity<Void> update(@PathVariable(value = "cid", required = false) @NotNull Integer cid, @RequestBody @Validated TradeStrategyCardForm form, BindingResult bd) throws BindException {
         if (bd.hasErrors()) {
             throw new BindException(bd);
         }
-        strategyService.updateOneTradeStrategy(dozerMapper.map(form, TradeStrategyEntity.class).setUid(findUserId()).setSid(sid));
+        strategyService.updateOneTradeStrategyCard(dozerMapper.map(form, TradeStrategyCardEntity.class).setUid(findUserId()).setCid(cid));
         return ResponseEntity.noContent().build();
     }
 
     /**
-     * <p>取引戦略を削除する。</p>
+     * <p>取引戦略カードを削除する。</p>
      *
-     * @param sid 取引戦略ID
+     * @param cid 取引戦略カードID
      * @return なし
      */
-    @RequestMapping(path = {"/", "/{sid}"}, method = RequestMethod.DELETE)
-    public ResponseEntity<Void> delete(@PathVariable(value = "sid", required = false) @NotNull Integer sid) {
-        strategyService.deleteOneTradeStrategy(findUserId(), sid);
+    @RequestMapping(path = {"/", "/{cid}"}, method = RequestMethod.DELETE)
+    public ResponseEntity<Void> delete(@PathVariable(value = "cid", required = false) @NotNull Integer cid) {
+        strategyService.deleteOneTradeStrategyCard(findUserId(), cid);
         return ResponseEntity.noContent().build();
     }
 

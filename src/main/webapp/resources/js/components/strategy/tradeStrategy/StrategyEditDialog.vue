@@ -64,13 +64,13 @@
     <div id="rule-tabs">
       <el-tabs type="border-card" stretch :value="tabName" @tab-click="tab => this.tabName = tab.name">
         <el-tab-pane label="カード" name="card">
-          <card-holder id="card-holder" v-if="tabName === 'card'"/>
+          <card-holder id="card-holder"/>
         </el-tab-pane>
         <el-tab-pane label="仕掛けルール" name="in-rule">
-          <strategy-board :in-or-exit="true" id="in-trade-rule" v-if="tabName === 'in-rule'"/>
+          <strategy-board :in-or-exit="true" id="in-trade-rule"/>
         </el-tab-pane>
         <el-tab-pane label="手仕舞いルール" name="exit-rule">
-          <strategy-board :in-or-exit="false" id="exit-trade-rule" v-if="tabName === 'exit-rule'"/>
+          <strategy-board :in-or-exit="false" id="exit-trade-rule"/>
         </el-tab-pane>
       </el-tabs>
     </div>

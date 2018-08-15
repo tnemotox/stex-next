@@ -1,5 +1,7 @@
 package jp.co.stex.domain.model.strategy.code;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.apache.commons.lang3.ObjectUtils;
@@ -26,6 +28,7 @@ public enum ComparisonType {
     /**
      * ID
      */
+    @JsonValue
     private int id;
 
     /**
@@ -39,6 +42,7 @@ public enum ComparisonType {
      * @param id ID
      * @return IDに紐付く列挙型
      */
+    @JsonCreator
     public static ComparisonType findById(int id) {
         for(ComparisonType value: ComparisonType.values()) {
             if (value.getId() == id) {

@@ -2,8 +2,10 @@ package jp.co.stex.domain.service.strategy;
 
 import jp.co.stex.domain.model.strategy.AnalysisBrandGroupEntity;
 import jp.co.stex.domain.model.strategy.BrandEntity;
+import jp.co.stex.domain.model.strategy.TradeStrategyCardEntity;
 import jp.co.stex.domain.model.strategy.TradeStrategyEntity;
 
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 /**
@@ -37,7 +39,7 @@ public interface StrategyService {
     void updateOneTradeStrategy(TradeStrategyEntity tradeStrategy);
 
     /**
-     * <p>取引戦略を削除する</p>
+     * <p>取引戦略を削除する。</p>
      *
      * @param uid ユーザID
      * @param sid 取引戦略ID
@@ -68,7 +70,7 @@ public interface StrategyService {
     void updateOneAnalysisBrandGroup(AnalysisBrandGroupEntity analysisBrandGroup);
 
     /**
-     * <p>分析対象銘柄を削除する</p>
+     * <p>分析対象銘柄を削除する。</p>
      *
      * @param uid ユーザID
      * @param sid 取引戦略ID
@@ -81,4 +83,27 @@ public interface StrategyService {
      * @return 銘柄一覧
      */
     List<BrandEntity> findAllBrands();
+
+    /**
+     * <p>取引戦略カードを追加する。</p>
+     *
+     * @param tradeStrategyCard 取引戦略カード
+     * @return 取引戦略カードID
+     */
+    int createOneTradeStrategyCard(TradeStrategyCardEntity tradeStrategyCard);
+
+    /**
+     * <p>取引戦略カードを更新する。</p>
+     *
+     * @param tradeStrategyCard 取引戦略カード
+     */
+    void updateOneTradeStrategyCard(TradeStrategyCardEntity tradeStrategyCard);
+
+    /**
+     * <p>取引戦略カードを削除する。</p>
+     *
+     * @param uid ユーザID
+     * @param cid 取引戦略カードID
+     */
+    void deleteOneTradeStrategyCard(int uid, Integer cid);
 }

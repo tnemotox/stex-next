@@ -240,8 +240,9 @@
 
     data() {
       return {
-        // フロントエンドでは、負数でパレットIDを仮に割り振る
+        // フロントエンドでは、負数でパレット/ルールIDを仮に割り振る
         newPid: -1,
+        newRid: -1,
         rules: {
           label: [
             {
@@ -252,6 +253,14 @@
           ]
         }
       }
+    },
+
+    /**
+     * 取引ルールを初期化する。
+     */
+    created() {
+      this.$store.commit('initRules', this.inOrExit)
+      this.addRule({orderBy: 0}, this.inOrExit)
     },
 
     methods: {
@@ -328,7 +337,7 @@
           })
           // パレットの順序を採番し直す
           newRules.splice(rule.orderBy, 0, {
-            rid: null,
+            rid: this.newRid--,
             label: '新しい取引ルール',
             todayOrTomorrow: false,
             buyOrSell: true,
@@ -617,13 +626,13 @@
     computed: {
       ...mapFields({
         cards: 'strategyForm.cards',
-        inRules: 'strategyForm.rules.in',
-        exitRules: 'strategyForm.rules.exit',
+        inRules: 'strategyForm.inRules',
+        exitRules: 'strategyForm.exitRules',
       }),
 
       ...mapMultiRowFields({
-        inRulesMulti: 'strategyForm.rules.in',
-        exitRulesMulti: 'strategyForm.rules.exit',
+        inRulesMulti: 'strategyForm.inRules',
+        exitRulesMulti: 'strategyForm.exitRules',
       }),
 
       /**

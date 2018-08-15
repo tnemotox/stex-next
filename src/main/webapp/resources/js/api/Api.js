@@ -1,7 +1,7 @@
 import APIClient from './APIClient'
 
-const strategy = new APIClient('/strategy')
-const card = new APIClient('/card')
+const strategy = new APIClient('/trade-strategy')
+const card = new APIClient('/trade-strategy-card')
 const analysisBrandGroup = new APIClient('/analysis-brand-group')
 const brand = new APIClient('/brand')
 

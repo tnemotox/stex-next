@@ -39,7 +39,7 @@ server.get(`${prefix}/brand`, (req, res) => {
   ])
 })
 
-server.get(`${prefix}/strategy`, (req, res) => {
+server.get(`${prefix}/trade-strategy`, (req, res) => {
   res.status(200).jsonp([
     {
       sid: 1,
@@ -247,7 +247,7 @@ server.get(`${prefix}/strategy`, (req, res) => {
   ])
 })
 
-server.post(`${prefix}/strategy`, (req, res) => {
+server.post(`${prefix}/trade-strategy`, (req, res) => {
   if(req.body.label === 'ng') {
     res.status(400).jsonp([
       {
@@ -269,7 +269,7 @@ server.post(`${prefix}/strategy`, (req, res) => {
   }
 })
 
-server.put(`${prefix}/strategy/1`, (req, res) => {
+server.put(`${prefix}/trade-strategy/1`, (req, res) => {
   if(req.body.label === 'ng') {
     res.status(400).jsonp([
       {
@@ -291,19 +291,19 @@ server.put(`${prefix}/strategy/1`, (req, res) => {
   }
 })
 
-server.delete(`${prefix}/strategy/1`, (req, res) => {
+server.delete(`${prefix}/trade-strategy/1`, (req, res) => {
   res.status(200).jsonp()
 })
 
-server.post(`${prefix}/card`, (req, res) => {
+server.post(`${prefix}/trade-strategy-card`, (req, res) => {
   res.status(200).jsonp()
 })
 
-server.put(`${prefix}/card/1`, (req, res) => {
+server.put(`${prefix}/trade-strategy-card/1`, (req, res) => {
   res.status(200).jsonp()
 })
 
-server.delete(`${prefix}/card/1`, (req, res) => {
+server.delete(`${prefix}/trade-strategy-card/1`, (req, res) => {
   res.status(200).jsonp()
 })
 
@@ -335,34 +335,3 @@ server.put(`${prefix}/analysis-brand-group/1`, (req, res) => {
 server.delete(`${prefix}/analysis-brand-group/1`, (req, res) => {
   res.status(200).jsonp()
 })
-
-// curl --noproxy localhost http://localhost:8081/sample?key=1
-// req.query => Object({ key: '1' })
-server.get('/sample', (req, res) => {
-  console.log(req.query);
-  // こんな感じでリクエストによって応答を変えられる
-  if (req.query.key === '1') {
-    res.status(200).jsonp({
-      'message': 'ok'
-    });
-  } else {
-    res.status(500).jsonp({
-      'message': 'ng'
-    });
-  }
-});
-
-// curl --noproxy localhost -d 'key1=1&key2=2' http://localhost:8081/sample
-// req.body => Object({ key1: '1', key2: '2' })
-server.post('/sample', (req, res) => {
-  console.log(req.body);
-  if (req.body.key1 === '1') {
-    res.status(200).jsonp({
-      'message': 'ok'
-    });
-  } else {
-    res.status(500).jsonp({
-      'message': 'ng'
-    });
-  }
-});

@@ -1,5 +1,7 @@
 package jp.co.stex.domain.model.strategy.code;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.apache.commons.lang3.ObjectUtils;
@@ -66,6 +68,7 @@ public enum IndicatorType {
     /**
      * ID
      */
+    @JsonValue
     private int id;
 
     /**
@@ -79,6 +82,7 @@ public enum IndicatorType {
      * @param id ID
      * @return IDに紐付く列挙型
      */
+    @JsonCreator
     public static IndicatorType findById(int id) {
         for(IndicatorType value: IndicatorType.values()) {
             if (value.getId() == id) {

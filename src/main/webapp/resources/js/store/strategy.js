@@ -20,10 +20,8 @@ export default {
         moment().format('YYYY-MM-DD'),
       ],
       cards: [],
-      rules: {
-        in: [],
-        exit: []
-      }
+      inRules: [],
+      exitRules: [],
     },
     ruleForm: {}
   },
@@ -49,11 +47,17 @@ export default {
           moment().format('YYYY-MM-DD'),
         ],
         cards: [],
-        rules: {
-          in: {},
-          exit: {}
-        }
+        inRules: [],
+        exitRules: [],
       })
-    }
+    },
+    initRules(state, inOrExit) {
+      if (inOrExit) {
+        state.strategyForm.inRules = []
+      }
+      else {
+        state.strategyForm.exitRules = []
+      }
+    },
   }
 }

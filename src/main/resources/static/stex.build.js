@@ -2038,8 +2038,9 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
   data: function data() {
     return {
-      // フロントエンドでは、負数でパレットIDを仮に割り振る
+      // フロントエンドでは、負数でパレット/ルールIDを仮に割り振る
       newPid: -1,
+      newRid: -1,
       rules: {
         label: [{
           required: true,
@@ -2048,6 +2049,15 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
         }]
       }
     };
+  },
+
+
+  /**
+   * 取引ルールを初期化する。
+   */
+  created: function created() {
+    this.$store.commit('initRules', this.inOrExit);
+    this.addRule({ orderBy: 0 }, this.inOrExit);
   },
 
 
@@ -2129,7 +2139,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
         });
         // パレットの順序を採番し直す
         newRules.splice(rule.orderBy, 0, {
-          rid: null,
+          rid: _this.newRid--,
           label: '新しい取引ルール',
           todayOrTomorrow: false,
           buyOrSell: true,
@@ -2429,11 +2439,11 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
   computed: _extends({}, Object(vuex_map_fields__WEBPACK_IMPORTED_MODULE_0__["mapFields"])({
     cards: 'strategyForm.cards',
-    inRules: 'strategyForm.rules.in',
-    exitRules: 'strategyForm.rules.exit'
+    inRules: 'strategyForm.inRules',
+    exitRules: 'strategyForm.exitRules'
   }), Object(vuex_map_fields__WEBPACK_IMPORTED_MODULE_0__["mapMultiRowFields"])({
-    inRulesMulti: 'strategyForm.rules.in',
-    exitRulesMulti: 'strategyForm.rules.exit'
+    inRulesMulti: 'strategyForm.inRules',
+    exitRulesMulti: 'strategyForm.exitRules'
   }), {
 
     /**
@@ -6253,11 +6263,7 @@ var render = function() {
               _c(
                 "el-tab-pane",
                 { attrs: { label: "カード", name: "card" } },
-                [
-                  _vm.tabName === "card"
-                    ? _c("card-holder", { attrs: { id: "card-holder" } })
-                    : _vm._e()
-                ],
+                [_c("card-holder", { attrs: { id: "card-holder" } })],
                 1
               ),
               _vm._v(" "),
@@ -6265,11 +6271,9 @@ var render = function() {
                 "el-tab-pane",
                 { attrs: { label: "仕掛けルール", name: "in-rule" } },
                 [
-                  _vm.tabName === "in-rule"
-                    ? _c("strategy-board", {
-                        attrs: { "in-or-exit": true, id: "in-trade-rule" }
-                      })
-                    : _vm._e()
+                  _c("strategy-board", {
+                    attrs: { "in-or-exit": true, id: "in-trade-rule" }
+                  })
                 ],
                 1
               ),
@@ -6278,11 +6282,9 @@ var render = function() {
                 "el-tab-pane",
                 { attrs: { label: "手仕舞いルール", name: "exit-rule" } },
                 [
-                  _vm.tabName === "exit-rule"
-                    ? _c("strategy-board", {
-                        attrs: { "in-or-exit": false, id: "exit-trade-rule" }
-                      })
-                    : _vm._e()
+                  _c("strategy-board", {
+                    attrs: { "in-or-exit": false, id: "exit-trade-rule" }
+                  })
                 ],
                 1
               )
@@ -6847,8 +6849,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _APIClient__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./APIClient */ "./src/main/webapp/resources/js/api/APIClient.js");
 
 
-var strategy = new _APIClient__WEBPACK_IMPORTED_MODULE_0__["default"]('/strategy');
-var card = new _APIClient__WEBPACK_IMPORTED_MODULE_0__["default"]('/card');
+var strategy = new _APIClient__WEBPACK_IMPORTED_MODULE_0__["default"]('/trade-strategy');
+var card = new _APIClient__WEBPACK_IMPORTED_MODULE_0__["default"]('/trade-strategy-card');
 var analysisBrandGroup = new _APIClient__WEBPACK_IMPORTED_MODULE_0__["default"]('/analysis-brand-group');
 var brand = new _APIClient__WEBPACK_IMPORTED_MODULE_0__["default"]('/brand');
 
@@ -8484,10 +8486,8 @@ __webpack_require__.r(__webpack_exports__);
       gid: null,
       analysisDate: [moment__WEBPACK_IMPORTED_MODULE_1___default()().subtract(1, 'years').format('YYYY-MM-DD'), moment__WEBPACK_IMPORTED_MODULE_1___default()().format('YYYY-MM-DD')],
       cards: [],
-      rules: {
-        in: [],
-        exit: []
-      }
+      inRules: [],
+      exitRules: []
     },
     ruleForm: {}
   },
@@ -8510,11 +8510,16 @@ __webpack_require__.r(__webpack_exports__);
         gid: 1,
         analysisDate: [moment__WEBPACK_IMPORTED_MODULE_1___default()().subtract(1, 'years').format('YYYY-MM-DD'), moment__WEBPACK_IMPORTED_MODULE_1___default()().format('YYYY-MM-DD')],
         cards: [],
-        rules: {
-          in: {},
-          exit: {}
-        }
+        inRules: [],
+        exitRules: []
       });
+    },
+    initRules: function initRules(state, inOrExit) {
+      if (inOrExit) {
+        state.strategyForm.inRules = [];
+      } else {
+        state.strategyForm.exitRules = [];
+      }
     }
   }
 });

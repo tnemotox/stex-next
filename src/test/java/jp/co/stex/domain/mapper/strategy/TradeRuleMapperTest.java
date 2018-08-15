@@ -6,6 +6,9 @@ import jp.co.stex.domain.mapper.MapperTestBase;
 import jp.co.stex.domain.model.strategy.TradeRuleEntity;
 import jp.co.stex.domain.model.strategy.TradeStrategyCardEntity;
 import jp.co.stex.domain.model.strategy.TradeStrategyPaletteEntity;
+import jp.co.stex.domain.model.strategy.code.CardType;
+import jp.co.stex.domain.model.strategy.code.ComparisonType;
+import jp.co.stex.domain.model.strategy.code.IndicatorType;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -82,15 +85,15 @@ class TradeRuleMapperTest extends MapperTestBase {
                         .pid(2)
                         .label("card1")
                         .used(true)
-                        .cardType(1)
-                        .leftSideIndicatorType(1)
+                        .cardType(CardType.COMPARE)
+                        .leftSideIndicatorType(IndicatorType._1_移動平均線)
                         .leftSideDays(1)
-                        .rightSideIndicatorType(1)
+                        .rightSideIndicatorType(IndicatorType._1_移動平均線)
                         .rightSideDays(1)
                         .rightSideFixOrFlex(true)
                         .rightSideFixValue(1)
                         .coefficient(1.1)
-                        .comparisonType(1)
+                        .comparisonType(ComparisonType.MORE)
                         .build()
                     )
                     .build()
@@ -132,15 +135,15 @@ class TradeRuleMapperTest extends MapperTestBase {
                         .pid(4)
                         .label("card2")
                         .used(true)
-                        .cardType(2)
-                        .leftSideIndicatorType(2)
+                        .cardType(CardType.CROSS)
+                        .leftSideIndicatorType(IndicatorType._2_移動平均線乖離率)
                         .leftSideDays(2)
-                        .rightSideIndicatorType(2)
+                        .rightSideIndicatorType(IndicatorType._2_移動平均線乖離率)
                         .rightSideDays(2)
                         .rightSideFixOrFlex(false)
                         .rightSideFixValue(2)
                         .coefficient(2.2)
-                        .comparisonType(2)
+                        .comparisonType(ComparisonType.MORE_THAN)
                         .build()
                     )
                     .build()

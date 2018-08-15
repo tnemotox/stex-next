@@ -1,5 +1,6 @@
 package jp.co.stex.domain.model.strategy.code;
 
+import com.fasterxml.jackson.annotation.JsonValue;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.JsonSerializable;
 import com.fasterxml.jackson.databind.SerializerProvider;
@@ -18,7 +19,7 @@ import java.io.IOException;
  */
 @Getter
 @AllArgsConstructor
-public enum MarketType implements JsonSerializable {
+public enum MarketType {
 
     TSE_FIRST(1, "東証一部"),
 
@@ -32,6 +33,7 @@ public enum MarketType implements JsonSerializable {
     /**
      * ラベル
      */
+    @JsonValue
     private String label;
 
     /**
@@ -62,21 +64,5 @@ public enum MarketType implements JsonSerializable {
             }
         }
         return null;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void serialize(JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException {
-        jsonGenerator.writeString(label);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void serializeWithType(JsonGenerator jsonGenerator, SerializerProvider serializerProvider, TypeSerializer typeSerializer) throws IOException {
-        throw new StexSystemException();
     }
 }

@@ -29,7 +29,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 /**
- * <p>戦略を操作するコントローラのテストクラスです。</p>
+ * <p>取引戦略を操作するコントローラのテストクラスです。</p>
  *
  * @author t.nemoto.x
  */
@@ -102,7 +102,7 @@ class TradeStrategyControllerTest extends ControllerTestBase {
         void _001() throws Exception {
             when(strategyService.findAllTradeStrategy(anyInt())).thenReturn(strategies);
             MvcResult result = mockMvc
-                .perform(get("/api/strategy").with(SecurityMockMvcRequestPostProcessors.csrf()))
+                .perform(get("/api/trade-strategy").with(SecurityMockMvcRequestPostProcessors.csrf()))
                 .andExpect(status().isOk())
                 .andExpect(content().json(expected))
                 .andReturn();
@@ -140,7 +140,7 @@ class TradeStrategyControllerTest extends ControllerTestBase {
             when(userService.findUserId(anyString())).thenReturn(1);
             when(strategyService.createOneTradeStrategy(captor.capture())).thenReturn(1);
             MvcResult result = mockMvc.perform(
-                post("/api/strategy")
+                post("/api/trade-strategy")
                     .content(postData)
                     .contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON)
                     .with(SecurityMockMvcRequestPostProcessors.csrf())
@@ -168,7 +168,7 @@ class TradeStrategyControllerTest extends ControllerTestBase {
         void _002() throws Exception {
             MvcResult result = mockMvc
                 .perform(
-                    post("/api/strategy")
+                    post("/api/trade-strategy")
                         .content("{}")
                         .contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON)
                         .with(SecurityMockMvcRequestPostProcessors.csrf())
@@ -216,7 +216,7 @@ class TradeStrategyControllerTest extends ControllerTestBase {
             when(userService.findUserId(anyString())).thenReturn(1);
             doNothing().when(strategyService).updateOneTradeStrategy(captor.capture());
             MvcResult result = mockMvc.perform(
-                put("/api/strategy/1")
+                put("/api/trade-strategy/1")
                     .content(postData)
                     .contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON)
                     .with(SecurityMockMvcRequestPostProcessors.csrf())
@@ -245,7 +245,7 @@ class TradeStrategyControllerTest extends ControllerTestBase {
         @WithMockUser
         void _002() throws Exception {
             MvcResult result = mockMvc.perform(
-                put("/api/strategy/")
+                put("/api/trade-strategy/")
                     .content(postData)
                     .contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON)
                     .with(SecurityMockMvcRequestPostProcessors.csrf())
@@ -262,7 +262,7 @@ class TradeStrategyControllerTest extends ControllerTestBase {
         @WithMockUser
         void _003() throws Exception {
             MvcResult result = mockMvc.perform(
-                put("/api/strategy/aaa")
+                put("/api/trade-strategy/aaa")
                     .content(postData)
                     .contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON)
                     .with(SecurityMockMvcRequestPostProcessors.csrf())
@@ -292,7 +292,7 @@ class TradeStrategyControllerTest extends ControllerTestBase {
         void _001() throws Exception {
             doNothing().when(strategyService).deleteOneTradeStrategy(anyInt(), anyInt());
             MvcResult result = mockMvc
-                .perform(delete("/api/strategy/1").with(SecurityMockMvcRequestPostProcessors.csrf()))
+                .perform(delete("/api/trade-strategy/1").with(SecurityMockMvcRequestPostProcessors.csrf()))
                 .andExpect(status().isNoContent())
                 .andReturn();
             verify(strategyService, times(1)).deleteOneTradeStrategy(anyInt(), anyInt());
@@ -305,7 +305,7 @@ class TradeStrategyControllerTest extends ControllerTestBase {
         @WithMockUser
         void _002() throws Exception {
             MvcResult result = mockMvc
-                .perform(delete("/api/strategy/").with(SecurityMockMvcRequestPostProcessors.csrf()))
+                .perform(delete("/api/trade-strategy/").with(SecurityMockMvcRequestPostProcessors.csrf()))
                 .andExpect(status().isBadRequest())
                 .andExpect(jsonPath("$.['NotNull.TradeStrategyController.delete.sid'].message").value("取引戦略IDが未指定です。"))
                 .andReturn();
