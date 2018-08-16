@@ -59,16 +59,6 @@ public class TradeStrategyCardController {
     }
 
     /**
-     * <p></p>
-     *
-     * @return 取引戦略カードフォーム
-     */
-    @ModelAttribute
-    public TradeStrategyCardForm setupForm() {
-        return new TradeStrategyCardForm();
-    }
-
-    /**
      * <p>取引戦略カードを作成する。</p>
      *
      * @param form 取引戦略カードフォーム

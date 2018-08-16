@@ -9,7 +9,12 @@
       {{card ? '取引戦略更新' : '取引戦略追加'}}
     </el-row>
     <el-form :model="cardForm" id="creator-tabs" ref="cardForm">
-      <el-tabs type="border-card" stretch :value="card ? card.cardType.key : 'compare'">
+      <el-tabs
+        type="border-card"
+        stretch
+        :value="card ? card.cardType.key : 'compare'"
+        @tab-click="selectCardType"
+      >
         <el-tab-pane
           label="比較"
           name="compare"
@@ -223,6 +228,7 @@
         cardForm: {
           cid: null,
           pid: null,
+          cardType: 1,
           leftSideDays: null,
           leftSideIndicatorType: null,
           rightSideFixOrFlex: false,
@@ -240,6 +246,15 @@
     },
 
     methods: {
+
+      selectCardType(tab) {
+        this.cardForm.cardType =
+          tab.name === 'compare'
+            ? 1
+            : tab.name === 'cross'
+              ? 2
+              : 3
+      },
 
       /**
        * 日付を必要とする指標かどうか判定する

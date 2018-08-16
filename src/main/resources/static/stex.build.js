@@ -742,7 +742,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
     }
   },
 
-  computed: _extends({}, Object(vuex_map_fields__WEBPACK_IMPORTED_MODULE_0__["mapFields"])(['strategies', 'strategyForm', 'paletteForm']), {
+  computed: _extends({}, Object(vuex_map_fields__WEBPACK_IMPORTED_MODULE_0__["mapFields"])(['analysisBrandGroups', 'strategies', 'strategyForm', 'paletteForm']), {
 
     /**
      * 取引戦略テーブルをフィルタリングする
@@ -1416,6 +1416,11 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 //
 //
 //
+//
+//
+//
+//
+//
 
 
 
@@ -1436,6 +1441,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
       cardForm: {
         cid: null,
         pid: null,
+        cardType: 1,
         leftSideDays: null,
         leftSideIndicatorType: null,
         rightSideFixOrFlex: false,
@@ -1452,6 +1458,10 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 
 
   methods: {
+    selectCardType: function selectCardType(tab) {
+      this.cardForm.cardType = tab.name === 'compare' ? 1 : tab.name === 'cross' ? 2 : 3;
+    },
+
 
     /**
      * 日付を必要とする指標かどうか判定する
@@ -1799,6 +1809,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vuex_map_fields__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex-map-fields */ "./node_modules/vuex-map-fields/dist/index.esm.js");
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
+//
 //
 //
 //
@@ -3811,7 +3822,19 @@ var render = function() {
                 key: "default",
                 fn: function(slot) {
                   return [
-                    _vm._v("\n        " + _vm._s(slot.row.gid) + "\n      ")
+                    _vm._v(
+                      "\n        " +
+                        _vm._s(
+                          _vm.analysisBrandGroups.find(function(g) {
+                            return g.gid === slot.row.gid
+                          })
+                            ? _vm.analysisBrandGroups.find(function(g) {
+                                return g.gid === slot.row.gid
+                              }).label
+                            : ""
+                        ) +
+                        "\n      "
+                    )
                   ]
                 }
               }
@@ -4384,7 +4407,8 @@ var render = function() {
                 type: "border-card",
                 stretch: "",
                 value: _vm.card ? _vm.card.cardType.key : "compare"
-              }
+              },
+              on: { "tab-click": _vm.selectCardType }
             },
             [
               _c(
@@ -5023,7 +5047,7 @@ var render = function() {
   return _c(
     "div",
     [
-      _c("h2", [_vm._v("取引戦略")]),
+      _c("h2", [_vm._v("取引戦略カード")]),
       _vm._v(" "),
       _c(
         "el-row",
@@ -5253,6 +5277,8 @@ var render = function() {
   return _c(
     "div",
     [
+      _c("h2", [_vm._v("取引ルール")]),
+      _vm._v(" "),
       _c(
         "el-row",
         { attrs: { id: "wrapper" } },
@@ -6192,7 +6218,7 @@ var render = function() {
               _c(
                 "el-select",
                 {
-                  attrs: { value: "1" },
+                  attrs: { value: null },
                   model: {
                     value: _vm.gid,
                     callback: function($$v) {
@@ -7011,38 +7037,40 @@ function (error) {
     }
     // ステータスコードが400の場合はエラーメッセージをトーストで出力
     else if (statusCode >= 400) {
-        error.response.data.forEach(function () {
-          var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(messageInfo) {
+        Object.keys(error.response.data).forEach(function () {
+          var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(code) {
+            var messageInfo;
             return regeneratorRuntime.wrap(function _callee$(_context) {
               while (1) {
                 switch (_context.prev = _context.next) {
                   case 0:
-                    _context.next = 2;
+                    messageInfo = error.response.data[code];
+                    _context.next = 3;
                     return new Promise(function (resolve) {
                       return setTimeout(resolve, 1);
                     });
 
-                  case 2:
-                    _context.t0 = messageInfo.type;
-                    _context.next = _context.t0 === 'warning' ? 5 : _context.t0 === 'info' ? 7 : _context.t0 === 'error' ? 9 : 11;
+                  case 3:
+                    _context.t0 = messageInfo.level.toLowerCase();
+                    _context.next = _context.t0 === 'warning' ? 6 : _context.t0 === 'info' ? 8 : _context.t0 === 'error' ? 10 : 12;
                     break;
 
-                  case 5:
+                  case 6:
                     element_ui__WEBPACK_IMPORTED_MODULE_1__["Notification"].warning({ message: messageInfo.message, duration: 0, position: 'bottom-right' });
-                    return _context.abrupt('break', 12);
+                    return _context.abrupt('break', 13);
 
-                  case 7:
+                  case 8:
                     element_ui__WEBPACK_IMPORTED_MODULE_1__["Notification"].info({ message: messageInfo.message, position: 'bottom-right' });
-                    return _context.abrupt('break', 12);
+                    return _context.abrupt('break', 13);
 
-                  case 9:
+                  case 10:
                     element_ui__WEBPACK_IMPORTED_MODULE_1__["Notification"].error({ message: messageInfo.message, duration: 0, position: 'bottom-right' });
-                    return _context.abrupt('break', 12);
-
-                  case 11:
-                    return _context.abrupt('break', 12);
+                    return _context.abrupt('break', 13);
 
                   case 12:
+                    return _context.abrupt('break', 13);
+
+                  case 13:
                   case 'end':
                     return _context.stop();
                 }

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h2>取引戦略</h2>
+    <h2>取引戦略カード</h2>
     <el-row>
       <el-col :sm="12" :xs="16">
         <el-button

@@ -32,7 +32,7 @@ public class TradeStrategyCardFormValidator implements Validator {
         if (!errors.hasErrors()) {
             TradeStrategyCardForm form = (TradeStrategyCardForm) target;
 
-            // カード種別が比較の場合
+            // カード種別が比較または交差の場合
             if (CardType.COMPARE.equals(form.getCardType()) || CardType.CROSS.equals(form.getCardType())) {
                 // 左辺指標値が未入力の場合
                 if (ObjectUtils.isEmpty(form.getLeftSideIndicatorType())) {
@@ -70,6 +70,7 @@ public class TradeStrategyCardFormValidator implements Validator {
                 }
             }
 
+            // カード種別が日数の場合
             else if (CardType.TIME.equals(form.getCardType()) && ObjectUtils.isEmpty(form.getElapsedDay())) {
                 errors.reject("TradeStrategyCardController.ElapsedDayNull");
             }

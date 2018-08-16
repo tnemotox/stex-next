@@ -35,7 +35,7 @@
         label="分析銘柄グループ"
         prop="gid"
       >
-        <el-select v-model="gid" value="1">
+        <el-select v-model="gid" :value="null">
           <el-option
             v-for="analysisBrandGroup in analysisBrandGroups"
             :label="analysisBrandGroup.label"

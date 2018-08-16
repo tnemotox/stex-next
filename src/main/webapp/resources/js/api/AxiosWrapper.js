@@ -45,9 +45,10 @@ AxiosWrapper.interceptors.response.use(
       }
       // ステータスコードが400の場合はエラーメッセージをトーストで出力
       else if (statusCode >= 400) {
-        error.response.data.forEach(async messageInfo => {
+        Object.keys(error.response.data).forEach(async code => {
+          const messageInfo = error.response.data[code]
           await new Promise(resolve => setTimeout(resolve, 1))
-          switch(messageInfo.type) {
+          switch(messageInfo.level.toLowerCase()) {
             case 'warning':
               Notification.warning({message: messageInfo.message, duration: 0, position: 'bottom-right'})
               break

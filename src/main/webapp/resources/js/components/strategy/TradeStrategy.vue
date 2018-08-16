@@ -45,7 +45,7 @@
         label="分析銘柄グループ"
       >
         <template slot-scope="slot">
-          {{slot.row.gid}}
+          {{analysisBrandGroups.find(g => g.gid === slot.row.gid) ? analysisBrandGroups.find(g => g.gid === slot.row.gid).label : ''}}
         </template>
       </el-table-column>
       <el-table-column
@@ -190,6 +190,7 @@
 
     computed: {
       ...mapFields([
+        'analysisBrandGroups',
         'strategies',
         'strategyForm',
         'paletteForm'

@@ -105,5 +105,5 @@ public interface StrategyService {
      * @param uid ユーザID
      * @param cid 取引戦略カードID
      */
-    void deleteOneTradeStrategyCard(int uid, Integer cid);
+    void deleteOneTradeStrategyCard(int uid, int cid);
 }

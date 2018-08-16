@@ -2,6 +2,7 @@ package jp.co.stex.domain.service.strategy;
 
 import jp.co.stex.domain.mapper.strategy.AnalysisBrandGroupMapper;
 import jp.co.stex.domain.mapper.strategy.BrandMapper;
+import jp.co.stex.domain.mapper.strategy.TradeStrategyCardMapper;
 import jp.co.stex.domain.mapper.strategy.TradeStrategyMapper;
 import jp.co.stex.domain.model.strategy.AnalysisBrandGroupEntity;
 import jp.co.stex.domain.model.strategy.BrandEntity;
@@ -22,6 +23,8 @@ import java.util.List;
 public class StrategyServiceImpl implements StrategyService {
 
     private final TradeStrategyMapper tradeStrategyMapper;
+
+    private final TradeStrategyCardMapper tradeStrategyCardMapper;
 
     private final AnalysisBrandGroupMapper analysisBrandGroupMapper;
 
@@ -99,18 +102,27 @@ public class StrategyServiceImpl implements StrategyService {
         return brandMapper.findAll();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int createOneTradeStrategyCard(TradeStrategyCardEntity tradeStrategyCard) {
-        return 0;
+        return tradeStrategyCardMapper.createOne(tradeStrategyCard);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void updateOneTradeStrategyCard(TradeStrategyCardEntity tradeStrategyCard) {
-
+        tradeStrategyCardMapper.updateOne(tradeStrategyCard);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public void deleteOneTradeStrategyCard(int uid, Integer cid) {
-
+    public void deleteOneTradeStrategyCard(int uid, int cid) {
+        tradeStrategyCardMapper.deleteOne(uid, cid);
     }
 }

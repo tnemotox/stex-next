@@ -1,5 +1,6 @@
 <template>
   <div>
+    <h2>取引ルール</h2>
     <el-row id="wrapper">
       <el-col :sm="24" :xs="24">
         <div class="board">
