@@ -132,6 +132,7 @@
   import moment from 'moment'
   import StrategyEditDialog from './tradeStrategy/StrategyEditDialog'
   import StrategyDeleteDialog from './tradeStrategy/StrategyDeleteDialog'
+  moment.locale('ja')
 
   export default {
 
@@ -165,9 +166,9 @@
 
       closeDialog() {
         this.reloadTable()
+        this.$store.commit('initStrategyForm')
         this.strategyEditDialog.visible = false
         this.strategyDeleteDialog.visible = false
-        this.$store.commit('initStrategyForm')
       },
 
       /**
@@ -187,8 +188,8 @@
         this.strategyForm = Object.assign({
           // element-uiのため、分析日時を配列に格納
           analysisDate: [
-            moment(strategy.analysisStartDate).format(),
-            moment(strategy.analysisEndDate).format()
+            moment(strategy.analysisStartDate).format("YYYY-MM-DD"),
+            moment(strategy.analysisEndDate).format("YYYY-MM-DD"),
           ],
           cards: result[0].data,
           sid: strategy.sid
@@ -199,7 +200,9 @@
         this.strategyDeleteDialog = {
           visible: true
         }
-        this.strategyForm = strategy
+        this.strategyForm = Object.assign({
+          analysisDate: []
+        }, strategy)
       }
     },
 

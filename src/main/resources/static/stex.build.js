@@ -667,6 +667,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 
 
 
+moment__WEBPACK_IMPORTED_MODULE_1___default.a.locale('ja');
 
 /* harmony default export */ __webpack_exports__["default"] = ({
 
@@ -721,9 +722,9 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
     },
     closeDialog: function closeDialog() {
       this.reloadTable();
+      this.$store.commit('initStrategyForm');
       this.strategyEditDialog.visible = false;
       this.strategyDeleteDialog.visible = false;
-      this.$store.commit('initStrategyForm');
     },
 
 
@@ -755,7 +756,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 
                 _this2.strategyForm = Object.assign({
                   // element-uiのため、分析日時を配列に格納
-                  analysisDate: [moment__WEBPACK_IMPORTED_MODULE_1___default()(strategy.analysisStartDate).format(), moment__WEBPACK_IMPORTED_MODULE_1___default()(strategy.analysisEndDate).format()],
+                  analysisDate: [moment__WEBPACK_IMPORTED_MODULE_1___default()(strategy.analysisStartDate).format("YYYY-MM-DD"), moment__WEBPACK_IMPORTED_MODULE_1___default()(strategy.analysisEndDate).format("YYYY-MM-DD")],
                   cards: result[0].data,
                   sid: strategy.sid
                 }, strategy);
@@ -772,7 +773,9 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
       this.strategyDeleteDialog = {
         visible: true
       };
-      this.strategyForm = strategy;
+      this.strategyForm = Object.assign({
+        analysisDate: []
+      }, strategy);
     }
   },
 
@@ -2712,6 +2715,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _common_ElLabel__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../common/ElLabel */ "./src/main/webapp/resources/js/components/common/ElLabel.vue");
 /* harmony import */ var _StrategyBoard__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./StrategyBoard */ "./src/main/webapp/resources/js/components/strategy/tradeStrategy/StrategyBoard.vue");
 /* harmony import */ var _CardHolder__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./CardHolder */ "./src/main/webapp/resources/js/components/strategy/tradeStrategy/CardHolder.vue");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_4__);
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
@@ -2824,6 +2829,8 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 
 
 
+moment__WEBPACK_IMPORTED_MODULE_4___default.a.locale('ja');
+
 /* harmony default export */ __webpack_exports__["default"] = ({
 
   components: {
@@ -2878,8 +2885,8 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 
                   _context.next = 3;
                   return _this.$http.strategy.$create(Object.assign(_this.strategyForm, {
-                    analysisStartDate: _this.strategyForm.analysisDate[0],
-                    analysisEndDate: _this.strategyForm.analysisDate[1]
+                    analysisStartDate: moment__WEBPACK_IMPORTED_MODULE_4___default()(_this.strategyForm.analysisDate[0]).format('YYYY-MM-DD'),
+                    analysisEndDate: moment__WEBPACK_IMPORTED_MODULE_4___default()(_this.strategyForm.analysisDate[1]).format('YYYY-MM-DD')
                   })).then(function () {
                     _this.$notify({
                       type: 'info',
@@ -2923,8 +2930,8 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 
                             _context2.next = 3;
                             return _this2.$http.strategy.$update(Object.assign(_this2.strategyForm, {
-                              analysisStartDate: _this2.strategyForm.analysisDate[0],
-                              analysisEndDate: _this2.strategyForm.analysisDate[1]
+                              analysisStartDate: moment__WEBPACK_IMPORTED_MODULE_4___default()(_this2.strategyForm.analysisDate[0]).format('YYYY-MM-DD'),
+                              analysisEndDate: moment__WEBPACK_IMPORTED_MODULE_4___default()(_this2.strategyForm.analysisDate[1]).format('YYYY-MM-DD')
                             })).then(function () {
                               _this2.$notify({
                                 type: 'info',
@@ -3038,7 +3045,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../../../node_mod
 
 
 // module
-exports.push([module.i, "\n#menu[data-v-46430fee] {\n  background-color: #545c64;\n  color: #ffffff;\n}\n", ""]);
+exports.push([module.i, "\n#menu[data-v-46430fee] {\n  background-color: #545c64;\n  color: #ffffff;\n}\n#menu li[data-v-46430fee] {\n  padding: 0;\n}\n#menu li a[data-v-46430fee] {\n  padding: 20px;\n}\n", ""]);
 
 // exports
 
@@ -8738,6 +8745,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_1__);
 
 
+moment__WEBPACK_IMPORTED_MODULE_1___default.a.locale('ja');
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   state: {

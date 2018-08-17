@@ -1,5 +1,6 @@
 import { getField, updateField } from 'vuex-map-fields';
 import moment from 'moment'
+moment.locale('ja')
 
 export default {
   state: {

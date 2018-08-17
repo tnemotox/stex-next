@@ -31,4 +31,12 @@
     background-color: #545c64;
     color: #ffffff;
   }
+
+  #menu li {
+    padding: 0;
+  }
+
+  #menu li a {
+    padding: 20px;
+  }
 </style>

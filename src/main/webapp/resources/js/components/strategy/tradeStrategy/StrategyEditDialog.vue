@@ -105,6 +105,8 @@
   import ElLabel from '../../common/ElLabel'
   import StrategyBoard from './StrategyBoard'
   import CardHolder from './CardHolder'
+  import moment from 'moment'
+  moment.locale('ja')
 
   export default {
 
@@ -154,8 +156,8 @@
         this.$refs.strategyForm.validate(async valid => {
           if (valid) {
             await this.$http.strategy.$create(Object.assign(this.strategyForm, {
-              analysisStartDate: this.strategyForm.analysisDate[0],
-              analysisEndDate: this.strategyForm.analysisDate[1],
+              analysisStartDate: moment(this.strategyForm.analysisDate[0]).format('YYYY-MM-DD'),
+              analysisEndDate: moment(this.strategyForm.analysisDate[1]).format('YYYY-MM-DD'),
             })).then(() => {
               this.$notify({
                 type: 'info',
@@ -172,8 +174,8 @@
         this.$refs.strategyForm.validate(async valid => {
           if (valid) {
             await this.$http.strategy.$update(Object.assign(this.strategyForm, {
-              analysisStartDate: this.strategyForm.analysisDate[0],
-              analysisEndDate: this.strategyForm.analysisDate[1]
+              analysisStartDate: moment(this.strategyForm.analysisDate[0]).format('YYYY-MM-DD'),
+              analysisEndDate: moment(this.strategyForm.analysisDate[1]).format('YYYY-MM-DD'),
             })).then(() => {
               this.$notify({
                 type: 'info',

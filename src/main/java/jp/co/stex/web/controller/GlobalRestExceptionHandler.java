@@ -172,7 +172,7 @@ public class GlobalRestExceptionHandler {
      */
     @ExceptionHandler({HttpMessageNotReadableException.class, ConversionFailedException.class})
     public ResponseEntity<Map<String, ResponseMessage>> handleException(HttpMessageNotReadableException e) {
-        ResponseMessage message = messageService.makeResponesMessage(WCM0001);
+        ResponseMessage message = messageService.makeResponesMessage(W0001);
         LOG.error(message, e);
         Map<String, ResponseMessage> messageMap = new HashMap<>();
         messageMap.put(message.getCode(), message);
