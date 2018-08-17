@@ -114,13 +114,15 @@
       </el-col>
     </el-row>
     <strategy-edit-dialog
+      v-if="strategyEditDialog.visible"
       :strategy="strategyEditDialog.strategy"
       :visible="strategyEditDialog.visible"
-      @close="closeEditDialog"
+      @close="closeDialog"
     />
     <strategy-delete-dialog
+      v-if="strategyDeleteDialog.visible"
       :visible="strategyDeleteDialog.visible"
-      @close="strategyDeleteDialog.visible = false"
+      @close="closeDialog"
     />
   </div>
 </template>
@@ -150,15 +152,21 @@
       }
     },
 
-    async created() {
-      const strategies = await this.$http.strategy.$fetch().then(res => res.data)
-      this.strategies = [...strategies]
+    created() {
+      this.reloadTable()
     },
 
     methods: {
 
-      closeEditDialog() {
+      async reloadTable() {
+        const strategies = await this.$http.strategy.$fetch().then(res => res.data)
+        this.strategies = [...strategies]
+      },
+
+      closeDialog() {
+        this.reloadTable()
         this.strategyEditDialog.visible = false
+        this.strategyDeleteDialog.visible = false
         this.$store.commit('initStrategyForm')
       },
 
@@ -167,16 +175,23 @@
        *
        * @param strategy 選択した取引戦略
        */
-      showUpdateDialog(strategy) {
+      async showUpdateDialog(strategy) {
         this.strategyEditDialog = {
           visible: true
         }
+        const result = await Promise.all([
+          this.$http.card.$fetch(strategy.sid),
+          // this.$http.rule.$find(strategy.sid),
+          // this.$http.rule.$find(strategy.sid),
+        ])
         this.strategyForm = Object.assign({
           // element-uiのため、分析日時を配列に格納
           analysisDate: [
             moment(strategy.analysisStartDate).format(),
             moment(strategy.analysisEndDate).format()
-          ]
+          ],
+          cards: result[0].data,
+          sid: strategy.sid
         }, strategy)
       },
 

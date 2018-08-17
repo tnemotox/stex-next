@@ -2,10 +2,8 @@ package jp.co.stex.web.controller.api.strategy;
 
 import com.fasterxml.jackson.databind.SerializationFeature;
 import jp.co.stex.domain.model.strategy.TradeStrategyEntity;
-import jp.co.stex.domain.service.strategy.StrategyService;
+import jp.co.stex.domain.service.strategy.ITradeStrategyService;
 import jp.co.stex.web.controller.ControllerTestBase;
-import jp.co.stex.web.controller.api.strategy.TradeStrategyController;
-
 import org.junit.jupiter.api.*;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Captor;
@@ -37,7 +35,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 class TradeStrategyControllerTest extends ControllerTestBase {
 
     @MockBean
-    private StrategyService strategyService;
+    private ITradeStrategyService tradeStrategyService;
 
     @BeforeAll
     void setup() {
@@ -100,7 +98,7 @@ class TradeStrategyControllerTest extends ControllerTestBase {
         @DisplayName("取引戦略リストが期待されたJSONで返却される")
         @WithMockUser
         void _001() throws Exception {
-            when(strategyService.findAllTradeStrategy(anyInt())).thenReturn(strategies);
+            when(tradeStrategyService.findAllTradeStrategy(anyInt())).thenReturn(strategies);
             MvcResult result = mockMvc
                 .perform(get("/api/trade-strategy").with(SecurityMockMvcRequestPostProcessors.csrf()))
                 .andExpect(status().isOk())
@@ -130,7 +128,7 @@ class TradeStrategyControllerTest extends ControllerTestBase {
 
         @BeforeEach
         void setUp() {
-            reset(strategyService);
+            reset(tradeStrategyService);
         }
 
         @Test
@@ -138,7 +136,7 @@ class TradeStrategyControllerTest extends ControllerTestBase {
         @WithMockUser
         void _001() throws Exception {
             when(userService.findUserId(anyString())).thenReturn(1);
-            when(strategyService.createOneTradeStrategy(captor.capture())).thenReturn(1);
+            when(tradeStrategyService.createOneTradeStrategy(captor.capture())).thenReturn(1);
             MvcResult result = mockMvc.perform(
                 post("/api/trade-strategy")
                     .content(postData)
@@ -147,7 +145,7 @@ class TradeStrategyControllerTest extends ControllerTestBase {
                 )
                 .andExpect(status().isCreated())
                 .andReturn();
-            verify(strategyService, times(1)).createOneTradeStrategy(any());
+            verify(tradeStrategyService, times(1)).createOneTradeStrategy(any());
 
             assertEquals(
                 TradeStrategyEntity.builder()
@@ -181,7 +179,7 @@ class TradeStrategyControllerTest extends ControllerTestBase {
                     .andExpect(jsonPath("$.['NotNull.tradeStrategyForm.analysisEndDate'].message").value("分析終了日が未入力です。"))
                     .andReturn();
 
-            verify(strategyService, never()).createOneTradeStrategy(any());
+            verify(tradeStrategyService, never()).createOneTradeStrategy(any());
             LOG.info(result.getResponse().getContentAsString());
         }
     }
@@ -206,7 +204,7 @@ class TradeStrategyControllerTest extends ControllerTestBase {
 
         @BeforeEach
         void setUp() {
-            reset(strategyService);
+            reset(tradeStrategyService);
         }
 
         @Test
@@ -214,7 +212,7 @@ class TradeStrategyControllerTest extends ControllerTestBase {
         @WithMockUser
         void _001() throws Exception {
             when(userService.findUserId(anyString())).thenReturn(1);
-            doNothing().when(strategyService).updateOneTradeStrategy(captor.capture());
+            doNothing().when(tradeStrategyService).updateOneTradeStrategy(captor.capture());
             MvcResult result = mockMvc.perform(
                 put("/api/trade-strategy/1")
                     .content(postData)
@@ -223,7 +221,7 @@ class TradeStrategyControllerTest extends ControllerTestBase {
                 )
                 .andExpect(status().isNoContent())
                 .andReturn();
-            verify(strategyService, times(1)).updateOneTradeStrategy(any());
+            verify(tradeStrategyService, times(1)).updateOneTradeStrategy(any());
 
             assertEquals(
                 TradeStrategyEntity.builder()
@@ -253,7 +251,7 @@ class TradeStrategyControllerTest extends ControllerTestBase {
                 .andExpect(status().isBadRequest())
                 .andExpect(jsonPath("$.['NotNull.TradeStrategyController.update.sid'].message").value("取引戦略IDが未指定です。"))
                 .andReturn();
-            verify(strategyService, never()).updateOneTradeStrategy(any());
+            verify(tradeStrategyService, never()).updateOneTradeStrategy(any());
             LOG.info(result.getResponse().getContentAsString());
         }
 
@@ -270,7 +268,7 @@ class TradeStrategyControllerTest extends ControllerTestBase {
                 .andExpect(status().isBadRequest())
                 .andExpect(jsonPath("$.['w.stex.sy.0001'].message").value("不正な値が送信されました。"))
                 .andReturn();
-            verify(strategyService, never()).updateOneTradeStrategy(any());
+            verify(tradeStrategyService, never()).updateOneTradeStrategy(any());
             LOG.info(result.getResponse().getContentAsString());
         }
     }
@@ -283,19 +281,19 @@ class TradeStrategyControllerTest extends ControllerTestBase {
 
         @BeforeEach
         void setUp() {
-            reset(strategyService);
+            reset(tradeStrategyService);
         }
 
         @Test
         @DisplayName("正しい引数が与えられたとき、取引戦略を削除する")
         @WithMockUser
         void _001() throws Exception {
-            doNothing().when(strategyService).deleteOneTradeStrategy(anyInt(), anyInt());
+            doNothing().when(tradeStrategyService).deleteOneTradeStrategy(anyInt(), anyInt());
             MvcResult result = mockMvc
                 .perform(delete("/api/trade-strategy/1").with(SecurityMockMvcRequestPostProcessors.csrf()))
                 .andExpect(status().isNoContent())
                 .andReturn();
-            verify(strategyService, times(1)).deleteOneTradeStrategy(anyInt(), anyInt());
+            verify(tradeStrategyService, times(1)).deleteOneTradeStrategy(anyInt(), anyInt());
 
             LOG.info(result.getResponse().getContentAsString());
         }
@@ -309,7 +307,7 @@ class TradeStrategyControllerTest extends ControllerTestBase {
                 .andExpect(status().isBadRequest())
                 .andExpect(jsonPath("$.['NotNull.TradeStrategyController.delete.sid'].message").value("取引戦略IDが未指定です。"))
                 .andReturn();
-            verify(strategyService, never()).deleteOneTradeStrategy(anyInt(), anyInt());
+            verify(tradeStrategyService, never()).deleteOneTradeStrategy(anyInt(), anyInt());
             LOG.info(result.getResponse().getContentAsString());
         }
     }

@@ -15,8 +15,10 @@ const AxiosWrapper = axios.create({
 AxiosWrapper.interceptors.request.use(
   // 正常系の共通処理
   request => {
-    // トーストを削除
-    Notification.closeAll()
+    if (request.method !== 'get') {
+      // トーストを削除
+      Notification.closeAll()
+    }
     // IEが同じURLにリクエストしたときにキャッシュした値を返却してしまうため、アクセスした時刻をクエリストリングに付与する
     const queryStrings = request.url.split('?');
     if (queryStrings.length >= 2) {

@@ -2,7 +2,7 @@ package jp.co.stex.web.controller.api.strategy;
 
 import jp.co.stex.domain.model.strategy.TradeStrategyEntity;
 import jp.co.stex.domain.service.base.UserService;
-import jp.co.stex.domain.service.strategy.StrategyService;
+import jp.co.stex.domain.service.strategy.ITradeStrategyService;
 import lombok.RequiredArgsConstructor;
 import org.dozer.Mapper;
 import org.springframework.http.ResponseEntity;
@@ -36,7 +36,7 @@ public class TradeStrategyController {
     /**
      * 取引戦略サービス
      */
-    private final StrategyService strategyService;
+    private final ITradeStrategyService tradeStrategyService;
 
     /**
      * ユーザサービス
@@ -50,7 +50,7 @@ public class TradeStrategyController {
      */
     @RequestMapping(path = "", method = RequestMethod.GET)
     public ResponseEntity<List<TradeStrategyEntity>> fetch() {
-        return ResponseEntity.ok(strategyService.findAllTradeStrategy(findUserId()));
+        return ResponseEntity.ok(tradeStrategyService.findAllTradeStrategy(findUserId()));
     }
 
     /**
@@ -67,7 +67,7 @@ public class TradeStrategyController {
         if (bd.hasErrors()) {
             throw new BindException(bd);
         }
-        int sid = strategyService.createOneTradeStrategy(dozerMapper.map(form, TradeStrategyEntity.class).setUid(findUserId()));
+        int sid = tradeStrategyService.createOneTradeStrategy(dozerMapper.map(form, TradeStrategyEntity.class).setUid(findUserId()));
         return ResponseEntity.created(uriBuilder.path("/api/strategy/{sid}").buildAndExpand(sid).toUri()).build();
     }
 
@@ -85,7 +85,7 @@ public class TradeStrategyController {
         if (bd.hasErrors()) {
             throw new BindException(bd);
         }
-        strategyService.updateOneTradeStrategy(dozerMapper.map(form, TradeStrategyEntity.class).setUid(findUserId()).setSid(sid));
+        tradeStrategyService.updateOneTradeStrategy(dozerMapper.map(form, TradeStrategyEntity.class).setUid(findUserId()).setSid(sid));
         return ResponseEntity.noContent().build();
     }
 
@@ -97,7 +97,7 @@ public class TradeStrategyController {
      */
     @RequestMapping(path = {"/", "/{sid}"}, method = RequestMethod.DELETE)
     public ResponseEntity<Void> delete(@PathVariable(value = "sid", required = false) @NotNull Integer sid) {
-        strategyService.deleteOneTradeStrategy(findUserId(), sid);
+        tradeStrategyService.deleteOneTradeStrategy(findUserId(), sid);
         return ResponseEntity.noContent().build();
     }
 

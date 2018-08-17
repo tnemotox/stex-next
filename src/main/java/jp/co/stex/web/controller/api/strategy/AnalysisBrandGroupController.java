@@ -1,11 +1,9 @@
 package jp.co.stex.web.controller.api.strategy;
 
-import lombok.RequiredArgsConstructor;
-
 import jp.co.stex.domain.model.strategy.AnalysisBrandGroupEntity;
 import jp.co.stex.domain.service.base.UserService;
-import jp.co.stex.domain.service.strategy.StrategyService;
-
+import jp.co.stex.domain.service.strategy.IAnalysisBrandGroupService;
+import lombok.RequiredArgsConstructor;
 import org.dozer.Mapper;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -13,16 +11,11 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.validation.BindException;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import java.util.List;
-
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 /**
  * <p>分析対象銘柄を操作するコントローラです。</p>
@@ -43,7 +36,7 @@ public class AnalysisBrandGroupController {
     /**
      * 取引戦略サービス
      */
-    private final StrategyService strategyService;
+    private final IAnalysisBrandGroupService analysisBrandGroupService;
 
     /**
      * ユーザサービス
@@ -57,7 +50,7 @@ public class AnalysisBrandGroupController {
      */
     @RequestMapping(path = "", method = RequestMethod.GET)
     public ResponseEntity<List<AnalysisBrandGroupEntity>> fetch() {
-        return ResponseEntity.ok(strategyService.findAllAnalysisBrandGroup(findUserId()));
+        return ResponseEntity.ok(analysisBrandGroupService.findAllAnalysisBrandGroup(findUserId()));
     }
 
     /**
@@ -74,7 +67,7 @@ public class AnalysisBrandGroupController {
         if (bd.hasErrors()) {
             throw new BindException(bd);
         }
-        int gid = strategyService.createOneAnalysisBrandGroup(dozerMapper.map(form, AnalysisBrandGroupEntity.class).setUid(findUserId()));
+        int gid = analysisBrandGroupService.createOneAnalysisBrandGroup(dozerMapper.map(form, AnalysisBrandGroupEntity.class).setUid(findUserId()));
         return ResponseEntity.created(uriBuilder.path("/api/analysis-brand-group/{gid}").buildAndExpand(gid).toUri()).build();
     }
 
@@ -92,7 +85,7 @@ public class AnalysisBrandGroupController {
         if (bd.hasErrors()) {
             throw new BindException(bd);
         }
-        strategyService.updateOneAnalysisBrandGroup(dozerMapper.map(form, AnalysisBrandGroupEntity.class).setUid(findUserId()).setGid(gid));
+        analysisBrandGroupService.updateOneAnalysisBrandGroup(dozerMapper.map(form, AnalysisBrandGroupEntity.class).setUid(findUserId()).setGid(gid));
         return ResponseEntity.noContent().build();
     }
 
@@ -104,7 +97,7 @@ public class AnalysisBrandGroupController {
      */
     @RequestMapping(path = {"/", "/{gid}"}, method = RequestMethod.DELETE)
     public ResponseEntity<Void> delete(@PathVariable(value = "gid", required = false) @NotNull Integer gid) {
-        strategyService.deleteOneAnalysisBrandGroup(findUserId(), gid);
+        analysisBrandGroupService.deleteOneAnalysisBrandGroup(findUserId(), gid);
         return ResponseEntity.noContent().build();
     }
 

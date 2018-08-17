@@ -33,7 +33,13 @@ export default {
      */
     $delete: gid => analysisBrandGroup.delete(`/${gid}`)
   },
+
   card: {
+
+    /**
+     * 取引戦略に紐づく取引戦略カードを取得する。
+     */
+    $fetch: sid => card.get(`/${sid}`),
 
     /**
      * 取引戦略カードを作成する。
@@ -50,6 +56,7 @@ export default {
      */
     $delete: cid   => card.delete(`/${cid}`),
   },
+
   strategy: {
 
     /**

@@ -6,7 +6,7 @@ import jp.co.stex.domain.model.strategy.code.CardType;
 import jp.co.stex.domain.model.strategy.code.ComparisonType;
 import jp.co.stex.domain.model.strategy.code.CrossType;
 import jp.co.stex.domain.model.strategy.code.IndicatorType;
-import jp.co.stex.domain.service.strategy.StrategyService;
+import jp.co.stex.domain.service.strategy.ITradeStrategyCardService;
 import jp.co.stex.web.controller.ControllerTestBase;
 import org.junit.jupiter.api.*;
 import org.mockito.ArgumentCaptor;
@@ -14,7 +14,6 @@ import org.mockito.Captor;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.boot.test.mock.mockito.SpyBean;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors;
@@ -35,11 +34,10 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * @author t.nemoto.x
  */
 @WebMvcTest(controllers = {TradeStrategyCardController.class})
-@ComponentScan("jp.co.stex.web.controller.api.strategy")
 class TradeStrategyCardControllerTest extends ControllerTestBase {
 
     @MockBean
-    private StrategyService strategyService;
+    private ITradeStrategyCardService tradeStrategyCardService;
 
     @SpyBean
     private TradeStrategyCardFormValidator validator;
@@ -54,6 +52,7 @@ class TradeStrategyCardControllerTest extends ControllerTestBase {
      */
     private final String postCompareCard = "{" +
         "  \"cardType\" : 1," +
+        "  \"sid\" : 1," +
         "  \"leftSideIndicatorType\" : 1," +
         "  \"leftSideDays\" : 1," +
         "  \"rightSideFixOrFlex\" : true," +
@@ -66,6 +65,7 @@ class TradeStrategyCardControllerTest extends ControllerTestBase {
      */
     private final String postCrossCard = "{" +
         "  \"cardType\" : 2," +
+        "  \"sid\" : 1," +
         "  \"leftSideIndicatorType\" : 1," +
         "  \"leftSideDays\" : 1," +
         "  \"rightSideFixOrFlex\" : true," +
@@ -78,21 +78,24 @@ class TradeStrategyCardControllerTest extends ControllerTestBase {
      */
     private final String postTimeCard = "{" +
         "  \"cardType\" : 3," +
+        "  \"sid\" : 1," +
         "  \"elapsedDay\" : 1" +
         "}";
 
     /**
      * カード種別が比較、かつその他が未入力
      */
-    private final String postCompareCard_NullCorrelationError = "{" +
-        "  \"cardType\" : 1" +
+    private final String postCard_CompareAndOtherNullCorrelationError = "{" +
+        "  \"cardType\" : 1," +
+        "  \"sid\" : 1" +
         "}";
 
     /**
      * 右辺種別が固定値かつ固定値が未入力
      */
-    private final String postCompareCard_rightSideFixCorrelationError = "{" +
+    private final String postCard_rightSideFixCorrelationError = "{" +
         "  \"cardType\" : 1," +
+        "  \"sid\" : 1," +
         "  \"leftSideIndicatorType\" : 1," +
         "  \"leftSideDays\" : 1," +
         "  \"rightSideFixOrFlex\" : true," +
@@ -102,8 +105,9 @@ class TradeStrategyCardControllerTest extends ControllerTestBase {
     /**
      * 右辺種別が指標値かつ指標値が未入力
      */
-    private final String postCompareCard_rightSideFlexCorrelationError = "{" +
+    private final String postCard_rightSideFlexCorrelationError = "{" +
         "  \"cardType\" : 1," +
+        "  \"sid\" : 1," +
         "  \"leftSideIndicatorType\" : 1," +
         "  \"leftSideDays\" : 1," +
         "  \"rightSideFixOrFlex\" : false," +
@@ -113,8 +117,9 @@ class TradeStrategyCardControllerTest extends ControllerTestBase {
     /**
      * 右辺種別が指標値、かつ右辺指標値が日付利用、かつ右辺日付が未入力
      */
-    private final String postCompareCard_rightSideDaysIndicatorCorrelationError = "{" +
+    private final String postCard_rightSideDaysIndicatorCorrelationError = "{" +
         "  \"cardType\" : 1," +
+        "  \"sid\" : 1," +
         "  \"leftSideIndicatorType\" : 1," +
         "  \"leftSideDays\" : 1," +
         "  \"rightSideFixOrFlex\" : false," +
@@ -125,8 +130,9 @@ class TradeStrategyCardControllerTest extends ControllerTestBase {
     /**
      * 左辺指標値が日付利用、かつ左辺日付が未入力
      */
-    private final String postCompareCard_leftSideDaysIndicatorCorrelationError = "{" +
+    private final String postCard_leftSideDaysIndicatorCorrelationError = "{" +
         "  \"cardType\" : 1," +
+        "  \"sid\" : 1," +
         "  \"leftSideIndicatorType\" : 1," +
         "  \"rightSideFixOrFlex\" : true," +
         "  \"rightSideFixValue\" : 1," +
@@ -136,8 +142,9 @@ class TradeStrategyCardControllerTest extends ControllerTestBase {
     /**
      * 比較種別が未入力
      */
-    private final String postCompareCard_comparisonTypeCorrelationError = "{" +
+    private final String postCard_comparisonTypeCorrelationError = "{" +
         "  \"cardType\" : 1," +
+        "  \"sid\" : 1," +
         "  \"leftSideIndicatorType\" : 1," +
         "  \"leftSideDays\" : 1," +
         "  \"rightSideFixOrFlex\" : true," +
@@ -147,8 +154,9 @@ class TradeStrategyCardControllerTest extends ControllerTestBase {
     /**
      * 交差種別が未入力
      */
-    private final String postCompareCard_crossTypeCorrelationError = "{" +
+    private final String postCard_crossTypeCorrelationError = "{" +
         "  \"cardType\" : 2," +
+        "  \"sid\" : 1," +
         "  \"leftSideIndicatorType\" : 1," +
         "  \"leftSideDays\" : 1," +
         "  \"rightSideFixOrFlex\" : true," +
@@ -158,7 +166,8 @@ class TradeStrategyCardControllerTest extends ControllerTestBase {
     /**
      * 経過日数が未入力
      */
-    private final String postCompareCard_elapsedDayCorrelationError = "{" +
+    private final String postCard_elapsedDayCorrelationError = "{" +
+        "  \"sid\" : 1," +
         "  \"cardType\" : 3" +
         "}";
 
@@ -173,7 +182,7 @@ class TradeStrategyCardControllerTest extends ControllerTestBase {
 
         @BeforeEach
         void setUp() {
-            reset(strategyService);
+            reset(tradeStrategyCardService);
         }
 
         @Test
@@ -181,20 +190,21 @@ class TradeStrategyCardControllerTest extends ControllerTestBase {
         @WithMockUser
         void _001() throws Exception {
             when(userService.findUserId(anyString())).thenReturn(1);
-            when(strategyService.createOneTradeStrategyCard(captor.capture())).thenReturn(1);
+            when(tradeStrategyCardService.createOneTradeStrategyCard(captor.capture())).thenReturn(1);
             MvcResult result = mockMvc.perform(
                 post("/api/trade-strategy-card")
                     .content(postCompareCard)
                     .contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON)
                     .with(SecurityMockMvcRequestPostProcessors.csrf())
-            )
+                )
                 .andExpect(status().isCreated())
                 .andReturn();
-            verify(strategyService, times(1)).createOneTradeStrategyCard(any());
+            verify(tradeStrategyCardService, times(1)).createOneTradeStrategyCard(any());
 
             assertEquals(
                 TradeStrategyCardEntity.builder()
                     .uid(1)
+                    .sid(1)
                     .cardType(CardType.COMPARE)
                     .leftSideIndicatorType(IndicatorType._1_移動平均線)
                     .leftSideDays(1)
@@ -211,7 +221,7 @@ class TradeStrategyCardControllerTest extends ControllerTestBase {
         @WithMockUser
         void _002() throws Exception {
             when(userService.findUserId(anyString())).thenReturn(1);
-            when(strategyService.createOneTradeStrategyCard(captor.capture())).thenReturn(1);
+            when(tradeStrategyCardService.createOneTradeStrategyCard(captor.capture())).thenReturn(1);
             MvcResult result = mockMvc.perform(
                 post("/api/trade-strategy-card")
                     .content(postCrossCard)
@@ -220,11 +230,12 @@ class TradeStrategyCardControllerTest extends ControllerTestBase {
             )
                 .andExpect(status().isCreated())
                 .andReturn();
-            verify(strategyService, times(1)).createOneTradeStrategyCard(any());
+            verify(tradeStrategyCardService, times(1)).createOneTradeStrategyCard(any());
 
             assertEquals(
                 TradeStrategyCardEntity.builder()
                     .uid(1)
+                    .sid(1)
                     .cardType(CardType.CROSS)
                     .leftSideIndicatorType(IndicatorType._1_移動平均線)
                     .leftSideDays(1)
@@ -241,7 +252,7 @@ class TradeStrategyCardControllerTest extends ControllerTestBase {
         @WithMockUser
         void _003() throws Exception {
             when(userService.findUserId(anyString())).thenReturn(1);
-            when(strategyService.createOneTradeStrategyCard(captor.capture())).thenReturn(1);
+            when(tradeStrategyCardService.createOneTradeStrategyCard(captor.capture())).thenReturn(1);
             MvcResult result = mockMvc.perform(
                 post("/api/trade-strategy-card")
                     .content(postTimeCard)
@@ -250,11 +261,12 @@ class TradeStrategyCardControllerTest extends ControllerTestBase {
             )
                 .andExpect(status().isCreated())
                 .andReturn();
-            verify(strategyService, times(1)).createOneTradeStrategyCard(any());
+            verify(tradeStrategyCardService, times(1)).createOneTradeStrategyCard(any());
 
             assertEquals(
                 TradeStrategyCardEntity.builder()
                     .uid(1)
+                    .sid(1)
                     .cardType(CardType.TIME)
                     .elapsedDay(1)
                     .build(),
@@ -274,11 +286,12 @@ class TradeStrategyCardControllerTest extends ControllerTestBase {
                         .with(SecurityMockMvcRequestPostProcessors.csrf())
                 )
                 .andExpect(status().isBadRequest())
-                .andExpect(jsonPath("$.*", hasSize(1)))
+                .andExpect(jsonPath("$.*", hasSize(2)))
                 .andExpect(jsonPath("$.['NotNull.tradeStrategyCardForm.cardType'].message").value("カード種別が正しく入力されていません。"))
+                .andExpect(jsonPath("$.['NotNull.tradeStrategyCardForm.sid'].message").value("取引戦略IDが正しく入力されていません。"))
                 .andReturn();
 
-            verify(strategyService, never()).createOneTradeStrategyCard(any());
+            verify(tradeStrategyCardService, never()).createOneTradeStrategyCard(any());
             LOG.info(result.getResponse().getContentAsString());
         }
 
@@ -289,7 +302,7 @@ class TradeStrategyCardControllerTest extends ControllerTestBase {
             MvcResult result = mockMvc
                 .perform(
                     post("/api/trade-strategy-card")
-                        .content(postCompareCard_NullCorrelationError)
+                        .content(postCard_CompareAndOtherNullCorrelationError)
                         .contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON)
                         .with(SecurityMockMvcRequestPostProcessors.csrf())
                 )
@@ -299,7 +312,7 @@ class TradeStrategyCardControllerTest extends ControllerTestBase {
                 .andExpect(jsonPath("$.['TradeStrategyCardController.ComparisonTypeNull'].message").value("比較種別が未入力です。"))
                 .andExpect(jsonPath("$.['TradeStrategyCardController.LeftSideIndicatorNull'].message").value("左辺指標値が未入力です。"))
                 .andReturn();
-            verify(strategyService, never()).createOneTradeStrategyCard(any());
+            verify(tradeStrategyCardService, never()).createOneTradeStrategyCard(any());
             LOG.info(result.getResponse().getContentAsString());
         }
 
@@ -310,7 +323,7 @@ class TradeStrategyCardControllerTest extends ControllerTestBase {
             MvcResult result = mockMvc
                 .perform(
                     post("/api/trade-strategy-card")
-                        .content(postCompareCard_rightSideFixCorrelationError)
+                        .content(postCard_rightSideFixCorrelationError)
                         .contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON)
                         .with(SecurityMockMvcRequestPostProcessors.csrf())
                 )
@@ -318,7 +331,7 @@ class TradeStrategyCardControllerTest extends ControllerTestBase {
                 .andExpect(jsonPath("$.*", hasSize(1)))
                 .andExpect(jsonPath("$.['TradeStrategyCardController.RightSideTypeFixAndValueNull'].message").value("右辺種別が固定値ですが、右辺の値が未入力です。"))
                 .andReturn();
-            verify(strategyService, never()).createOneTradeStrategyCard(any());
+            verify(tradeStrategyCardService, never()).createOneTradeStrategyCard(any());
             LOG.info(result.getResponse().getContentAsString());
         }
 
@@ -329,7 +342,7 @@ class TradeStrategyCardControllerTest extends ControllerTestBase {
             MvcResult result = mockMvc
                 .perform(
                     post("/api/trade-strategy-card")
-                        .content(postCompareCard_rightSideFlexCorrelationError)
+                        .content(postCard_rightSideFlexCorrelationError)
                         .contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON)
                         .with(SecurityMockMvcRequestPostProcessors.csrf())
                 )
@@ -337,7 +350,7 @@ class TradeStrategyCardControllerTest extends ControllerTestBase {
                 .andExpect(jsonPath("$.*", hasSize(1)))
                 .andExpect(jsonPath("$.['TradeStrategyCardController.RightSideTypeFlexAndIndicatorNull'].message").value("右辺種別が指標値ですが、右辺の指標値が未入力です。"))
                 .andReturn();
-            verify(strategyService, never()).createOneTradeStrategyCard(any());
+            verify(tradeStrategyCardService, never()).createOneTradeStrategyCard(any());
             LOG.info(result.getResponse().getContentAsString());
         }
 
@@ -348,7 +361,7 @@ class TradeStrategyCardControllerTest extends ControllerTestBase {
             MvcResult result = mockMvc
                 .perform(
                     post("/api/trade-strategy-card")
-                        .content(postCompareCard_leftSideDaysIndicatorCorrelationError)
+                        .content(postCard_leftSideDaysIndicatorCorrelationError)
                         .contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON)
                         .with(SecurityMockMvcRequestPostProcessors.csrf())
                 )
@@ -356,7 +369,7 @@ class TradeStrategyCardControllerTest extends ControllerTestBase {
                 .andExpect(jsonPath("$.*", hasSize(1)))
                 .andExpect(jsonPath("$.['TradeStrategyCardController.LeftSideIndicatorDaysNull'].message").value("左辺は日付を利用する指標値ですが、日付が未入力です。"))
                 .andReturn();
-            verify(strategyService, never()).createOneTradeStrategyCard(any());
+            verify(tradeStrategyCardService, never()).createOneTradeStrategyCard(any());
             LOG.info(result.getResponse().getContentAsString());
         }
 
@@ -367,7 +380,7 @@ class TradeStrategyCardControllerTest extends ControllerTestBase {
             MvcResult result = mockMvc
                 .perform(
                     post("/api/trade-strategy-card")
-                        .content(postCompareCard_rightSideDaysIndicatorCorrelationError)
+                        .content(postCard_rightSideDaysIndicatorCorrelationError)
                         .contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON)
                         .with(SecurityMockMvcRequestPostProcessors.csrf())
                 )
@@ -375,7 +388,7 @@ class TradeStrategyCardControllerTest extends ControllerTestBase {
                 .andExpect(jsonPath("$.*", hasSize(1)))
                 .andExpect(jsonPath("$.['TradeStrategyCardController.RightSideIndicatorDaysNull'].message").value("右辺は日付を利用する指標値ですが、日付が未入力です。"))
                 .andReturn();
-            verify(strategyService, never()).createOneTradeStrategyCard(any());
+            verify(tradeStrategyCardService, never()).createOneTradeStrategyCard(any());
             LOG.info(result.getResponse().getContentAsString());
         }
 
@@ -386,7 +399,7 @@ class TradeStrategyCardControllerTest extends ControllerTestBase {
             MvcResult result = mockMvc
                 .perform(
                     post("/api/trade-strategy-card")
-                        .content(postCompareCard_comparisonTypeCorrelationError)
+                        .content(postCard_comparisonTypeCorrelationError)
                         .contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON)
                         .with(SecurityMockMvcRequestPostProcessors.csrf())
                 )
@@ -394,7 +407,7 @@ class TradeStrategyCardControllerTest extends ControllerTestBase {
                 .andExpect(jsonPath("$.*", hasSize(1)))
                 .andExpect(jsonPath("$.['TradeStrategyCardController.ComparisonTypeNull'].message").value("比較種別が未入力です。"))
                 .andReturn();
-            verify(strategyService, never()).createOneTradeStrategyCard(any());
+            verify(tradeStrategyCardService, never()).createOneTradeStrategyCard(any());
             LOG.info(result.getResponse().getContentAsString());
         }
 
@@ -405,7 +418,7 @@ class TradeStrategyCardControllerTest extends ControllerTestBase {
             MvcResult result = mockMvc
                 .perform(
                     post("/api/trade-strategy-card")
-                        .content(postCompareCard_crossTypeCorrelationError)
+                        .content(postCard_crossTypeCorrelationError)
                         .contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON)
                         .with(SecurityMockMvcRequestPostProcessors.csrf())
                 )
@@ -413,7 +426,7 @@ class TradeStrategyCardControllerTest extends ControllerTestBase {
                 .andExpect(jsonPath("$.*", hasSize(1)))
                 .andExpect(jsonPath("$.['TradeStrategyCardController.CrossTypeNull'].message").value("交差種別が未入力です。"))
                 .andReturn();
-            verify(strategyService, never()).createOneTradeStrategyCard(any());
+            verify(tradeStrategyCardService, never()).createOneTradeStrategyCard(any());
             LOG.info(result.getResponse().getContentAsString());
         }
 
@@ -424,7 +437,7 @@ class TradeStrategyCardControllerTest extends ControllerTestBase {
             MvcResult result = mockMvc
                 .perform(
                     post("/api/trade-strategy-card")
-                        .content(postCompareCard_elapsedDayCorrelationError)
+                        .content(postCard_elapsedDayCorrelationError)
                         .contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON)
                         .with(SecurityMockMvcRequestPostProcessors.csrf())
                 )
@@ -432,7 +445,7 @@ class TradeStrategyCardControllerTest extends ControllerTestBase {
                 .andExpect(jsonPath("$.*", hasSize(1)))
                 .andExpect(jsonPath("$.['TradeStrategyCardController.ElapsedDayNull'].message").value("経過日数が未入力です。"))
                 .andReturn();
-            verify(strategyService, never()).createOneTradeStrategyCard(any());
+            verify(tradeStrategyCardService, never()).createOneTradeStrategyCard(any());
             LOG.info(result.getResponse().getContentAsString());
         }
     }
@@ -448,7 +461,7 @@ class TradeStrategyCardControllerTest extends ControllerTestBase {
 
         @BeforeEach
         void setUp() {
-            reset(strategyService);
+            reset(tradeStrategyCardService);
         }
 
         @Test
@@ -456,7 +469,7 @@ class TradeStrategyCardControllerTest extends ControllerTestBase {
         @WithMockUser
         void _001() throws Exception {
             when(userService.findUserId(anyString())).thenReturn(1);
-            doNothing().when(strategyService).updateOneTradeStrategyCard(captor.capture());
+            doNothing().when(tradeStrategyCardService).updateOneTradeStrategyCard(captor.capture());
             MvcResult result = mockMvc.perform(
                 put("/api/trade-strategy-card/1")
                     .content(postCompareCard)
@@ -465,12 +478,13 @@ class TradeStrategyCardControllerTest extends ControllerTestBase {
                 )
                 .andExpect(status().isNoContent())
                 .andReturn();
-            verify(strategyService, times(1)).updateOneTradeStrategyCard(any());
+            verify(tradeStrategyCardService, times(1)).updateOneTradeStrategyCard(any());
 
             assertEquals(
                 TradeStrategyCardEntity.builder()
                     .uid(1)
                     .cid(1)
+                    .sid(1)
                     .cardType(CardType.COMPARE)
                     .leftSideIndicatorType(IndicatorType._1_移動平均線)
                     .leftSideDays(1)
@@ -488,7 +502,7 @@ class TradeStrategyCardControllerTest extends ControllerTestBase {
         @WithMockUser
         void _002() throws Exception {
             when(userService.findUserId(anyString())).thenReturn(1);
-            doNothing().when(strategyService).updateOneTradeStrategyCard(captor.capture());
+            doNothing().when(tradeStrategyCardService).updateOneTradeStrategyCard(captor.capture());
             MvcResult result = mockMvc.perform(
                 put("/api/trade-strategy-card/1")
                     .content(postCrossCard)
@@ -497,12 +511,13 @@ class TradeStrategyCardControllerTest extends ControllerTestBase {
             )
                 .andExpect(status().isNoContent())
                 .andReturn();
-            verify(strategyService, times(1)).updateOneTradeStrategyCard(any());
+            verify(tradeStrategyCardService, times(1)).updateOneTradeStrategyCard(any());
 
             assertEquals(
                 TradeStrategyCardEntity.builder()
                     .uid(1)
                     .cid(1)
+                    .sid(1)
                     .cardType(CardType.CROSS)
                     .leftSideIndicatorType(IndicatorType._1_移動平均線)
                     .leftSideDays(1)
@@ -519,7 +534,7 @@ class TradeStrategyCardControllerTest extends ControllerTestBase {
         @WithMockUser
         void _003() throws Exception {
             when(userService.findUserId(anyString())).thenReturn(1);
-            doNothing().when(strategyService).updateOneTradeStrategyCard(captor.capture());
+            doNothing().when(tradeStrategyCardService).updateOneTradeStrategyCard(captor.capture());
             MvcResult result = mockMvc.perform(
                 put("/api/trade-strategy-card/1")
                     .content(postTimeCard)
@@ -528,12 +543,13 @@ class TradeStrategyCardControllerTest extends ControllerTestBase {
             )
                 .andExpect(status().isNoContent())
                 .andReturn();
-            verify(strategyService, times(1)).updateOneTradeStrategyCard(any());
+            verify(tradeStrategyCardService, times(1)).updateOneTradeStrategyCard(any());
 
             assertEquals(
                 TradeStrategyCardEntity.builder()
                     .uid(1)
                     .cid(1)
+                    .sid(1)
                     .cardType(CardType.TIME)
                     .elapsedDay(1)
                     .build(),
@@ -553,11 +569,12 @@ class TradeStrategyCardControllerTest extends ControllerTestBase {
                         .with(SecurityMockMvcRequestPostProcessors.csrf())
                 )
                 .andExpect(status().isBadRequest())
-                .andExpect(jsonPath("$.*", hasSize(1)))
+                .andExpect(jsonPath("$.*", hasSize(2)))
                 .andExpect(jsonPath("$.['NotNull.tradeStrategyCardForm.cardType'].message").value("カード種別が正しく入力されていません。"))
+                .andExpect(jsonPath("$.['NotNull.tradeStrategyCardForm.sid'].message").value("取引戦略IDが正しく入力されていません。"))
                 .andReturn();
 
-            verify(strategyService, never()).updateOneTradeStrategyCard(any());
+            verify(tradeStrategyCardService, never()).updateOneTradeStrategyCard(any());
             LOG.info(result.getResponse().getContentAsString());
         }
 
@@ -568,7 +585,7 @@ class TradeStrategyCardControllerTest extends ControllerTestBase {
             MvcResult result = mockMvc
                 .perform(
                     put("/api/trade-strategy-card/1")
-                        .content(postCompareCard_NullCorrelationError)
+                        .content(postCard_CompareAndOtherNullCorrelationError)
                         .contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON)
                         .with(SecurityMockMvcRequestPostProcessors.csrf())
                 )
@@ -578,7 +595,7 @@ class TradeStrategyCardControllerTest extends ControllerTestBase {
                 .andExpect(jsonPath("$.['TradeStrategyCardController.ComparisonTypeNull'].message").value("比較種別が未入力です。"))
                 .andExpect(jsonPath("$.['TradeStrategyCardController.LeftSideIndicatorNull'].message").value("左辺指標値が未入力です。"))
                 .andReturn();
-            verify(strategyService, never()).updateOneTradeStrategyCard(any());
+            verify(tradeStrategyCardService, never()).updateOneTradeStrategyCard(any());
             LOG.info(result.getResponse().getContentAsString());
         }
 
@@ -589,7 +606,7 @@ class TradeStrategyCardControllerTest extends ControllerTestBase {
             MvcResult result = mockMvc
                 .perform(
                     put("/api/trade-strategy-card/1")
-                        .content(postCompareCard_rightSideFixCorrelationError)
+                        .content(postCard_rightSideFixCorrelationError)
                         .contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON)
                         .with(SecurityMockMvcRequestPostProcessors.csrf())
                 )
@@ -597,7 +614,7 @@ class TradeStrategyCardControllerTest extends ControllerTestBase {
                 .andExpect(jsonPath("$.*", hasSize(1)))
                 .andExpect(jsonPath("$.['TradeStrategyCardController.RightSideTypeFixAndValueNull'].message").value("右辺種別が固定値ですが、右辺の値が未入力です。"))
                 .andReturn();
-            verify(strategyService, never()).updateOneTradeStrategyCard(any());
+            verify(tradeStrategyCardService, never()).updateOneTradeStrategyCard(any());
             LOG.info(result.getResponse().getContentAsString());
         }
 
@@ -608,7 +625,7 @@ class TradeStrategyCardControllerTest extends ControllerTestBase {
             MvcResult result = mockMvc
                 .perform(
                     put("/api/trade-strategy-card/1")
-                        .content(postCompareCard_rightSideFlexCorrelationError)
+                        .content(postCard_rightSideFlexCorrelationError)
                         .contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON)
                         .with(SecurityMockMvcRequestPostProcessors.csrf())
                 )
@@ -616,7 +633,7 @@ class TradeStrategyCardControllerTest extends ControllerTestBase {
                 .andExpect(jsonPath("$.*", hasSize(1)))
                 .andExpect(jsonPath("$.['TradeStrategyCardController.RightSideTypeFlexAndIndicatorNull'].message").value("右辺種別が指標値ですが、右辺の指標値が未入力です。"))
                 .andReturn();
-            verify(strategyService, never()).updateOneTradeStrategyCard(any());
+            verify(tradeStrategyCardService, never()).updateOneTradeStrategyCard(any());
             LOG.info(result.getResponse().getContentAsString());
         }
 
@@ -627,7 +644,7 @@ class TradeStrategyCardControllerTest extends ControllerTestBase {
             MvcResult result = mockMvc
                 .perform(
                     put("/api/trade-strategy-card/1")
-                        .content(postCompareCard_leftSideDaysIndicatorCorrelationError)
+                        .content(postCard_leftSideDaysIndicatorCorrelationError)
                         .contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON)
                         .with(SecurityMockMvcRequestPostProcessors.csrf())
                 )
@@ -635,7 +652,7 @@ class TradeStrategyCardControllerTest extends ControllerTestBase {
                 .andExpect(jsonPath("$.*", hasSize(1)))
                 .andExpect(jsonPath("$.['TradeStrategyCardController.LeftSideIndicatorDaysNull'].message").value("左辺は日付を利用する指標値ですが、日付が未入力です。"))
                 .andReturn();
-            verify(strategyService, never()).updateOneTradeStrategyCard(any());
+            verify(tradeStrategyCardService, never()).updateOneTradeStrategyCard(any());
             LOG.info(result.getResponse().getContentAsString());
         }
 
@@ -646,7 +663,7 @@ class TradeStrategyCardControllerTest extends ControllerTestBase {
             MvcResult result = mockMvc
                 .perform(
                     put("/api/trade-strategy-card/1")
-                        .content(postCompareCard_rightSideDaysIndicatorCorrelationError)
+                        .content(postCard_rightSideDaysIndicatorCorrelationError)
                         .contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON)
                         .with(SecurityMockMvcRequestPostProcessors.csrf())
                 )
@@ -654,7 +671,7 @@ class TradeStrategyCardControllerTest extends ControllerTestBase {
                 .andExpect(jsonPath("$.*", hasSize(1)))
                 .andExpect(jsonPath("$.['TradeStrategyCardController.RightSideIndicatorDaysNull'].message").value("右辺は日付を利用する指標値ですが、日付が未入力です。"))
                 .andReturn();
-            verify(strategyService, never()).updateOneTradeStrategyCard(any());
+            verify(tradeStrategyCardService, never()).updateOneTradeStrategyCard(any());
             LOG.info(result.getResponse().getContentAsString());
         }
 
@@ -665,7 +682,7 @@ class TradeStrategyCardControllerTest extends ControllerTestBase {
             MvcResult result = mockMvc
                 .perform(
                     put("/api/trade-strategy-card/1")
-                        .content(postCompareCard_comparisonTypeCorrelationError)
+                        .content(postCard_comparisonTypeCorrelationError)
                         .contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON)
                         .with(SecurityMockMvcRequestPostProcessors.csrf())
                 )
@@ -673,7 +690,7 @@ class TradeStrategyCardControllerTest extends ControllerTestBase {
                 .andExpect(jsonPath("$.*", hasSize(1)))
                 .andExpect(jsonPath("$.['TradeStrategyCardController.ComparisonTypeNull'].message").value("比較種別が未入力です。"))
                 .andReturn();
-            verify(strategyService, never()).updateOneTradeStrategyCard(any());
+            verify(tradeStrategyCardService, never()).updateOneTradeStrategyCard(any());
             LOG.info(result.getResponse().getContentAsString());
         }
 
@@ -684,7 +701,7 @@ class TradeStrategyCardControllerTest extends ControllerTestBase {
             MvcResult result = mockMvc
                 .perform(
                     put("/api/trade-strategy-card/1")
-                        .content(postCompareCard_crossTypeCorrelationError)
+                        .content(postCard_crossTypeCorrelationError)
                         .contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON)
                         .with(SecurityMockMvcRequestPostProcessors.csrf())
                 )
@@ -692,7 +709,7 @@ class TradeStrategyCardControllerTest extends ControllerTestBase {
                 .andExpect(jsonPath("$.*", hasSize(1)))
                 .andExpect(jsonPath("$.['TradeStrategyCardController.CrossTypeNull'].message").value("交差種別が未入力です。"))
                 .andReturn();
-            verify(strategyService, never()).updateOneTradeStrategyCard(any());
+            verify(tradeStrategyCardService, never()).updateOneTradeStrategyCard(any());
             LOG.info(result.getResponse().getContentAsString());
         }
 
@@ -703,7 +720,7 @@ class TradeStrategyCardControllerTest extends ControllerTestBase {
             MvcResult result = mockMvc
                 .perform(
                     put("/api/trade-strategy-card/1")
-                        .content(postCompareCard_elapsedDayCorrelationError)
+                        .content(postCard_elapsedDayCorrelationError)
                         .contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON)
                         .with(SecurityMockMvcRequestPostProcessors.csrf())
                 )
@@ -711,7 +728,7 @@ class TradeStrategyCardControllerTest extends ControllerTestBase {
                 .andExpect(jsonPath("$.*", hasSize(1)))
                 .andExpect(jsonPath("$.['TradeStrategyCardController.ElapsedDayNull'].message").value("経過日数が未入力です。"))
                 .andReturn();
-            verify(strategyService, never()).updateOneTradeStrategyCard(any());
+            verify(tradeStrategyCardService, never()).updateOneTradeStrategyCard(any());
             LOG.info(result.getResponse().getContentAsString());
         }
 
@@ -728,7 +745,7 @@ class TradeStrategyCardControllerTest extends ControllerTestBase {
                 .andExpect(status().isBadRequest())
                 .andExpect(jsonPath("$.['NotNull.TradeStrategyCardController.update.cid'].message").value("取引戦略カードIDが未指定です。"))
                 .andReturn();
-            verify(strategyService, never()).updateOneTradeStrategy(any());
+            verify(tradeStrategyCardService, never()).updateOneTradeStrategyCard(any());
             LOG.info(result.getResponse().getContentAsString());
         }
     }
@@ -741,19 +758,19 @@ class TradeStrategyCardControllerTest extends ControllerTestBase {
 
         @BeforeEach
         void setUp() {
-            reset(strategyService);
+            reset(tradeStrategyCardService);
         }
 
         @Test
         @DisplayName("正しい引数が与えられたとき、取引戦略カードを削除する")
         @WithMockUser
         void _001() throws Exception {
-            doNothing().when(strategyService).deleteOneTradeStrategy(anyInt(), anyInt());
+            doNothing().when(tradeStrategyCardService).deleteOneTradeStrategyCard(anyInt(), anyInt());
             MvcResult result = mockMvc
                 .perform(delete("/api/trade-strategy-card/1").with(SecurityMockMvcRequestPostProcessors.csrf()))
                 .andExpect(status().isNoContent())
                 .andReturn();
-            verify(strategyService, times(1)).deleteOneTradeStrategyCard(anyInt(), anyInt());
+            verify(tradeStrategyCardService, times(1)).deleteOneTradeStrategyCard(anyInt(), anyInt());
             LOG.info(result.getResponse().getContentAsString());
         }
 
@@ -766,7 +783,7 @@ class TradeStrategyCardControllerTest extends ControllerTestBase {
                 .andExpect(status().isBadRequest())
                 .andExpect(jsonPath("$.['NotNull.TradeStrategyCardController.delete.cid'].message").value("取引戦略カードIDが未指定です。"))
                 .andReturn();
-            verify(strategyService, never()).deleteOneTradeStrategyCard(anyInt(), anyInt());
+            verify(tradeStrategyCardService, never()).deleteOneTradeStrategyCard(anyInt(), anyInt());
             LOG.info(result.getResponse().getContentAsString());
         }
     }

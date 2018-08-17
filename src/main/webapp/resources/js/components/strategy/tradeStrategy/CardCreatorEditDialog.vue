@@ -12,13 +12,13 @@
       <el-tabs
         type="border-card"
         stretch
-        :value="card ? card.cardType.key : 'compare'"
+        :value="card ? resolveTabName(card.cardType) : 'compare'"
         @tab-click="selectCardType"
       >
         <el-tab-pane
           label="比較"
           name="compare"
-          :disabled="card ? card.cardType.id !== 1 : false"
+          :disabled="card ? card.cardType !== 1 : false"
         >
           <el-row class="creator-row">
             <h4>左辺</h4>
@@ -87,7 +87,7 @@
                 <el-option :value="2" label="移動平均線乖離率" />
                 <el-option :value="3" label="終値" />
               </el-select>
-              <span class="creator-text"> * </span>
+              <span class="creator-text"> x </span>
               <el-input
                 v-model.number="cardForm.coefficient"
                 size="small"
@@ -115,7 +115,7 @@
         <el-tab-pane
           label="交差"
           name="cross"
-          :disabled="card ? card.cardType.id !== 2 : false"
+          :disabled="card ? card.cardType !== 2 : false"
         >
           <el-row class="creator-row">
             <h4>左辺</h4>
@@ -147,6 +147,22 @@
           <el-row class="creator-row">
             <h4>右辺</h4>
             <div class="creator">
+              <el-radio-group size="small" v-model="cardForm.rightSideFixOrFlex">
+                <el-radio-button :label="true">固定値</el-radio-button>
+                <el-radio-button :label="false">指標値</el-radio-button>
+              </el-radio-group>
+            </div>
+            <div v-if="cardForm.rightSideFixOrFlex" class="creator">
+              <el-input
+                v-model.number="cardForm.rightSideFixValue"
+                size="small"
+                placeholder="値"
+                class="creator-input"
+                type="number"
+                min="1"
+              />
+            </div>
+            <div v-else class="creator">
               <el-input
                 v-if="daysNeedIndicator(cardForm.rightSideIndicatorType)"
                 v-model.number="cardForm.rightSideDays"
@@ -184,7 +200,7 @@
         <el-tab-pane
           label="時間"
           name="time"
-          :disabled="card ? card.cardType.id !== 3 : false"
+          :disabled="card ? card.cardType !== 3 : false"
         >
           <div class="creator">
             <el-input
@@ -201,6 +217,7 @@
       </el-tabs>
     </el-form>
     <el-row slot="footer" class="dialog-footer">
+      <el-button size="small" @click="() => $emit('close')">キャンセル</el-button>
       <el-button v-if="card" type="primary" size="small" @click="update">更新</el-button>
       <el-button v-else type="primary" size="small" @click="create">追加</el-button>
     </el-row>
@@ -221,6 +238,7 @@
       if (this.card) {
         this.cardForm = Object.assign({}, this.card)
       }
+      this.cardForm.sid = this.sid
     },
 
     data() {
@@ -228,6 +246,7 @@
         cardForm: {
           cid: null,
           pid: null,
+          sid: null,
           cardType: 1,
           leftSideDays: null,
           leftSideIndicatorType: null,
@@ -247,6 +266,25 @@
 
     methods: {
 
+      /**
+       * カード種別からカード種別名を解決する
+       *
+       * @param cardType カード種別
+       * @returns カード種別名
+       */
+      resolveTabName: function(cardType) {
+        return cardType === 1
+          ? 'compare'
+          : cardType === 2
+            ? 'cross'
+            : 'time'
+      },
+
+      /**
+       * クリックされたタブからカード種別を設定する
+       *
+       * @param tab クリックされたタブ
+       */
       selectCardType(tab) {
         this.cardForm.cardType =
           tab.name === 'compare'
@@ -338,6 +376,7 @@
 
     computed: {
       ...mapFields({
+        sid: 'strategyForm.sid',
         cards: 'strategyForm.cards',
         inRules: 'strategyForm.inRules',
         exitRules: 'strategyForm.exitRules',

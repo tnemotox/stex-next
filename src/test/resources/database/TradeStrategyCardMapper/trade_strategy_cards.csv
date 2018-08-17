@@ -1,3 +1,4 @@
-cid,uid,pid,label,used,card_type,left_side_indicator_type,left_side_days,right_side_indicator_type,right_side_days,right_side_fix_or_flex,right_side_fix_value,coefficient,comparison_type
-1,1,2,card1,true,1,1,1,1,1,true,1,1.1,1
-2,1,4,card2,true,2,2,2,2,2,false,2,2.2,2
+cid,uid,pid,sid,label,used,card_type,left_side_indicator_type,left_side_days,right_side_indicator_type,right_side_days,right_side_fix_or_flex,right_side_fix_value,coefficient,comparison_type,cross_type,elapsed_day
+1,1,2,1,card1,true,1,1,1,1,1,true,1,1.1,1,null,null
+2,1,4,1,card2,true,2,2,2,2,2,false,2,2.2,null,1,null
+3,1,null,1,card3,false,3,null,null,null,null,null,null,null,null,null,1

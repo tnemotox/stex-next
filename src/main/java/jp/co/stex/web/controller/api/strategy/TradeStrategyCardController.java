@@ -2,7 +2,7 @@ package jp.co.stex.web.controller.api.strategy;
 
 import jp.co.stex.domain.model.strategy.TradeStrategyCardEntity;
 import jp.co.stex.domain.service.base.UserService;
-import jp.co.stex.domain.service.strategy.StrategyService;
+import jp.co.stex.domain.service.strategy.ITradeStrategyCardService;
 import lombok.RequiredArgsConstructor;
 import org.dozer.Mapper;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 /**
  * <p>取引戦略カードの操作を行うコントローラです。</p>
@@ -36,7 +37,7 @@ public class TradeStrategyCardController {
     /**
      * 取引戦略サービス
      */
-    private final StrategyService strategyService;
+    private final ITradeStrategyCardService tradeStrategyCardService;
 
     /**
      * ユーザサービス
@@ -58,6 +59,11 @@ public class TradeStrategyCardController {
         webDataBinder.addValidators(tradeStrategyCardFormValidator);
     }
 
+    @RequestMapping(path = "/{sid}", method = RequestMethod.GET)
+    public ResponseEntity<List<TradeStrategyCardEntity>> fetch(@PathVariable(value = "sid", required = false) @NotNull Integer sid) {
+        return ResponseEntity.ok(tradeStrategyCardService.findAllTradeStrategyCard(findUserId(), sid));
+    }
+
     /**
      * <p>取引戦略カードを作成する。</p>
      *
@@ -72,7 +78,7 @@ public class TradeStrategyCardController {
         if (bd.hasErrors()) {
             throw new BindException(bd);
         }
-        int cid = strategyService.createOneTradeStrategyCard(dozerMapper.map(form, TradeStrategyCardEntity.class).setUid(findUserId()));
+        int cid = tradeStrategyCardService.createOneTradeStrategyCard(dozerMapper.map(form, TradeStrategyCardEntity.class).setUid(findUserId()));
         return ResponseEntity.created(uriBuilder.path("/api/trade-strategy-card/{cid}").buildAndExpand(cid).toUri()).build();
     }
 
@@ -90,7 +96,7 @@ public class TradeStrategyCardController {
         if (bd.hasErrors()) {
             throw new BindException(bd);
         }
-        strategyService.updateOneTradeStrategyCard(dozerMapper.map(form, TradeStrategyCardEntity.class).setUid(findUserId()).setCid(cid));
+        tradeStrategyCardService.updateOneTradeStrategyCard(dozerMapper.map(form, TradeStrategyCardEntity.class).setUid(findUserId()).setCid(cid));
         return ResponseEntity.noContent().build();
     }
 
@@ -102,7 +108,7 @@ public class TradeStrategyCardController {
      */
     @RequestMapping(path = {"/", "/{cid}"}, method = RequestMethod.DELETE)
     public ResponseEntity<Void> delete(@PathVariable(value = "cid", required = false) @NotNull Integer cid) {
-        strategyService.deleteOneTradeStrategyCard(findUserId(), cid);
+        tradeStrategyCardService.deleteOneTradeStrategyCard(findUserId(), cid);
         return ResponseEntity.noContent().build();
     }
 

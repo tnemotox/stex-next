@@ -35,6 +35,11 @@
           {{slot.row.label}}
         </template>
       </el-table-column>
+      <el-table-column label="利用フラグ">
+        <template slot-scope="slot">
+          {{slot.row.used ? '使用中' : '未使用'}}
+        </template>
+      </el-table-column>
       <el-table-column label="操作" width="150">
         <template slot-scope="slot">
           <el-button
@@ -79,7 +84,7 @@
       id="card-creator-edit-dialog"
       :card="cardCreatorEditDialog.card"
       :visible="cardCreatorEditDialog.visible"
-      @close="cardCreatorEditDialog = {visible: false, card: null}"
+      @close="closeDialog"
     />
     <card-creator-delete-dialog
       v-if="cardCreatorDeleteDialog.visible"
@@ -88,7 +93,7 @@
       :cid="cardCreatorDeleteDialog.cid"
       :visible="cardCreatorDeleteDialog.visible"
       :pid="cardCreatorDeleteDialog.pid"
-      @close="cardCreatorDeleteDialog = {visible: false, cid: null, label: null, pid: null}"
+      @close="closeDialog"
     />
   </div>
 </template>
@@ -121,7 +126,27 @@
       }
     },
 
+    async created() {
+      this.reloadTable()
+    },
+
     methods: {
+
+      async reloadTable() {
+        const cards = await this.$http.card.$fetch(this.sid).then(res => res.data)
+        this.cards = [...cards]
+      },
+
+      closeDialog() {
+        this.cardCreatorDeleteDialog.visible = false
+        this.cardCreatorDeleteDialog.cid = null
+        this.cardCreatorDeleteDialog.label = null
+        this.cardCreatorDeleteDialog.pid = null
+        this.cardCreatorEditDialog.visible = false
+        this.cardCreatorEditDialog.card = null
+        this.reloadTable()
+      },
+
       showCardCreatorEditDialog(row) {
         this.cardCreatorEditDialog = {
           visible: true,
@@ -141,6 +166,7 @@
 
     computed: {
       ...mapFields({
+        sid: 'strategyForm.sid',
         cards: 'strategyForm.cards',
         inRules: 'strategyForm.inRules',
         exitRules: 'strategyForm.exitRules',

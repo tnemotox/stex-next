@@ -60,19 +60,21 @@
         </el-date-picker>
       </el-form-item>
     </el-form>
-    <h3>取引ルール</h3>
-    <div id="rule-tabs">
-      <el-tabs type="border-card" stretch :value="tabName" @tab-click="tab => this.tabName = tab.name">
-        <el-tab-pane label="カード" name="card">
-          <card-holder id="card-holder"/>
-        </el-tab-pane>
-        <el-tab-pane label="仕掛けルール" name="in-rule">
-          <strategy-board :in-or-exit="true" id="in-trade-rule"/>
-        </el-tab-pane>
-        <el-tab-pane label="手仕舞いルール" name="exit-rule">
-          <strategy-board :in-or-exit="false" id="exit-trade-rule"/>
-        </el-tab-pane>
-      </el-tabs>
+    <div v-if="strategyForm.sid">
+      <h3>取引ルール</h3>
+      <div id="rule-tabs">
+        <el-tabs type="border-card" stretch :value="tabName" @tab-click="tab => this.tabName = tab.name">
+          <el-tab-pane label="カード" name="card">
+            <card-holder id="card-holder"/>
+          </el-tab-pane>
+          <el-tab-pane label="仕掛けルール" name="in-rule">
+            <strategy-board :in-or-exit="true" id="in-trade-rule"/>
+          </el-tab-pane>
+          <el-tab-pane label="手仕舞いルール" name="exit-rule">
+            <strategy-board :in-or-exit="false" id="exit-trade-rule"/>
+          </el-tab-pane>
+        </el-tabs>
+      </div>
     </div>
     <el-row slot="footer" class="dialog-footer">
       <el-button
@@ -147,12 +149,13 @@
     },
 
     methods: {
+
       create() {
         this.$refs.strategyForm.validate(async valid => {
           if (valid) {
             await this.$http.strategy.$create(Object.assign(this.strategyForm, {
               analysisStartDate: this.strategyForm.analysisDate[0],
-              analysisEndDate: this.strategyForm.analysisDate[1]
+              analysisEndDate: this.strategyForm.analysisDate[1],
             })).then(() => {
               this.$notify({
                 type: 'info',
@@ -168,7 +171,10 @@
       async update() {
         this.$refs.strategyForm.validate(async valid => {
           if (valid) {
-            await this.$http.strategy.$update(this.strategyForm).then(() => {
+            await this.$http.strategy.$update(Object.assign(this.strategyForm, {
+              analysisStartDate: this.strategyForm.analysisDate[0],
+              analysisEndDate: this.strategyForm.analysisDate[1]
+            })).then(() => {
               this.$notify({
                 type: 'info',
                 message: '取引戦略を更新しました。',

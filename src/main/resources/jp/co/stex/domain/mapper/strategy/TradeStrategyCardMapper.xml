@@ -10,6 +10,7 @@
       cid,
       uid,
       pid,
+      sid,
       label,
       used,
       card_type,
@@ -20,16 +21,43 @@
       right_side_fix_or_flex,
       right_side_fix_value,
       coefficient,
-      comparison_type
+      comparison_type,
+      cross_type,
+      elapsed_day
     FROM trade_strategy_cards
     WHERE uid = #{uid}
       AND cid = #{cid}
+  </select>
+
+  <select id="findAllBySid" resultType="TradeStrategyCardEntity">
+    SELECT
+      cid,
+      uid,
+      pid,
+      sid,
+      label,
+      used,
+      card_type,
+      left_side_indicator_type,
+      left_side_days,
+      right_side_indicator_type,
+      right_side_days,
+      right_side_fix_or_flex,
+      right_side_fix_value,
+      coefficient,
+      comparison_type,
+      cross_type,
+      elapsed_day
+    FROM trade_strategy_cards
+    WHERE uid = #{uid}
+    AND sid = #{sid}
   </select>
 
   <select id="createOne" resultType="java.lang.Integer">
     INSERT INTO trade_strategy_cards (
       uid,
       pid,
+      sid,
       label,
       used,
       card_type,
@@ -40,10 +68,13 @@
       right_side_fix_or_flex,
       right_side_fix_value,
       coefficient,
-      comparison_type
+      comparison_type,
+      cross_type,
+      elapsed_day
     ) VALUES (
       #{card.uid},
       null,
+      #{card.sid},
       #{card.label},
       false,
       #{card.cardType},
@@ -54,7 +85,9 @@
       #{card.rightSideFixOrFlex},
       #{card.rightSideFixValue},
       #{card.coefficient},
-      #{card.comparisonType}
+      #{card.comparisonType},
+      #{card.crossType},
+      #{card.elapsedDay}
     )
     RETURNING cid
   </select>
@@ -71,7 +104,9 @@
       right_side_fix_or_flex = #{card.rightSideFixOrFlex},
       right_side_fix_value = #{card.rightSideFixValue},
       coefficient = #{card.coefficient},
-      comparison_type = #{card.comparisonType}
+      comparison_type = #{card.comparisonType},
+      cross_type = #{card.crossType},
+      elapsed_day = ${card.elapsedDay}
     WHERE uid = #{card.uid}
     AND cid = #{card.cid}
   </update>

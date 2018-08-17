@@ -5,6 +5,8 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 /**
  * <p>取引戦略カードを操作するマッパーです。</p>
  * <p>ユーザIDが合致するもののみ操作可能です。</p>
@@ -24,6 +26,15 @@ public interface TradeStrategyCardMapper {
      * @return 取引戦略カード
      */
     TradeStrategyCardEntity findOne(@Param("uid") int uid, @Param("cid") int cid);
+
+    /**
+     * <p>取引戦略IDに紐づく取引戦略カードを取得する。</p>
+     *
+     * @param uid ユーザID
+     * @param sid 取引戦略ID
+     * @return 取引戦略カード一覧
+     */
+    List<TradeStrategyCardEntity> findAllBySid(@Param("uid") int uid, @Param("sid") int sid);
 
     /**
      * <p>取引戦略カードを作成する。</p>

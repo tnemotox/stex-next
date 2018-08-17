@@ -42,21 +42,21 @@ CREATE TABLE analysis_histories
 	id serial NOT NULL,
 	-- ユーザID
 	uid int NOT NULL,
-	-- 分析日時
-	analyzed_at date NOT NULL,
 	-- お気に入りフラグ
 	star boolean DEFAULT 'false' NOT NULL,
 	-- 総資産
 	total_asset int NOT NULL,
-	-- 分析種別 : true: 固定テスト
-	-- false: 最適化テスト
-	fixed_or_optimized boolean NOT NULL,
 	-- 取引戦略バイナリ
 	trade_rule_binary bytea NOT NULL,
 	-- 資産推移バイナリ
 	asset_binary bytea NOT NULL,
+	-- 分析種別 : true: 固定テスト
+	-- false: 最適化テスト
+	fixed_or_optimized boolean NOT NULL,
 	-- 保有銘柄バイナリ
 	holding_brands_binary bytea,
+	-- 分析日時
+	analyzed_at date NOT NULL,
 	-- コメント
 	memo text,
 	PRIMARY KEY (id)
@@ -199,6 +199,8 @@ CREATE TABLE trade_strategy_cards
 	uid int NOT NULL,
 	-- 取引戦略パレットID
 	pid int,
+	-- 取引戦略ID
+	sid int NOT NULL,
 	-- ラベル
 	label varchar NOT NULL,
 	-- 利用フラグ
@@ -208,16 +210,16 @@ CREATE TABLE trade_strategy_cards
 	-- 3: 時間
 	card_type int NOT NULL,
 	-- 左辺指標種別
-	left_side_indicator_type int NOT NULL,
+	left_side_indicator_type int,
 	-- 左辺日数
-	left_side_days int NOT NULL,
+	left_side_days int,
 	-- 右辺指標種別
-	right_side_indicator_type int NOT NULL,
+	right_side_indicator_type int,
 	-- 右辺日数
-	right_side_days int NOT NULL,
+	right_side_days int,
 	-- 右辺種別フラグ : true: fix
 	-- false: flex
-	right_side_fix_or_flex boolean NOT NULL,
+	right_side_fix_or_flex boolean,
 	-- 右辺固定値
 	right_side_fix_value numeric,
 	-- 係数
@@ -227,7 +229,12 @@ CREATE TABLE trade_strategy_cards
 	-- 3: <
 	-- 4: <=
 	-- 5: =
-	comparison_type int NOT NULL,
+	comparison_type int,
+	-- 交差種別 : 1: 上抜け
+	-- 2: 下抜け
+	cross_type int,
+	-- 経過日数
+	elapsed_day int,
 	PRIMARY KEY (cid),
 	UNIQUE (uid, pid)
 ) WITHOUT OIDS;
@@ -323,6 +330,14 @@ ALTER TABLE trade_rules
 
 
 ALTER TABLE trade_strategy_cards
+	ADD FOREIGN KEY (sid)
+	REFERENCES trade_strategies (sid)
+	ON UPDATE RESTRICT
+	ON DELETE CASCADE
+;
+
+
+ALTER TABLE trade_strategy_cards
 	ADD FOREIGN KEY (pid)
 	REFERENCES trade_strategy_palettes (pid)
 	ON UPDATE RESTRICT
@@ -397,14 +412,14 @@ COMMENT ON COLUMN analysis_brand_groups.brands IS '分析対象銘柄';
 COMMENT ON TABLE analysis_histories IS '分析履歴';
 COMMENT ON COLUMN analysis_histories.id IS 'ID';
 COMMENT ON COLUMN analysis_histories.uid IS 'ユーザID';
-COMMENT ON COLUMN analysis_histories.analyzed_at IS '分析日時';
 COMMENT ON COLUMN analysis_histories.star IS 'お気に入りフラグ';
 COMMENT ON COLUMN analysis_histories.total_asset IS '総資産';
-COMMENT ON COLUMN analysis_histories.fixed_or_optimized IS '分析種別 : true: 固定テスト
-false: 最適化テスト';
 COMMENT ON COLUMN analysis_histories.trade_rule_binary IS '取引戦略バイナリ';
 COMMENT ON COLUMN analysis_histories.asset_binary IS '資産推移バイナリ';
+COMMENT ON COLUMN analysis_histories.fixed_or_optimized IS '分析種別 : true: 固定テスト
+false: 最適化テスト';
 COMMENT ON COLUMN analysis_histories.holding_brands_binary IS '保有銘柄バイナリ';
+COMMENT ON COLUMN analysis_histories.analyzed_at IS '分析日時';
 COMMENT ON COLUMN analysis_histories.memo IS 'コメント';
 COMMENT ON TABLE brands IS '銘柄';
 COMMENT ON COLUMN brands.code IS '銘柄コード';
@@ -458,6 +473,7 @@ COMMENT ON TABLE trade_strategy_cards IS '取引戦略カード';
 COMMENT ON COLUMN trade_strategy_cards.cid IS '取引戦略カードID';
 COMMENT ON COLUMN trade_strategy_cards.uid IS 'ユーザID';
 COMMENT ON COLUMN trade_strategy_cards.pid IS '取引戦略パレットID';
+COMMENT ON COLUMN trade_strategy_cards.sid IS '取引戦略ID';
 COMMENT ON COLUMN trade_strategy_cards.label IS 'ラベル';
 COMMENT ON COLUMN trade_strategy_cards.used IS '利用フラグ';
 COMMENT ON COLUMN trade_strategy_cards.card_type IS 'カード種別 : 1: 比較
@@ -476,6 +492,9 @@ COMMENT ON COLUMN trade_strategy_cards.comparison_type IS '比較種別 : 1: >
 3: <
 4: <=
 5: =';
+COMMENT ON COLUMN trade_strategy_cards.cross_type IS '交差種別 : 1: 上抜け
+2: 下抜け';
+COMMENT ON COLUMN trade_strategy_cards.elapsed_day IS '経過日数';
 COMMENT ON TABLE trade_strategy_palettes IS '取引戦略パレット';
 COMMENT ON COLUMN trade_strategy_palettes.pid IS '取引戦略パレットID';
 COMMENT ON COLUMN trade_strategy_palettes.uid IS 'ユーザID';

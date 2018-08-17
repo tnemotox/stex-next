@@ -660,6 +660,8 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 //
 //
 //
+//
+//
 
 
 
@@ -685,37 +687,42 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
     };
   },
   created: function created() {
-    var _this = this;
-
-    return _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
-      var strategies;
-      return regeneratorRuntime.wrap(function _callee$(_context) {
-        while (1) {
-          switch (_context.prev = _context.next) {
-            case 0:
-              _context.next = 2;
-              return _this.$http.strategy.$fetch().then(function (res) {
-                return res.data;
-              });
-
-            case 2:
-              strategies = _context.sent;
-
-              _this.strategies = [].concat(_toConsumableArray(strategies));
-
-            case 4:
-            case 'end':
-              return _context.stop();
-          }
-        }
-      }, _callee, _this);
-    }))();
+    this.reloadTable();
   },
 
 
   methods: {
-    closeEditDialog: function closeEditDialog() {
+    reloadTable: function reloadTable() {
+      var _this = this;
+
+      return _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
+        var strategies;
+        return regeneratorRuntime.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                _context.next = 2;
+                return _this.$http.strategy.$fetch().then(function (res) {
+                  return res.data;
+                });
+
+              case 2:
+                strategies = _context.sent;
+
+                _this.strategies = [].concat(_toConsumableArray(strategies));
+
+              case 4:
+              case 'end':
+                return _context.stop();
+            }
+          }
+        }, _callee, _this);
+      }))();
+    },
+    closeDialog: function closeDialog() {
+      this.reloadTable();
       this.strategyEditDialog.visible = false;
+      this.strategyDeleteDialog.visible = false;
       this.$store.commit('initStrategyForm');
     },
 
@@ -726,13 +733,40 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
      * @param strategy 選択した取引戦略
      */
     showUpdateDialog: function showUpdateDialog(strategy) {
-      this.strategyEditDialog = {
-        visible: true
-      };
-      this.strategyForm = Object.assign({
-        // element-uiのため、分析日時を配列に格納
-        analysisDate: [moment__WEBPACK_IMPORTED_MODULE_1___default()(strategy.analysisStartDate).format(), moment__WEBPACK_IMPORTED_MODULE_1___default()(strategy.analysisEndDate).format()]
-      }, strategy);
+      var _this2 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2() {
+        var result;
+        return regeneratorRuntime.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                _this2.strategyEditDialog = {
+                  visible: true
+                };
+                _context2.next = 3;
+                return Promise.all([_this2.$http.card.$fetch(strategy.sid)]
+                // this.$http.rule.$find(strategy.sid),
+                // this.$http.rule.$find(strategy.sid),
+                );
+
+              case 3:
+                result = _context2.sent;
+
+                _this2.strategyForm = Object.assign({
+                  // element-uiのため、分析日時を配列に格納
+                  analysisDate: [moment__WEBPACK_IMPORTED_MODULE_1___default()(strategy.analysisStartDate).format(), moment__WEBPACK_IMPORTED_MODULE_1___default()(strategy.analysisEndDate).format()],
+                  cards: result[0].data,
+                  sid: strategy.sid
+                }, strategy);
+
+              case 5:
+              case 'end':
+                return _context2.stop();
+            }
+          }
+        }, _callee2, _this2);
+      }))();
     },
     showDeleteDialog: function showDeleteDialog(strategy) {
       this.strategyDeleteDialog = {
@@ -748,10 +782,10 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
      * 取引戦略テーブルをフィルタリングする
      */
     filteredStrategies: function filteredStrategies() {
-      var _this2 = this;
+      var _this3 = this;
 
       return this.strategyTableFilter === '' ? this.strategies : this.strategies.filter(function (s) {
-        return s.label.includes(_this2.strategyTableFilter) || s.sid.toString().includes(_this2.strategyTableFilter) || s.analysisStartDate.includes(_this2.strategyTableFilter) || s.analysisEndDate.includes(_this2.strategyTableFilter) || s.analyzedAt.includes(_this2.strategyTableFilter);
+        return s.label.includes(_this3.strategyTableFilter) || s.sid.toString().includes(_this3.strategyTableFilter) || s.analysisStartDate.includes(_this3.strategyTableFilter) || s.analysisEndDate.includes(_this3.strategyTableFilter) || s.analyzedAt.includes(_this3.strategyTableFilter);
       });
     }
   })
@@ -1421,6 +1455,23 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -1435,12 +1486,14 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
     if (this.card) {
       this.cardForm = Object.assign({}, this.card);
     }
+    this.cardForm.sid = this.sid;
   },
   data: function data() {
     return {
       cardForm: {
         cid: null,
         pid: null,
+        sid: null,
         cardType: 1,
         leftSideDays: null,
         leftSideIndicatorType: null,
@@ -1458,6 +1511,22 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 
 
   methods: {
+
+    /**
+     * カード種別からカード種別名を解決する
+     *
+     * @param cardType カード種別
+     * @returns カード種別名
+     */
+    resolveTabName: function resolveTabName(cardType) {
+      return cardType === 1 ? 'compare' : cardType === 2 ? 'cross' : 'time';
+    },
+
+    /**
+     * クリックされたタブからカード種別を設定する
+     *
+     * @param tab クリックされたタブ
+     */
     selectCardType: function selectCardType(tab) {
       this.cardForm.cardType = tab.name === 'compare' ? 1 : tab.name === 'cross' ? 2 : 3;
     },
@@ -1613,6 +1682,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
   },
 
   computed: _extends({}, Object(vuex_map_fields__WEBPACK_IMPORTED_MODULE_0__["mapFields"])({
+    sid: 'strategyForm.sid',
     cards: 'strategyForm.cards',
     inRules: 'strategyForm.inRules',
     exitRules: 'strategyForm.exitRules'
@@ -1635,6 +1705,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _CardCreatorDeleteDialog__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./CardCreatorDeleteDialog */ "./src/main/webapp/resources/js/components/strategy/tradeStrategy/CardCreatorDeleteDialog.vue");
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
+function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+
+function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
+
+//
+//
+//
+//
+//
 //
 //
 //
@@ -1757,9 +1836,63 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
       }
     };
   },
+  created: function created() {
+    var _this = this;
+
+    return _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
+      return regeneratorRuntime.wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              _this.reloadTable();
+
+            case 1:
+            case 'end':
+              return _context.stop();
+          }
+        }
+      }, _callee, _this);
+    }))();
+  },
 
 
   methods: {
+    reloadTable: function reloadTable() {
+      var _this2 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2() {
+        var cards;
+        return regeneratorRuntime.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                _context2.next = 2;
+                return _this2.$http.card.$fetch(_this2.sid).then(function (res) {
+                  return res.data;
+                });
+
+              case 2:
+                cards = _context2.sent;
+
+                _this2.cards = [].concat(_toConsumableArray(cards));
+
+              case 4:
+              case 'end':
+                return _context2.stop();
+            }
+          }
+        }, _callee2, _this2);
+      }))();
+    },
+    closeDialog: function closeDialog() {
+      this.cardCreatorDeleteDialog.visible = false;
+      this.cardCreatorDeleteDialog.cid = null;
+      this.cardCreatorDeleteDialog.label = null;
+      this.cardCreatorDeleteDialog.pid = null;
+      this.cardCreatorEditDialog.visible = false;
+      this.cardCreatorEditDialog.card = null;
+      this.reloadTable();
+    },
     showCardCreatorEditDialog: function showCardCreatorEditDialog(row) {
       this.cardCreatorEditDialog = {
         visible: true,
@@ -1777,6 +1910,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
   },
 
   computed: _extends({}, Object(vuex_map_fields__WEBPACK_IMPORTED_MODULE_0__["mapFields"])({
+    sid: 'strategyForm.sid',
     cards: 'strategyForm.cards',
     inRules: 'strategyForm.inRules',
     exitRules: 'strategyForm.exitRules'
@@ -1786,10 +1920,10 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
      * 取引戦略テーブルをフィルタリングする
      */
     filteredCards: function filteredCards() {
-      var _this = this;
+      var _this3 = this;
 
       return this.cardTableFilter === '' ? this.cards : this.cards.filter(function (c) {
-        return c.label.includes(_this.cardTableFilter);
+        return c.label.includes(_this3.cardTableFilter);
       });
     }
   })
@@ -2682,6 +2816,8 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 //
 //
 //
+//
+//
 
 
 
@@ -2786,7 +2922,10 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
                             }
 
                             _context2.next = 3;
-                            return _this2.$http.strategy.$update(_this2.strategyForm).then(function () {
+                            return _this2.$http.strategy.$update(Object.assign(_this2.strategyForm, {
+                              analysisStartDate: _this2.strategyForm.analysisDate[0],
+                              analysisEndDate: _this2.strategyForm.analysisDate[1]
+                            })).then(function () {
                               _this2.$notify({
                                 type: 'info',
                                 message: '取引戦略を更新しました。',
@@ -3950,22 +4089,22 @@ var render = function() {
         1
       ),
       _vm._v(" "),
-      _c("strategy-edit-dialog", {
-        attrs: {
-          strategy: _vm.strategyEditDialog.strategy,
-          visible: _vm.strategyEditDialog.visible
-        },
-        on: { close: _vm.closeEditDialog }
-      }),
+      _vm.strategyEditDialog.visible
+        ? _c("strategy-edit-dialog", {
+            attrs: {
+              strategy: _vm.strategyEditDialog.strategy,
+              visible: _vm.strategyEditDialog.visible
+            },
+            on: { close: _vm.closeDialog }
+          })
+        : _vm._e(),
       _vm._v(" "),
-      _c("strategy-delete-dialog", {
-        attrs: { visible: _vm.strategyDeleteDialog.visible },
-        on: {
-          close: function($event) {
-            _vm.strategyDeleteDialog.visible = false
-          }
-        }
-      })
+      _vm.strategyDeleteDialog.visible
+        ? _c("strategy-delete-dialog", {
+            attrs: { visible: _vm.strategyDeleteDialog.visible },
+            on: { close: _vm.closeDialog }
+          })
+        : _vm._e()
     ],
     1
   )
@@ -4406,7 +4545,9 @@ var render = function() {
               attrs: {
                 type: "border-card",
                 stretch: "",
-                value: _vm.card ? _vm.card.cardType.key : "compare"
+                value: _vm.card
+                  ? _vm.resolveTabName(_vm.card.cardType)
+                  : "compare"
               },
               on: { "tab-click": _vm.selectCardType }
             },
@@ -4417,7 +4558,7 @@ var render = function() {
                   attrs: {
                     label: "比較",
                     name: "compare",
-                    disabled: _vm.card ? _vm.card.cardType.id !== 1 : false
+                    disabled: _vm.card ? _vm.card.cardType !== 1 : false
                   }
                 },
                 [
@@ -4647,7 +4788,7 @@ var render = function() {
                             ),
                             _vm._v(" "),
                             _c("span", { staticClass: "creator-text" }, [
-                              _vm._v(" * ")
+                              _vm._v(" x ")
                             ]),
                             _vm._v(" "),
                             _c("el-input", {
@@ -4732,7 +4873,7 @@ var render = function() {
                   attrs: {
                     label: "交差",
                     name: "cross",
-                    disabled: _vm.card ? _vm.card.cardType.id !== 2 : false
+                    disabled: _vm.card ? _vm.card.cardType !== 2 : false
                   }
                 },
                 [
@@ -4828,82 +4969,145 @@ var render = function() {
                       "div",
                       { staticClass: "creator" },
                       [
-                        _vm.daysNeedIndicator(
-                          _vm.cardForm.rightSideIndicatorType
+                        _c(
+                          "el-radio-group",
+                          {
+                            attrs: { size: "small" },
+                            model: {
+                              value: _vm.cardForm.rightSideFixOrFlex,
+                              callback: function($$v) {
+                                _vm.$set(
+                                  _vm.cardForm,
+                                  "rightSideFixOrFlex",
+                                  $$v
+                                )
+                              },
+                              expression: "cardForm.rightSideFixOrFlex"
+                            }
+                          },
+                          [
+                            _c("el-radio-button", { attrs: { label: true } }, [
+                              _vm._v("固定値")
+                            ]),
+                            _vm._v(" "),
+                            _c("el-radio-button", { attrs: { label: false } }, [
+                              _vm._v("指標値")
+                            ])
+                          ],
+                          1
                         )
-                          ? _c("el-input", {
+                      ],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _vm.cardForm.rightSideFixOrFlex
+                      ? _c(
+                          "div",
+                          { staticClass: "creator" },
+                          [
+                            _c("el-input", {
                               staticClass: "creator-input",
                               attrs: {
                                 size: "small",
-                                placeholder: "日数",
+                                placeholder: "値",
                                 type: "number",
                                 min: "1"
                               },
                               model: {
-                                value: _vm.cardForm.rightSideDays,
+                                value: _vm.cardForm.rightSideFixValue,
                                 callback: function($$v) {
                                   _vm.$set(
                                     _vm.cardForm,
-                                    "rightSideDays",
+                                    "rightSideFixValue",
                                     _vm._n($$v)
                                   )
                                 },
-                                expression: "cardForm.rightSideDays"
+                                expression: "cardForm.rightSideFixValue"
                               }
-                            })
-                          : _vm._e(),
-                        _vm._v(" "),
-                        _vm.daysNeedIndicator(
-                          _vm.cardForm.rightSideIndicatorType
-                        )
-                          ? _c("span", { staticClass: "creator-text" }, [
-                              _vm._v(" 日の ")
-                            ])
-                          : _vm._e(),
-                        _vm._v(" "),
-                        _c(
-                          "el-select",
-                          {
-                            attrs: {
-                              value: _vm.cardForm.rightSideIndicatorType,
-                              clearable: "",
-                              filterable: "",
-                              size: "small"
-                            },
-                            model: {
-                              value: _vm.cardForm.rightSideIndicatorType,
-                              callback: function($$v) {
-                                _vm.$set(
-                                  _vm.cardForm,
-                                  "rightSideIndicatorType",
-                                  $$v
-                                )
-                              },
-                              expression: "cardForm.rightSideIndicatorType"
-                            }
-                          },
-                          [
-                            _c("el-option", {
-                              attrs: { value: 1, label: "移動平均線" }
-                            }),
-                            _vm._v(" "),
-                            _c("el-option", {
-                              attrs: { value: 2, label: "移動平均線乖離率" }
-                            }),
-                            _vm._v(" "),
-                            _c("el-option", {
-                              attrs: { value: 3, label: "終値" }
                             })
                           ],
                           1
-                        ),
-                        _vm._v(" "),
-                        _c("span", { staticClass: "creator-text" }, [
-                          _vm._v(" を ")
-                        ])
-                      ],
-                      1
-                    )
+                        )
+                      : _c(
+                          "div",
+                          { staticClass: "creator" },
+                          [
+                            _vm.daysNeedIndicator(
+                              _vm.cardForm.rightSideIndicatorType
+                            )
+                              ? _c("el-input", {
+                                  staticClass: "creator-input",
+                                  attrs: {
+                                    size: "small",
+                                    placeholder: "日数",
+                                    type: "number",
+                                    min: "1"
+                                  },
+                                  model: {
+                                    value: _vm.cardForm.rightSideDays,
+                                    callback: function($$v) {
+                                      _vm.$set(
+                                        _vm.cardForm,
+                                        "rightSideDays",
+                                        _vm._n($$v)
+                                      )
+                                    },
+                                    expression: "cardForm.rightSideDays"
+                                  }
+                                })
+                              : _vm._e(),
+                            _vm._v(" "),
+                            _vm.daysNeedIndicator(
+                              _vm.cardForm.rightSideIndicatorType
+                            )
+                              ? _c("span", { staticClass: "creator-text" }, [
+                                  _vm._v(" 日の ")
+                                ])
+                              : _vm._e(),
+                            _vm._v(" "),
+                            _c(
+                              "el-select",
+                              {
+                                attrs: {
+                                  value: _vm.cardForm.rightSideIndicatorType,
+                                  clearable: "",
+                                  filterable: "",
+                                  size: "small"
+                                },
+                                model: {
+                                  value: _vm.cardForm.rightSideIndicatorType,
+                                  callback: function($$v) {
+                                    _vm.$set(
+                                      _vm.cardForm,
+                                      "rightSideIndicatorType",
+                                      $$v
+                                    )
+                                  },
+                                  expression: "cardForm.rightSideIndicatorType"
+                                }
+                              },
+                              [
+                                _c("el-option", {
+                                  attrs: { value: 1, label: "移動平均線" }
+                                }),
+                                _vm._v(" "),
+                                _c("el-option", {
+                                  attrs: { value: 2, label: "移動平均線乖離率" }
+                                }),
+                                _vm._v(" "),
+                                _c("el-option", {
+                                  attrs: { value: 3, label: "終値" }
+                                })
+                              ],
+                              1
+                            ),
+                            _vm._v(" "),
+                            _c("span", { staticClass: "creator-text" }, [
+                              _vm._v(" を ")
+                            ])
+                          ],
+                          1
+                        )
                   ]),
                   _vm._v(" "),
                   _c("el-row", { staticClass: "creator-row" }, [
@@ -4950,7 +5154,7 @@ var render = function() {
                   attrs: {
                     label: "時間",
                     name: "time",
-                    disabled: _vm.card ? _vm.card.cardType.id !== 3 : false
+                    disabled: _vm.card ? _vm.card.cardType !== 3 : false
                   }
                 },
                 [
@@ -4998,6 +5202,19 @@ var render = function() {
           slot: "footer"
         },
         [
+          _c(
+            "el-button",
+            {
+              attrs: { size: "small" },
+              on: {
+                click: function() {
+                  return _vm.$emit("close")
+                }
+              }
+            },
+            [_vm._v("キャンセル")]
+          ),
+          _vm._v(" "),
           _vm.card
             ? _c(
                 "el-button",
@@ -5130,6 +5347,24 @@ var render = function() {
           }),
           _vm._v(" "),
           _c("el-table-column", {
+            attrs: { label: "利用フラグ" },
+            scopedSlots: _vm._u([
+              {
+                key: "default",
+                fn: function(slot) {
+                  return [
+                    _vm._v(
+                      "\n        " +
+                        _vm._s(slot.row.used ? "使用中" : "未使用") +
+                        "\n      "
+                    )
+                  ]
+                }
+              }
+            ])
+          }),
+          _vm._v(" "),
+          _c("el-table-column", {
             attrs: { label: "操作", width: "150" },
             scopedSlots: _vm._u([
               {
@@ -5219,11 +5454,7 @@ var render = function() {
               card: _vm.cardCreatorEditDialog.card,
               visible: _vm.cardCreatorEditDialog.visible
             },
-            on: {
-              close: function($event) {
-                _vm.cardCreatorEditDialog = { visible: false, card: null }
-              }
-            }
+            on: { close: _vm.closeDialog }
           })
         : _vm._e(),
       _vm._v(" "),
@@ -5236,16 +5467,7 @@ var render = function() {
               visible: _vm.cardCreatorDeleteDialog.visible,
               pid: _vm.cardCreatorDeleteDialog.pid
             },
-            on: {
-              close: function($event) {
-                _vm.cardCreatorDeleteDialog = {
-                  visible: false,
-                  cid: null,
-                  label: null,
-                  pid: null
-                }
-              }
-            }
+            on: { close: _vm.closeDialog }
           })
         : _vm._e()
     ],
@@ -6269,57 +6491,65 @@ var render = function() {
         1
       ),
       _vm._v(" "),
-      _c("h3", [_vm._v("取引ルール")]),
-      _vm._v(" "),
-      _c(
-        "div",
-        { attrs: { id: "rule-tabs" } },
-        [
-          _c(
-            "el-tabs",
-            {
-              attrs: { type: "border-card", stretch: "", value: _vm.tabName },
-              on: {
-                "tab-click": function(tab) {
-                  return (this$1.tabName = tab.name)
-                }
-              }
-            },
-            [
-              _c(
-                "el-tab-pane",
-                { attrs: { label: "カード", name: "card" } },
-                [_c("card-holder", { attrs: { id: "card-holder" } })],
-                1
-              ),
-              _vm._v(" "),
-              _c(
-                "el-tab-pane",
-                { attrs: { label: "仕掛けルール", name: "in-rule" } },
-                [
-                  _c("strategy-board", {
-                    attrs: { "in-or-exit": true, id: "in-trade-rule" }
-                  })
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _c(
-                "el-tab-pane",
-                { attrs: { label: "手仕舞いルール", name: "exit-rule" } },
-                [
-                  _c("strategy-board", {
-                    attrs: { "in-or-exit": false, id: "exit-trade-rule" }
-                  })
-                ],
-                1
-              )
-            ],
-            1
-          )
-        ],
-        1
-      ),
+      _vm.strategyForm.sid
+        ? _c("div", [
+            _c("h3", [_vm._v("取引ルール")]),
+            _vm._v(" "),
+            _c(
+              "div",
+              { attrs: { id: "rule-tabs" } },
+              [
+                _c(
+                  "el-tabs",
+                  {
+                    attrs: {
+                      type: "border-card",
+                      stretch: "",
+                      value: _vm.tabName
+                    },
+                    on: {
+                      "tab-click": function(tab) {
+                        return (this$1.tabName = tab.name)
+                      }
+                    }
+                  },
+                  [
+                    _c(
+                      "el-tab-pane",
+                      { attrs: { label: "カード", name: "card" } },
+                      [_c("card-holder", { attrs: { id: "card-holder" } })],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "el-tab-pane",
+                      { attrs: { label: "仕掛けルール", name: "in-rule" } },
+                      [
+                        _c("strategy-board", {
+                          attrs: { "in-or-exit": true, id: "in-trade-rule" }
+                        })
+                      ],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "el-tab-pane",
+                      { attrs: { label: "手仕舞いルール", name: "exit-rule" } },
+                      [
+                        _c("strategy-board", {
+                          attrs: { "in-or-exit": false, id: "exit-trade-rule" }
+                        })
+                      ],
+                      1
+                    )
+                  ],
+                  1
+                )
+              ],
+              1
+            )
+          ])
+        : _vm._e(),
       _vm._v(" "),
       _c(
         "el-row",
@@ -6918,7 +7148,15 @@ var brand = new _APIClient__WEBPACK_IMPORTED_MODULE_0__["default"]('/brand');
       return analysisBrandGroup.delete('/' + gid);
     }
   },
+
   card: {
+
+    /**
+     * 取引戦略に紐づく取引戦略カードを取得する。
+     */
+    $fetch: function $fetch(sid) {
+      return card.get('/' + sid);
+    },
 
     /**
      * 取引戦略カードを作成する。
@@ -6941,6 +7179,7 @@ var brand = new _APIClient__WEBPACK_IMPORTED_MODULE_0__["default"]('/brand');
       return card.delete('/' + cid);
     }
   },
+
   strategy: {
 
     /**
@@ -7009,8 +7248,10 @@ var AxiosWrapper = axios__WEBPACK_IMPORTED_MODULE_0___default.a.create({
 AxiosWrapper.interceptors.request.use(
 // 正常系の共通処理
 function (request) {
-  // トーストを削除
-  element_ui__WEBPACK_IMPORTED_MODULE_1__["Notification"].closeAll();
+  if (request.method !== 'get') {
+    // トーストを削除
+    element_ui__WEBPACK_IMPORTED_MODULE_1__["Notification"].closeAll();
+  }
   // IEが同じURLにリクエストしたときにキャッシュした値を返却してしまうため、アクセスした時刻をクエリストリングに付与する
   var queryStrings = request.url.split('?');
   if (queryStrings.length >= 2) {
@@ -8535,7 +8776,7 @@ __webpack_require__.r(__webpack_exports__);
       state.strategyForm = Object.assign(state.strategyForm, {
         sid: null,
         label: '',
-        gid: 1,
+        gid: null,
         analysisDate: [moment__WEBPACK_IMPORTED_MODULE_1___default()().subtract(1, 'years').format('YYYY-MM-DD'), moment__WEBPACK_IMPORTED_MODULE_1___default()().format('YYYY-MM-DD')],
         cards: [],
         inRules: [],

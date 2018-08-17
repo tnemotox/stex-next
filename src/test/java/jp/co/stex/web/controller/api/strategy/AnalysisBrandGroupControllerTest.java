@@ -2,7 +2,7 @@ package jp.co.stex.web.controller.api.strategy;
 
 import com.fasterxml.jackson.databind.SerializationFeature;
 import jp.co.stex.domain.model.strategy.AnalysisBrandGroupEntity;
-import jp.co.stex.domain.service.strategy.StrategyService;
+import jp.co.stex.domain.service.strategy.IAnalysisBrandGroupService;
 import jp.co.stex.web.controller.ControllerTestBase;
 import org.junit.jupiter.api.*;
 import org.mockito.ArgumentCaptor;
@@ -34,7 +34,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 class AnalysisBrandGroupControllerTest extends ControllerTestBase {
 
     @MockBean
-    private StrategyService strategyService;
+    private IAnalysisBrandGroupService analysisBrandGroupService;
 
     @BeforeAll
     void setup() {
@@ -81,7 +81,7 @@ class AnalysisBrandGroupControllerTest extends ControllerTestBase {
         @DisplayName("分析対象銘柄リストが期待されたJSONで返却される")
         @WithMockUser
         void _001() throws Exception {
-            when(strategyService.findAllAnalysisBrandGroup(anyInt())).thenReturn(groups);
+            when(analysisBrandGroupService.findAllAnalysisBrandGroup(anyInt())).thenReturn(groups);
             MvcResult result = mockMvc
                 .perform(get("/api/analysis-brand-group").with(SecurityMockMvcRequestPostProcessors.csrf()))
                 .andExpect(status().isOk())
@@ -107,7 +107,7 @@ class AnalysisBrandGroupControllerTest extends ControllerTestBase {
 
         @BeforeEach
         void setUp() {
-            reset(strategyService);
+            reset(analysisBrandGroupService);
         }
 
         @Test
@@ -115,7 +115,7 @@ class AnalysisBrandGroupControllerTest extends ControllerTestBase {
         @WithMockUser
         void _001() throws Exception {
             when(userService.findUserId(anyString())).thenReturn(1);
-            when(strategyService.createOneAnalysisBrandGroup(captor.capture())).thenReturn(1);
+            when(analysisBrandGroupService.createOneAnalysisBrandGroup(captor.capture())).thenReturn(1);
             MvcResult result = mockMvc.perform(
                 post("/api/analysis-brand-group")
                     .content(postData)
@@ -124,7 +124,7 @@ class AnalysisBrandGroupControllerTest extends ControllerTestBase {
                 )
                 .andExpect(status().isCreated())
                 .andReturn();
-            verify(strategyService, times(1)).createOneAnalysisBrandGroup(any());
+            verify(analysisBrandGroupService, times(1)).createOneAnalysisBrandGroup(any());
 
             assertEquals(
                 AnalysisBrandGroupEntity.builder()
@@ -153,7 +153,7 @@ class AnalysisBrandGroupControllerTest extends ControllerTestBase {
                     .andExpect(jsonPath("$.['NotNull.analysisBrandGroupForm.brands'].message").value("分析対象銘柄グループが正しく設定されていません。"))
                     .andReturn();
 
-            verify(strategyService, never()).createOneAnalysisBrandGroup(any());
+            verify(analysisBrandGroupService, never()).createOneAnalysisBrandGroup(any());
             LOG.info(result.getResponse().getContentAsString());
         }
     }
@@ -174,7 +174,7 @@ class AnalysisBrandGroupControllerTest extends ControllerTestBase {
 
         @BeforeEach
         void setUp() {
-            reset(strategyService);
+            reset(analysisBrandGroupService);
         }
 
         @Test
@@ -182,7 +182,7 @@ class AnalysisBrandGroupControllerTest extends ControllerTestBase {
         @WithMockUser
         void _001() throws Exception {
             when(userService.findUserId(anyString())).thenReturn(1);
-            doNothing().when(strategyService).updateOneAnalysisBrandGroup(captor.capture());
+            doNothing().when(analysisBrandGroupService).updateOneAnalysisBrandGroup(captor.capture());
             MvcResult result = mockMvc.perform(
                 put("/api/analysis-brand-group/1")
                     .content(postData)
@@ -191,7 +191,7 @@ class AnalysisBrandGroupControllerTest extends ControllerTestBase {
                 )
                 .andExpect(status().isNoContent())
                 .andReturn();
-            verify(strategyService, times(1)).updateOneAnalysisBrandGroup(any());
+            verify(analysisBrandGroupService, times(1)).updateOneAnalysisBrandGroup(any());
 
             assertEquals(
                 AnalysisBrandGroupEntity.builder()
@@ -218,7 +218,7 @@ class AnalysisBrandGroupControllerTest extends ControllerTestBase {
                 .andExpect(status().isBadRequest())
                 .andExpect(jsonPath("$.['NotNull.AnalysisBrandGroupController.update.gid'].message").value("分析対象銘柄IDが未指定です。"))
                 .andReturn();
-            verify(strategyService, never()).updateOneAnalysisBrandGroup(any());
+            verify(analysisBrandGroupService, never()).updateOneAnalysisBrandGroup(any());
             LOG.info(result.getResponse().getContentAsString());
         }
     }
@@ -231,19 +231,19 @@ class AnalysisBrandGroupControllerTest extends ControllerTestBase {
 
         @BeforeEach
         void setUp() {
-            reset(strategyService);
+            reset(analysisBrandGroupService);
         }
 
         @Test
         @DisplayName("正しい引数が与えられたとき、取引戦略を削除する")
         @WithMockUser
         void _001() throws Exception {
-            doNothing().when(strategyService).deleteOneAnalysisBrandGroup(anyInt(), anyInt());
+            doNothing().when(analysisBrandGroupService).deleteOneAnalysisBrandGroup(anyInt(), anyInt());
             MvcResult result = mockMvc
                 .perform(delete("/api/analysis-brand-group/1").with(SecurityMockMvcRequestPostProcessors.csrf()))
                 .andExpect(status().isNoContent())
                 .andReturn();
-            verify(strategyService, times(1)).deleteOneAnalysisBrandGroup(anyInt(), anyInt());
+            verify(analysisBrandGroupService, times(1)).deleteOneAnalysisBrandGroup(anyInt(), anyInt());
 
             LOG.info(result.getResponse().getContentAsString());
         }
@@ -257,7 +257,7 @@ class AnalysisBrandGroupControllerTest extends ControllerTestBase {
                 .andExpect(status().isBadRequest())
                 .andExpect(jsonPath("$.['NotNull.AnalysisBrandGroupController.delete.gid'].message").value("分析対象銘柄IDが未指定です。"))
                 .andReturn();
-            verify(strategyService, never()).deleteOneAnalysisBrandGroup(anyInt(), anyInt());
+            verify(analysisBrandGroupService, never()).deleteOneAnalysisBrandGroup(anyInt(), anyInt());
             LOG.info(result.getResponse().getContentAsString());
         }
     }

@@ -3,7 +3,7 @@ package jp.co.stex.web.controller.api.strategy;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import jp.co.stex.domain.model.strategy.BrandEntity;
 import jp.co.stex.domain.model.strategy.code.MarketType;
-import jp.co.stex.domain.service.strategy.StrategyService;
+import jp.co.stex.domain.service.strategy.IBrandService;
 import jp.co.stex.web.controller.ControllerTestBase;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
@@ -32,7 +32,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 class BrandControllerTest extends ControllerTestBase {
 
     @MockBean
-    private StrategyService strategyService;
+    private IBrandService brandService;
 
     @BeforeAll
     void setup() {
@@ -80,7 +80,7 @@ class BrandControllerTest extends ControllerTestBase {
         @DisplayName("銘柄リストが期待されたJSONで返却される")
         @WithMockUser
         void _001() throws Exception {
-            when(strategyService.findAllBrands()).thenReturn(brands);
+            when(brandService.findAllBrands()).thenReturn(brands);
             MvcResult result = mockMvc
                 .perform(get("/api/brand").with(SecurityMockMvcRequestPostProcessors.csrf()))
                 .andExpect(status().isOk())

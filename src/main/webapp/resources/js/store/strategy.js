@@ -41,7 +41,7 @@ export default {
       state.strategyForm = Object.assign(state.strategyForm, {
         sid: null,
         label: '',
-        gid: 1,
+        gid: null,
         analysisDate: [
           moment().subtract(1, 'years').format('YYYY-MM-DD'),
           moment().format('YYYY-MM-DD'),

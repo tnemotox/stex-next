@@ -29,6 +29,12 @@ class TradeStrategyCardForm implements Serializable {
     private static final long serialVersionUID = -2211279206291574346L;
 
     /**
+     * 取引戦略ID
+     */
+    @NotNull
+    private Integer sid;
+
+    /**
      * カード種別
      */
     @NotNull
