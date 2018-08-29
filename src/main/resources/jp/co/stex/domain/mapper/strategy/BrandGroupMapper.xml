@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="jp.co.stex.domain.mapper.strategy.BrandGroupMapper">
+
+  <resultMap type="BrandGroup" id="brandGroupMap">
+    <constructor>
+      <idArg column="gid" name="gid" javaType="VGid" />
+      <arg column="brand_group_name" name="brandGroupName" javaType="VBrandGroupName" />
+      <arg column="target_brand_codes" name="targetBrandCodes" />
+    </constructor>
+  </resultMap>
+
+  <select id="findOne" resultMap="brandGroupMap">
+    SELECT
+      gid,
+      brand_group_name,
+      target_brand_codes
+    FROM
+      brand_groups
+    WHERE
+      uid = #{uid}
+    AND
+      gid = #{gid}
+  </select>
+
+  <select id="findAll" resultMap="brandGroupMap">
+    SELECT
+      gid,
+      brand_group_name,
+      target_brand_codes
+    FROM
+      brand_groups
+    WHERE
+      uid = #{uid}
+    ORDER BY gid
+  </select>
+
+  <select id="createOne" resultType="VGid">
+    INSERT INTO brand_groups (
+      uid,
+      gid,
+      brand_group_name,
+      target_brand_codes
+    )
+    VALUES (
+      #{uid},
+      #{brandGroup.gid},
+      #{brandGroup.brandGroupName},
+      #{brandGroup.targetBrandCodes}
+    )
+    RETURNING gid
+  </select>
+
+  <update id="updateOne">
+    UPDATE brand_groups
+    SET
+      brand_group_name = #{brandGroup.brandGroupName},
+      target_brand_codes = #{brandGroup.targetBrandCodes}
+    WHERE
+      uid = #{uid}
+    AND
+      gid = #{brandGroup.gid}
+  </update>
+
+  <delete id="deleteOne">
+    DELETE FROM brand_groups
+    WHERE
+      uid = #{uid}
+    AND
+      gid = #{gid}
+  </delete>
+
+</mapper>

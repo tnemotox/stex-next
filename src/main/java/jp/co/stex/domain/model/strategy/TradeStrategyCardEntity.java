@@ -42,11 +42,6 @@ public class TradeStrategyCardEntity implements Serializable {
     private int uid;
 
     /**
-     * 取引戦略パレットID
-     */
-    private int pid;
-
-    /**
      * 取引戦略ID
      */
     private int sid;

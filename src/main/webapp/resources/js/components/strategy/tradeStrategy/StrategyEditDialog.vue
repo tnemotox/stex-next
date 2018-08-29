@@ -68,10 +68,10 @@
             <card-holder id="card-holder"/>
           </el-tab-pane>
           <el-tab-pane label="仕掛けルール" name="in-rule">
-            <strategy-board :in-or-exit="true" id="in-trade-rule"/>
+            <strategy-board :trade-type="true" id="in-trade-rule"/>
           </el-tab-pane>
           <el-tab-pane label="手仕舞いルール" name="exit-rule">
-            <strategy-board :in-or-exit="false" id="exit-trade-rule"/>
+            <strategy-board :trade-type="false" id="exit-trade-rule"/>
           </el-tab-pane>
         </el-tabs>
       </div>

@@ -1,9 +1,11 @@
 package jp.co.stex.domain.mapper.strategy;
 
-import jp.co.stex.domain.model.strategy.TradeStrategyEntity;
+import jp.co.stex.domain.model.base.value.VUid;
+import jp.co.stex.domain.model.strategy.TradeStrategy;
+import jp.co.stex.domain.model.strategy.value.VSid;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
-import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
@@ -15,7 +17,7 @@ import java.util.List;
  * @since 1.0
  */
 @Mapper
-@Repository
+@Component
 public interface TradeStrategyMapper {
 
     /**
@@ -25,7 +27,7 @@ public interface TradeStrategyMapper {
      * @param sid 取引戦略ID
      * @return 取引戦略リスト
      */
-    TradeStrategyEntity findOne(@Param("uid") int uid, @Param("sid") int sid);
+    TradeStrategy findOne(@Param("uid") VUid uid, @Param("sid") VSid sid);
 
     /**
      * <p>取引戦略を全て取得する。</p>
@@ -33,22 +35,23 @@ public interface TradeStrategyMapper {
      * @param uid ユーザID
      * @return 取引戦略リスト
      */
-    List<TradeStrategyEntity> findAll(@Param("uid") int uid);
+    List<TradeStrategy> findAll(@Param("uid") VUid uid);
 
     /**
      * <p>取引戦略を新規作成する。</p>
      *
-     * @param strategy 取引戦略
+     * @param uid ユーザID
+     * @param tradeStrategy 取引戦略
      * @return 取引戦略ID
      */
-    int createOne(@Param("strategy") TradeStrategyEntity strategy);
+    VSid createOne(@Param("uid") VUid uid, @Param("tradeStrategy") TradeStrategy tradeStrategy);
 
     /**
      * <p>取引戦略IDが合致するレコードを更新する。</p>
      *
-     * @param strategy 取引戦略
+     * @param tradeStrategy 取引戦略
      */
-    void updateOne(@Param("strategy") TradeStrategyEntity strategy);
+    void updateOne(@Param("uid") VUid uid, @Param("tradeStrategy") TradeStrategy tradeStrategy);
 
     /**
      * <p>取引戦略IDが合致するレコードを削除する。</p>
@@ -56,5 +59,5 @@ public interface TradeStrategyMapper {
      * @param uid ユーザID
      * @param sid 取引戦略
      */
-    void deleteOne(@Param("uid") int uid, @Param("sid") int sid);
+    void deleteOne(@Param("uid") VUid uid, @Param("sid") VSid sid);
 }

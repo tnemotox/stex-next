@@ -21,7 +21,7 @@ export default {
         moment().format('YYYY-MM-DD'),
       ],
       cards: [],
-      inRules: [],
+      entryRules: [],
       exitRules: [],
     },
     ruleForm: {}
@@ -48,16 +48,16 @@ export default {
           moment().format('YYYY-MM-DD'),
         ],
         cards: [],
-        inRules: [],
+        entryRules: [],
         exitRules: [],
       })
     },
     initRules(state, inOrExit) {
       if (inOrExit) {
-        state.strategyForm.inRules = []
+        state.strategyForm.entryRules.splice(0, state.strategyForm.entryRules.length - 1)
       }
       else {
-        state.strategyForm.exitRules = []
+        state.strategyForm.exitRules.splice(0, state.strategyForm.entryRules.length - 1)
       }
     },
   }

@@ -12,12 +12,12 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DuplicateKeyException;
 
 import java.util.Arrays;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 /**
  * 取引戦略カードを操作するマッパーのテストクラスです。
@@ -41,7 +41,6 @@ class TradeStrategyCardMapperTest extends MapperTestBase {
         TradeStrategyCardEntity.builder()
             .cid(1)
             .uid(1)
-            .pid(2)
             .sid(1)
             .label("card1")
             .used(true)
@@ -58,7 +57,6 @@ class TradeStrategyCardMapperTest extends MapperTestBase {
         TradeStrategyCardEntity.builder()
             .cid(2)
             .uid(1)
-            .pid(4)
             .sid(1)
             .label("card2")
             .used(true)
@@ -181,7 +179,6 @@ class TradeStrategyCardMapperTest extends MapperTestBase {
             TradeStrategyCardEntity updated = TradeStrategyCardEntity.builder()
                 .cid(1)
                 .uid(1)
-                .pid(2)
                 .sid(1)
                 .label("label2")
                 .used(true)
@@ -198,78 +195,6 @@ class TradeStrategyCardMapperTest extends MapperTestBase {
             target.updateOne(updated);
             TradeStrategyCardEntity actual = target.findOne(uid, cid);
             assertEquals(updated, actual);
-        }
-    }
-
-    /**
-     * @see TradeStrategyCardMapper#associateOneWithPalette(TradeStrategyCardEntity)
-     */
-    @Nested
-    class associateOneWithPalette extends MapperTestBase {
-
-        @Test
-        @DatabaseSetup(type = DatabaseOperation.CLEAN_INSERT, value = "/database/TradeStrategyCardMapper/")
-        @DisplayName("取引戦略カードと取引戦略パレットを関連付ける")
-        void _001() {
-            TradeStrategyCardEntity updated = TradeStrategyCardEntity.builder()
-                .uid(1)
-                .cid(1)
-                .pid(1)
-                .sid(1)
-                .used(true)
-                .build();
-            target.associateOneWithPalette(updated);
-            TradeStrategyCardEntity actual = target.findOne(uid, cid);
-            initialStrategyCards.get(0).setPid(1);
-            initialStrategyCards.get(0).setUsed(true);
-            assertEquals(initialStrategyCards.get(0), actual);
-        }
-
-        @Test
-        @DatabaseSetup(type = DatabaseOperation.CLEAN_INSERT, value = "/database/TradeStrategyCardMapper/")
-        @DisplayName("取引戦略カードと取引戦略パレットを関連を外す")
-        void _002() {
-            TradeStrategyCardEntity updated = TradeStrategyCardEntity.builder()
-                .uid(1)
-                .cid(1)
-                .pid(0)
-                .sid(1)
-                .used(false)
-                .build();
-            target.associateOneWithPalette(updated);
-            TradeStrategyCardEntity actual = target.findOne(uid, cid);
-            initialStrategyCards.get(0).setPid(0);
-            initialStrategyCards.get(0).setUsed(false);
-            assertEquals(initialStrategyCards.get(0), actual);
-        }
-
-        @Test
-        @DatabaseSetup(type = DatabaseOperation.CLEAN_INSERT, value = "/database/TradeStrategyCardMapper/")
-        @DisplayName("一意制約を確認する")
-        void _003() {
-            TradeStrategyCardEntity updated = TradeStrategyCardEntity.builder()
-                .uid(1)
-                .cid(1)
-                .pid(4)
-                .used(true)
-                .build();
-            assertThrows(DuplicateKeyException.class, () -> target.associateOneWithPalette(updated));
-
-            // pidがnullの場合は一意制約違反にならない
-            TradeStrategyCardEntity updated2 = TradeStrategyCardEntity.builder()
-                .uid(1)
-                .cid(1)
-                .pid(0)
-                .used(false)
-                .build();
-            target.associateOneWithPalette(updated2);
-            updated2 = TradeStrategyCardEntity.builder()
-                .uid(1)
-                .cid(2)
-                .pid(0)
-                .used(false)
-                .build();
-            target.associateOneWithPalette(updated2);
         }
     }
 

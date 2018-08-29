@@ -2,5 +2,5 @@ users
 analysis_brand_groups
 trade_strategies
 trade_rules
-trade_strategy_palettes
 trade_strategy_cards
+trade_strategy_palettes

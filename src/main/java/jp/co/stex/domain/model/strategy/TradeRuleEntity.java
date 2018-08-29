@@ -1,5 +1,9 @@
 package jp.co.stex.domain.model.strategy;
 
+import jp.co.stex.domain.model.strategy.code.BuyingAndSellingType;
+import jp.co.stex.domain.model.strategy.code.OrderType;
+import jp.co.stex.domain.model.strategy.code.TradeType;
+import jp.co.stex.domain.model.strategy.code.TradingDayType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -43,17 +47,17 @@ public class TradeRuleEntity implements Serializable {
     /**
      * 当日取引フラグ
      */
-    private boolean todayOrTomorrow;
+    private TradingDayType tradingDayType;
 
     /**
      * 売買フラグ
      */
-    private boolean buyOrSell;
+    private BuyingAndSellingType buyingAndSellingType;
 
     /**
      * 取引タイミング種別
      */
-    private int tradeTimingType;
+    private OrderType orderType;
 
     /**
      * 指値
@@ -61,9 +65,9 @@ public class TradeRuleEntity implements Serializable {
     private double limitOrderValue;
 
     /**
-     * 仕掛けフラグ
+     * 取引種別
      */
-    private boolean inOrExit;
+    private TradeType tradeType;
 
     /**
      * 順序

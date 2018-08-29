@@ -3,7 +3,9 @@ package jp.co.stex.domain.service.base;
 import jp.co.stex.domain.mapper.base.UserMapper;
 import jp.co.stex.domain.model.base.LoginUser;
 import jp.co.stex.domain.model.base.UserEntity;
+import jp.co.stex.domain.model.base.value.VUid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -45,17 +47,13 @@ public class UserService implements UserDetailsService {
     /**
      * ユーザIDを取得する。
      *
-     * @param username ユーザ名
      * @return ユーザID
      */
-    public int findUserId(String username) {
-        if (username == null || "".equals(username)) {
-            throw new UsernameNotFoundException("Username is empty");
+    public VUid findUserId() {
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (principal instanceof UserDetails) {
+            return new VUid(((LoginUser) principal).getUid());
         }
-        UserEntity user = userMapper.findOneByName(username);
-        if (user == null) {
-            throw new UsernameNotFoundException("User not found for name: " + username);
-        }
-        return user.getId();
+        return null;
     }
 }

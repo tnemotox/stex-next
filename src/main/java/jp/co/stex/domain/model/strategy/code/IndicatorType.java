@@ -96,7 +96,7 @@ public enum IndicatorType {
      * <p>ラベルに紐付く列挙型を取得する。存在しなければnullを返却する。</p>
      *
      * @param label ラベル
-     * @return IDに紐付く列挙型
+     * @return ラベルに紐付く列挙型
      */
     public static IndicatorType findByLabel(String label) {
         for(IndicatorType value: IndicatorType.values()) {

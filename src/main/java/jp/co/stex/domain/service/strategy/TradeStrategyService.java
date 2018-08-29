@@ -1,11 +1,12 @@
 package jp.co.stex.domain.service.strategy;
 
-import jp.co.stex.domain.mapper.strategy.TradeStrategyMapper;
-import jp.co.stex.domain.model.strategy.TradeStrategyEntity;
+import jp.co.stex.domain.model.base.value.VUid;
+import jp.co.stex.domain.model.strategy.TradeStrategies;
+import jp.co.stex.domain.model.strategy.TradeStrategy;
+import jp.co.stex.domain.model.strategy.value.VSid;
+import jp.co.stex.domain.repository.TradeStrategyRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 /**
  * <p>取引戦略を操作するサービスです。</p>
@@ -16,37 +17,40 @@ import java.util.List;
 @RequiredArgsConstructor
 public class TradeStrategyService implements ITradeStrategyService {
 
-    private final TradeStrategyMapper tradeStrategyMapper;
+    /**
+     * 取引戦略マッパー
+     */
+    private final TradeStrategyRepository tradeStrategyRepository;
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public List<TradeStrategyEntity> findAllTradeStrategy(int loginUserId) {
-        return tradeStrategyMapper.findAll(loginUserId);
+    public TradeStrategies findAll(VUid uid) {
+        return tradeStrategyRepository.findAll(uid);
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public int createOneTradeStrategy(TradeStrategyEntity tradeStrategy) {
-        return tradeStrategyMapper.createOne(tradeStrategy);
+    public VSid createOne(VUid uid, TradeStrategy tradeStrategy) {
+        return tradeStrategyRepository.createOne(uid, tradeStrategy.generateSid());
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public void updateOneTradeStrategy(TradeStrategyEntity tradeStrategy) {
-        tradeStrategyMapper.updateOne(tradeStrategy);
+    public void updateOne(VUid uid, TradeStrategy tradeStrategy) {
+        tradeStrategyRepository.updateOne(uid, tradeStrategy);
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public void deleteOneTradeStrategy(int uid, int sid) {
-        tradeStrategyMapper.deleteOne(uid, sid);
+    public void deleteOne(VUid uid, VSid sid) {
+        tradeStrategyRepository.deleteOne(uid, sid);
     }
 }

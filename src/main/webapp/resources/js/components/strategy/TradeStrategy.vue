@@ -182,8 +182,8 @@
         }
         const result = await Promise.all([
           this.$http.card.$fetch(strategy.sid),
-          // this.$http.rule.$find(strategy.sid),
-          // this.$http.rule.$find(strategy.sid),
+          this.$http.rule.$find(strategy.sid, true),
+          this.$http.rule.$find(strategy.sid, false),
         ])
         this.strategyForm = Object.assign({
           // element-uiのため、分析日時を配列に格納
@@ -191,9 +191,15 @@
             moment(strategy.analysisStartDate).format("YYYY-MM-DD"),
             moment(strategy.analysisEndDate).format("YYYY-MM-DD"),
           ],
-          cards: result[0].data,
           sid: strategy.sid
-        }, strategy)
+        },
+          strategy,
+          {
+            cards: result[0].data,
+            inRules: result[1].data,
+            exitRules: result[2].data,
+          }
+        )
       },
 
       showDeleteDialog(strategy) {

@@ -52,7 +52,7 @@ public enum CardType {
      * <p>ラベルに紐付く列挙型を取得する。存在しなければnullを返却する。</p>
      *
      * @param label ラベル
-     * @return IDに紐付く列挙型
+     * @return ラベルに紐付く列挙型
      */
     public static CardType findByLabel(String label) {
         for(CardType value: CardType.values()) {

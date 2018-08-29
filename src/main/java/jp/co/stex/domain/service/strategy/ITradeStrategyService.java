@@ -1,8 +1,9 @@
 package jp.co.stex.domain.service.strategy;
 
-import jp.co.stex.domain.model.strategy.TradeStrategyEntity;
-
-import java.util.List;
+import jp.co.stex.domain.model.base.value.VUid;
+import jp.co.stex.domain.model.strategy.TradeStrategies;
+import jp.co.stex.domain.model.strategy.TradeStrategy;
+import jp.co.stex.domain.model.strategy.value.VSid;
 
 /**
  * <p>取引戦略を操作するサービスです。</p>
@@ -12,27 +13,29 @@ import java.util.List;
 public interface ITradeStrategyService {
 
     /**
-     * <p>全ての取引戦略を取得する。</p>
+     * <p>取引戦略一覧を取得する。</p>
      *
-     * @param loginUserId ログインユーザID
-     * @return 取引戦略リスト
+     * @param uid ログインユーザID
+     * @return 取引戦略一覧
      */
-    List<TradeStrategyEntity> findAllTradeStrategy(int loginUserId);
+    TradeStrategies findAll(VUid uid);
 
     /**
-     * <p>取引戦略を新規作成する。</p>
+     * <p>取引戦略を追加する。</p>
      *
+     * @param uid ユーザID
      * @param tradeStrategy 取引戦略
      * @return 取引戦略戦略ID
      */
-    int createOneTradeStrategy(TradeStrategyEntity tradeStrategy);
+    VSid createOne(VUid uid, TradeStrategy tradeStrategy);
 
     /**
      * <p>取引戦略を更新する。</p>
      *
+     * @param uid ユーザID
      * @param tradeStrategy 取引戦略
      */
-    void updateOneTradeStrategy(TradeStrategyEntity tradeStrategy);
+    void updateOne(VUid uid, TradeStrategy tradeStrategy);
 
     /**
      * <p>取引戦略を削除する。</p>
@@ -40,5 +43,5 @@ public interface ITradeStrategyService {
      * @param uid ユーザID
      * @param sid 取引戦略ID
      */
-    void deleteOneTradeStrategy(int uid, int sid);
+    void deleteOne(VUid uid, VSid sid);
 }

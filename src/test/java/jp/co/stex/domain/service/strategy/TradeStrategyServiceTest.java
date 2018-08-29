@@ -1,17 +1,18 @@
 package jp.co.stex.domain.service.strategy;
 
-import jp.co.stex.domain.mapper.strategy.TradeStrategyMapper;
-import jp.co.stex.domain.model.strategy.TradeStrategyEntity;
+import jp.co.stex.domain.model.base.value.VUid;
+import jp.co.stex.domain.model.strategy.TradeStrategies;
+import jp.co.stex.domain.model.strategy.TradeStrategy;
+import jp.co.stex.domain.model.strategy.value.*;
+import jp.co.stex.domain.repository.TradeStrategyRepository;
 import org.junit.jupiter.api.*;
 import org.mockito.*;
 
 import java.time.LocalDate;
 import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.*;
 
 /**
@@ -22,163 +23,177 @@ import static org.mockito.Mockito.*;
 class TradeStrategyServiceTest {
 
     @Mock
-    private TradeStrategyMapper tradeStrategyMapper;
+    private TradeStrategyRepository tradeStrategyRepository;
 
     @InjectMocks
     private TradeStrategyService target;
 
-    private final int uid = 1;
+    private final VUid uid = new VUid("00000000-0000-0000-0000-0001");
 
-    private final int sid = 1;
+    private final VSid sid = new VSid("00000000-0000-0000-0000-0001");
+
+    private final VSid newSid = new VSid("00000000-0000-0000-0000-0004");
+
+    private final TradeStrategy newTradeStrategy = TradeStrategy.builder()
+        .gid(new VGid(UUID.fromString("00000000-0000-0000-0000-000000000001")))
+        .tradeStrategyName(new VTradeStrategyName("戦略4"))
+        .termOfAnalysis(new VTermOfAnalysis(
+            Arrays.asList(
+                LocalDate.of(2017, 1, 1),
+                LocalDate.of(2017, 12, 31)
+            )
+        ))
+        .memo(new VMemo("コメント4"))
+        .build();
+
+    private final TradeStrategy updateTradeStrategy = TradeStrategy.builder()
+        .sid(new VSid(UUID.fromString("00000000-0000-0000-0000-000000000001")))
+        .gid(new VGid(UUID.fromString("00000000-0000-0000-0000-000000000001")))
+        .tradeStrategyName(new VTradeStrategyName("戦略111"))
+        .termOfAnalysis(new VTermOfAnalysis(
+            Arrays.asList(
+                LocalDate.of(2017, 2, 1),
+                LocalDate.of(2017, 11, 30)
+            )
+        ))
+        .memo(new VMemo("コメント111"))
+        .build();
+
+    private final TradeStrategies tradeStrategies = new TradeStrategies(
+        TradeStrategy.builder()
+            .sid(new VSid(UUID.fromString("00000000-0000-0000-0000-000000000001")))
+            .gid(new VGid(UUID.fromString("00000000-0000-0000-0000-000000000001")))
+            .tradeStrategyName(new VTradeStrategyName("戦略1"))
+            .termOfAnalysis(new VTermOfAnalysis(
+                Arrays.asList(
+                    LocalDate.of(2017, 1, 1),
+                    LocalDate.of(2017, 12, 31)
+                )
+            ))
+            .memo(new VMemo("コメント1"))
+            .analyzedAt(new VAnalyzedAt(LocalDate.of(2018, 4, 1)))
+            .build(),
+        TradeStrategy.builder()
+            .sid(new VSid(UUID.fromString("00000000-0000-0000-0000-000000000002")))
+            .gid(new VGid(UUID.fromString("00000000-0000-0000-0000-000000000001")))
+            .tradeStrategyName(new VTradeStrategyName("戦略2"))
+            .termOfAnalysis(new VTermOfAnalysis(
+                Arrays.asList(
+                    LocalDate.of(2017, 1, 1),
+                    LocalDate.of(2017, 12, 31)
+                )
+            ))
+            .memo(new VMemo("コメント2"))
+            .analyzedAt(new VAnalyzedAt(LocalDate.of(2018, 4, 1)))
+            .build()
+    );
 
     @BeforeAll
     void setUp() {
         MockitoAnnotations.initMocks(this);
-        target = new TradeStrategyService(tradeStrategyMapper);
+        target = new TradeStrategyService(tradeStrategyRepository);
     }
 
     /**
-     * {@link TradeStrategyService#findAllTradeStrategy}
+     * {@link TradeStrategyService#findAll}
      */
     @Nested
-    class findAllTradeStrategy {
-
-        private final List<TradeStrategyEntity> expected = Arrays.asList(
-            TradeStrategyEntity.builder()
-                .sid(1)
-                .gid(1)
-                .label("label1")
-                .analysisStartDate(LocalDate.of(2017, 1, 1))
-                .analysisEndDate(LocalDate.of(2017, 12, 31))
-                .analyzedAt(LocalDate.of(2018, 4, 1))
-                .memo("memo1")
-                .build(),
-            TradeStrategyEntity.builder()
-                .sid(2)
-                .gid(1)
-                .label("label2")
-                .analysisStartDate(LocalDate.of(2017, 1, 1))
-                .analysisEndDate(LocalDate.of(2017, 12, 31))
-                .analyzedAt(LocalDate.of(2018, 4, 1))
-                .memo("memo2")
-                .build()
-        );
+    class findAll {
 
         @BeforeEach
         void setUp() {
-            reset(tradeStrategyMapper);
+            reset(tradeStrategyRepository);
             MockitoAnnotations.initMocks(this);
         }
 
-        @DisplayName("取引戦略を全件取得する")
+        @DisplayName("取引戦略一覧を取得する")
         @Test
         void _001() {
-            when(target.findAllTradeStrategy(anyInt())).thenReturn(expected);
-            List<TradeStrategyEntity> actual = target.findAllTradeStrategy(uid);
-            verify(tradeStrategyMapper, times(1)).findAll(anyInt());
-            assertEquals(expected, actual);
+            when(tradeStrategyRepository.findAll(any())).thenReturn(tradeStrategies);
+            TradeStrategies actual = target.findAll(uid);
+            verify(tradeStrategyRepository, times(1)).findAll(any());
+            assertEquals(tradeStrategies, actual);
         }
 
-        @DisplayName("取引戦略を0件取得する")
+        @DisplayName("取引戦略一覧を取得できない")
         @Test
         void _002() {
-            when(target.findAllTradeStrategy(anyInt())).thenReturn(Collections.emptyList());
-            List<TradeStrategyEntity> actual = target.findAllTradeStrategy(uid);
-            verify(tradeStrategyMapper, times(1)).findAll(anyInt());
-            assertEquals(Collections.emptyList(), actual);
+            when(tradeStrategyRepository.findAll(any())).thenReturn(TradeStrategies.generateEmptyTradeStrategies());
+            TradeStrategies actual = target.findAll(uid);
+            verify(tradeStrategyRepository, times(1)).findAll(any());
+            assertEquals(TradeStrategies.generateEmptyTradeStrategies(), actual);
         }
     }
 
     /**
-     * {@link TradeStrategyService#createOneTradeStrategy}
+     * {@link TradeStrategyService#createOne}
      */
     @Nested
-    class createOneTradeStrategy {
+    class createOne {
 
         @Captor
-        private ArgumentCaptor<TradeStrategyEntity> captor;
-
-        private final TradeStrategyEntity args = TradeStrategyEntity.builder()
-            .uid(1)
-            .gid(1)
-            .label("label1")
-            .analysisStartDate(LocalDate.of(2017, 1, 1))
-            .analysisEndDate(LocalDate.of(2017, 12, 31))
-            .analyzedAt(LocalDate.of(2018, 4, 1))
-            .memo("memo1")
-            .build();
+        private ArgumentCaptor<TradeStrategy> captor;
 
         @BeforeEach
         void setUp() {
-            reset(tradeStrategyMapper);
+            reset(tradeStrategyRepository);
             MockitoAnnotations.initMocks(this);
         }
 
         @DisplayName("取引戦略を追加する")
         @Test
         void _001() {
-            when(target.createOneTradeStrategy(captor.capture())).thenReturn(sid);
-            int actual = target.createOneTradeStrategy(args);
-            verify(tradeStrategyMapper, times(1)).createOne(any());
-            assertEquals(args, captor.getValue());
-            assertEquals(actual, sid);
+            when(tradeStrategyRepository.createOne(any(), captor.capture())).thenReturn(newSid);
+            VSid actual = target.createOne(uid, newTradeStrategy);
+            verify(tradeStrategyRepository, times(1)).createOne(any(), any());
+            assertEquals(new TradeStrategy(newTradeStrategy, captor.getValue().getSid()), captor.getValue());
+            assertEquals(actual, newSid);
         }
     }
 
     /**
-     * {@link TradeStrategyService#updateOneTradeStrategy}
+     * {@link TradeStrategyService#updateOne}
      */
     @Nested
-    class updateOneTradeStrategy {
+    class updateOne {
 
         @Captor
-        private ArgumentCaptor<TradeStrategyEntity> captor;
-
-        private final TradeStrategyEntity args = TradeStrategyEntity.builder()
-            .uid(1)
-            .sid(1)
-            .gid(1)
-            .label("label1")
-            .analysisStartDate(LocalDate.of(2017, 1, 1))
-            .analysisEndDate(LocalDate.of(2017, 12, 31))
-            .analyzedAt(LocalDate.of(2018, 4, 1))
-            .memo("memo1")
-            .build();
+        private ArgumentCaptor<TradeStrategy> captor;
 
         @BeforeEach
         void setUp() {
-            reset(tradeStrategyMapper);
+            reset(tradeStrategyRepository);
             MockitoAnnotations.initMocks(this);
         }
 
         @DisplayName("取引戦略を更新する")
         @Test
         void _001() {
-            doNothing().when(tradeStrategyMapper).updateOne(captor.capture());
-            target.updateOneTradeStrategy(args);
-            verify(tradeStrategyMapper, times(1)).updateOne(any());
-            assertEquals(args, captor.getValue());
+            doNothing().when(tradeStrategyRepository).updateOne(any(), captor.capture());
+            target.updateOne(uid, updateTradeStrategy);
+            verify(tradeStrategyRepository, times(1)).updateOne(any(), any());
+            assertEquals(updateTradeStrategy, captor.getValue());
         }
     }
 
     /**
-     * {@link TradeStrategyService#deleteOneTradeStrategy}
+     * {@link TradeStrategyService#deleteOne}
      */
     @Nested
-    class deleteOneTradeStrategy {
+    class deleteOne {
 
         @BeforeEach
         void setUp() {
-            reset(tradeStrategyMapper);
+            reset(tradeStrategyRepository);
             MockitoAnnotations.initMocks(this);
         }
 
         @DisplayName("取引戦略を削除する")
         @Test
         void _001() {
-            doNothing().when(tradeStrategyMapper).deleteOne(anyInt(), anyInt());
-            target.deleteOneTradeStrategy(uid, sid);
-            verify(tradeStrategyMapper, times(1)).deleteOne(anyInt(), anyInt());
+            doNothing().when(tradeStrategyRepository).deleteOne(any(), any());
+            target.deleteOne(uid, sid);
+            verify(tradeStrategyRepository, times(1)).deleteOne(any(), any());
         }
     }
 }

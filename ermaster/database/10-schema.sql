@@ -1,14 +1,14 @@
 
 /* Drop Tables */
 
-DROP TABLE IF EXISTS trade_strategy_cards;
-DROP TABLE IF EXISTS trade_strategy_palettes;
-DROP TABLE IF EXISTS trade_rules;
-DROP TABLE IF EXISTS trade_strategies;
-DROP TABLE IF EXISTS analysis_brand_groups;
 DROP TABLE IF EXISTS analysis_histories;
 DROP TABLE IF EXISTS stocks;
 DROP TABLE IF EXISTS brands;
+DROP TABLE IF EXISTS trade_strategy_palettes;
+DROP TABLE IF EXISTS trade_rules;
+DROP TABLE IF EXISTS trade_strategy_cards;
+DROP TABLE IF EXISTS trade_strategies;
+DROP TABLE IF EXISTS brand_groups;
 DROP TABLE IF EXISTS screening;
 DROP TABLE IF EXISTS users;
 
@@ -17,31 +17,13 @@ DROP TABLE IF EXISTS users;
 
 /* Create Tables */
 
--- 分析銘柄グループ
-CREATE TABLE analysis_brand_groups
-(
-	-- 分析銘柄ID
-	gid serial NOT NULL,
-	-- ユーザID
-	uid int NOT NULL,
-	-- ラベル
-	label varchar NOT NULL,
-	-- 分析対象銘柄
-	brands text NOT NULL,
-	PRIMARY KEY (gid)
-) WITHOUT OIDS;
-
-
-ALTER SEQUENCE analysis_brand_groups_gid_SEQ RESTART 100;
-
-
 -- 分析履歴
 CREATE TABLE analysis_histories
 (
 	-- ID
-	id serial NOT NULL,
+	id uuid NOT NULL,
 	-- ユーザID
-	uid int NOT NULL,
+	uid uuid NOT NULL,
 	-- お気に入りフラグ
 	star boolean DEFAULT 'false' NOT NULL,
 	-- 総資産
@@ -63,9 +45,6 @@ CREATE TABLE analysis_histories
 ) WITHOUT OIDS;
 
 
-ALTER SEQUENCE analysis_histories_id_SEQ RESTART 100;
-
-
 -- 銘柄
 CREATE TABLE brands
 (
@@ -84,22 +63,34 @@ CREATE TABLE brands
 ) WITHOUT OIDS;
 
 
+-- 銘柄グループ
+CREATE TABLE brand_groups
+(
+	-- 銘柄グループID
+	gid uuid NOT NULL,
+	-- ユーザID
+	uid uuid NOT NULL,
+	-- 銘柄グループ名
+	brand_group_name varchar NOT NULL,
+	-- 対象銘柄
+	target_brand_codes text NOT NULL,
+	PRIMARY KEY (gid)
+) WITHOUT OIDS;
+
+
 -- スクリーニング
 CREATE TABLE screening
 (
 	-- ID
-	id serial NOT NULL,
+	id uuid NOT NULL,
 	-- ユーザID
-	uid int NOT NULL,
+	uid uuid NOT NULL,
 	-- ラベル
 	label varchar NOT NULL,
 	-- スクリーニング条件
 	condition text NOT NULL,
 	PRIMARY KEY (id)
 ) WITHOUT OIDS;
-
-
-ALTER SEQUENCE screening_id_SEQ RESTART 100;
 
 
 -- 株価
@@ -133,48 +124,45 @@ CREATE TABLE stocks
 CREATE TABLE trade_rules
 (
 	-- 取引ルールID
-	rid serial NOT NULL,
+	rid uuid NOT NULL,
 	-- ユーザID
-	uid int NOT NULL,
+	uid uuid NOT NULL,
 	-- 取引戦略ID
-	sid int NOT NULL,
-	-- 当日取引フラグ : true: 当日
+	sid uuid NOT NULL,
+	-- 取引日種別 : true: 当日
 	-- false: 明日
-	today_or_tomorrow boolean NOT NULL,
-	-- 売買フラグ : true: 購入
+	trading_day_type boolean NOT NULL,
+	-- 売買種別 : true: 購入
 	-- false: 売却
-	buy_or_sell boolean NOT NULL,
+	buying_and_selling_type boolean NOT NULL,
 	-- 取引タイミング種別 : 1: 寄成
 	-- 2: 引成
 	-- 3: 成行
 	-- 4: 指値
-	trade_timing_type int NOT NULL,
+	order_type int NOT NULL,
 	-- 指値
 	limit_order_value numeric,
-	-- 仕掛けフラグ : true: 仕掛け
+	-- 取引種別 : true: 仕掛け
 	-- false: 手仕舞い
-	in_or_exit boolean NOT NULL,
+	trade_type boolean NOT NULL,
 	-- 順序
 	order_by int NOT NULL,
 	PRIMARY KEY (rid),
-	UNIQUE (sid, in_or_exit, order_by)
+	UNIQUE (sid, trade_type, order_by)
 ) WITHOUT OIDS;
-
-
-ALTER SEQUENCE trade_rules_rid_SEQ RESTART 100;
 
 
 -- 取引戦略 : 取引戦略を格納するテーブルです。
 CREATE TABLE trade_strategies
 (
 	-- 取引戦略ID
-	sid serial NOT NULL,
+	sid uuid NOT NULL,
 	-- ユーザID
-	uid int NOT NULL,
-	-- 分析銘柄グループID
-	gid int,
-	-- ラベル
-	label varchar NOT NULL,
+	uid uuid NOT NULL,
+	-- 銘柄グループID
+	gid uuid,
+	-- 取引戦略名
+	trade_strategy_name varchar NOT NULL,
 	-- 分析開始日
 	analysis_start_date date NOT NULL,
 	-- 分析終了日
@@ -187,20 +175,15 @@ CREATE TABLE trade_strategies
 ) WITHOUT OIDS;
 
 
-ALTER SEQUENCE trade_strategies_sid_SEQ RESTART 100;
-
-
 -- 取引戦略カード
 CREATE TABLE trade_strategy_cards
 (
 	-- 取引戦略カードID
-	cid serial NOT NULL,
+	cid uuid NOT NULL,
 	-- ユーザID
-	uid int NOT NULL,
-	-- 取引戦略パレットID
-	pid int,
+	uid uuid NOT NULL,
 	-- 取引戦略ID
-	sid int NOT NULL,
+	sid uuid NOT NULL,
 	-- ラベル
 	label varchar NOT NULL,
 	-- 利用フラグ
@@ -235,23 +218,21 @@ CREATE TABLE trade_strategy_cards
 	cross_type int,
 	-- 経過日数
 	elapsed_day int,
-	PRIMARY KEY (cid),
-	UNIQUE (uid, pid)
+	PRIMARY KEY (cid)
 ) WITHOUT OIDS;
-
-
-ALTER SEQUENCE trade_strategy_cards_cid_SEQ RESTART 100;
 
 
 -- 取引戦略パレット
 CREATE TABLE trade_strategy_palettes
 (
 	-- 取引戦略パレットID
-	pid serial NOT NULL,
+	pid uuid NOT NULL,
 	-- ユーザID
-	uid int NOT NULL,
+	uid uuid NOT NULL,
 	-- 取引ルールID
-	rid int NOT NULL,
+	rid uuid NOT NULL,
+	-- 取引戦略カードID
+	cid uuid UNIQUE,
 	-- 左結合種別 : 0: なし
 	-- 1: AND
 	-- 2: OR
@@ -273,14 +254,11 @@ CREATE TABLE trade_strategy_palettes
 ) WITHOUT OIDS;
 
 
-ALTER SEQUENCE trade_strategy_palettes_pid_SEQ RESTART 100;
-
-
 -- ユーザ
 CREATE TABLE users
 (
 	-- ユーザID
-	uid serial NOT NULL,
+	uid uuid NOT NULL,
 	-- 氏名
 	name varchar NOT NULL,
 	-- パスワード
@@ -291,25 +269,22 @@ CREATE TABLE users
 ) WITHOUT OIDS;
 
 
-ALTER SEQUENCE users_uid_SEQ RESTART 100;
-
-
 
 /* Create Foreign Keys */
-
-ALTER TABLE trade_strategies
-	ADD FOREIGN KEY (gid)
-	REFERENCES analysis_brand_groups (gid)
-	ON UPDATE RESTRICT
-	ON DELETE SET NULL
-;
-
 
 ALTER TABLE stocks
 	ADD FOREIGN KEY (code)
 	REFERENCES brands (code)
 	ON UPDATE RESTRICT
 	ON DELETE RESTRICT
+;
+
+
+ALTER TABLE trade_strategies
+	ADD FOREIGN KEY (gid)
+	REFERENCES brand_groups (gid)
+	ON UPDATE RESTRICT
+	ON DELETE SET NULL
 ;
 
 
@@ -337,15 +312,15 @@ ALTER TABLE trade_strategy_cards
 ;
 
 
-ALTER TABLE trade_strategy_cards
-	ADD FOREIGN KEY (pid)
-	REFERENCES trade_strategy_palettes (pid)
+ALTER TABLE trade_strategy_palettes
+	ADD FOREIGN KEY (cid)
+	REFERENCES trade_strategy_cards (cid)
 	ON UPDATE RESTRICT
 	ON DELETE SET NULL
 ;
 
 
-ALTER TABLE analysis_brand_groups
+ALTER TABLE analysis_histories
 	ADD FOREIGN KEY (uid)
 	REFERENCES users (uid)
 	ON UPDATE RESTRICT
@@ -353,7 +328,7 @@ ALTER TABLE analysis_brand_groups
 ;
 
 
-ALTER TABLE analysis_histories
+ALTER TABLE brand_groups
 	ADD FOREIGN KEY (uid)
 	REFERENCES users (uid)
 	ON UPDATE RESTRICT
@@ -404,11 +379,6 @@ ALTER TABLE trade_strategy_palettes
 
 /* Comments */
 
-COMMENT ON TABLE analysis_brand_groups IS '分析銘柄グループ';
-COMMENT ON COLUMN analysis_brand_groups.gid IS '分析銘柄ID';
-COMMENT ON COLUMN analysis_brand_groups.uid IS 'ユーザID';
-COMMENT ON COLUMN analysis_brand_groups.label IS 'ラベル';
-COMMENT ON COLUMN analysis_brand_groups.brands IS '分析対象銘柄';
 COMMENT ON TABLE analysis_histories IS '分析履歴';
 COMMENT ON COLUMN analysis_histories.id IS 'ID';
 COMMENT ON COLUMN analysis_histories.uid IS 'ユーザID';
@@ -428,6 +398,11 @@ COMMENT ON COLUMN brands.market IS '市場';
 COMMENT ON COLUMN brands.enabled IS '廃止フラグ : true: 有効
 false: 無効';
 COMMENT ON COLUMN brands.detail IS '詳細';
+COMMENT ON TABLE brand_groups IS '銘柄グループ';
+COMMENT ON COLUMN brand_groups.gid IS '銘柄グループID';
+COMMENT ON COLUMN brand_groups.uid IS 'ユーザID';
+COMMENT ON COLUMN brand_groups.brand_group_name IS '銘柄グループ名';
+COMMENT ON COLUMN brand_groups.target_brand_codes IS '対象銘柄';
 COMMENT ON TABLE screening IS 'スクリーニング';
 COMMENT ON COLUMN screening.id IS 'ID';
 COMMENT ON COLUMN screening.uid IS 'ユーザID';
@@ -448,23 +423,23 @@ COMMENT ON TABLE trade_rules IS '取引ルール';
 COMMENT ON COLUMN trade_rules.rid IS '取引ルールID';
 COMMENT ON COLUMN trade_rules.uid IS 'ユーザID';
 COMMENT ON COLUMN trade_rules.sid IS '取引戦略ID';
-COMMENT ON COLUMN trade_rules.today_or_tomorrow IS '当日取引フラグ : true: 当日
+COMMENT ON COLUMN trade_rules.trading_day_type IS '取引日種別 : true: 当日
 false: 明日';
-COMMENT ON COLUMN trade_rules.buy_or_sell IS '売買フラグ : true: 購入
+COMMENT ON COLUMN trade_rules.buying_and_selling_type IS '売買種別 : true: 購入
 false: 売却';
-COMMENT ON COLUMN trade_rules.trade_timing_type IS '取引タイミング種別 : 1: 寄成
+COMMENT ON COLUMN trade_rules.order_type IS '取引タイミング種別 : 1: 寄成
 2: 引成
 3: 成行
 4: 指値';
 COMMENT ON COLUMN trade_rules.limit_order_value IS '指値';
-COMMENT ON COLUMN trade_rules.in_or_exit IS '仕掛けフラグ : true: 仕掛け
+COMMENT ON COLUMN trade_rules.trade_type IS '取引種別 : true: 仕掛け
 false: 手仕舞い';
 COMMENT ON COLUMN trade_rules.order_by IS '順序';
 COMMENT ON TABLE trade_strategies IS '取引戦略 : 取引戦略を格納するテーブルです。';
 COMMENT ON COLUMN trade_strategies.sid IS '取引戦略ID';
 COMMENT ON COLUMN trade_strategies.uid IS 'ユーザID';
-COMMENT ON COLUMN trade_strategies.gid IS '分析銘柄グループID';
-COMMENT ON COLUMN trade_strategies.label IS 'ラベル';
+COMMENT ON COLUMN trade_strategies.gid IS '銘柄グループID';
+COMMENT ON COLUMN trade_strategies.trade_strategy_name IS '取引戦略名';
 COMMENT ON COLUMN trade_strategies.analysis_start_date IS '分析開始日';
 COMMENT ON COLUMN trade_strategies.analysis_end_date IS '分析終了日';
 COMMENT ON COLUMN trade_strategies.analyzed_at IS '最終分析日';
@@ -472,7 +447,6 @@ COMMENT ON COLUMN trade_strategies.memo IS 'コメント';
 COMMENT ON TABLE trade_strategy_cards IS '取引戦略カード';
 COMMENT ON COLUMN trade_strategy_cards.cid IS '取引戦略カードID';
 COMMENT ON COLUMN trade_strategy_cards.uid IS 'ユーザID';
-COMMENT ON COLUMN trade_strategy_cards.pid IS '取引戦略パレットID';
 COMMENT ON COLUMN trade_strategy_cards.sid IS '取引戦略ID';
 COMMENT ON COLUMN trade_strategy_cards.label IS 'ラベル';
 COMMENT ON COLUMN trade_strategy_cards.used IS '利用フラグ';
@@ -499,6 +473,7 @@ COMMENT ON TABLE trade_strategy_palettes IS '取引戦略パレット';
 COMMENT ON COLUMN trade_strategy_palettes.pid IS '取引戦略パレットID';
 COMMENT ON COLUMN trade_strategy_palettes.uid IS 'ユーザID';
 COMMENT ON COLUMN trade_strategy_palettes.rid IS '取引ルールID';
+COMMENT ON COLUMN trade_strategy_palettes.cid IS '取引戦略カードID';
 COMMENT ON COLUMN trade_strategy_palettes.left_joint_type IS '左結合種別 : 0: なし
 1: AND
 2: OR';

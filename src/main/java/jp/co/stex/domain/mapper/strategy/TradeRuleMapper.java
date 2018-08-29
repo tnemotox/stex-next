@@ -2,6 +2,7 @@ package jp.co.stex.domain.mapper.strategy;
 
 import jp.co.stex.domain.model.strategy.TradeRuleEntity;
 
+import jp.co.stex.domain.model.strategy.code.TradeType;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
@@ -34,10 +35,10 @@ public interface TradeRuleMapper {
      *
      * @param uid ユーザID
      * @param sid 取引戦略ID
-     * @param inOrExit 仕掛けフラグ
+     * @param tradeType 仕掛けフラグ
      * @return 取引戦略
      */
-    List<TradeRuleEntity> findAllByInOrExit(@Param("uid") int uid, @Param("sid") int sid, @Param("inOrExit") boolean inOrExit);
+    List<TradeRuleEntity> findAllByTradeType(@Param("uid") int uid, @Param("sid") int sid, @Param("tradeType") TradeType tradeType);
 
     /**
      * <p>全ての取引戦略を作成する。</p>

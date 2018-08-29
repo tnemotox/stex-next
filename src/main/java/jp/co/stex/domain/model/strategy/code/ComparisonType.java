@@ -56,7 +56,7 @@ public enum ComparisonType {
      * <p>ラベルに紐付く列挙型を取得する。存在しなければnullを返却する。</p>
      *
      * @param label ラベル
-     * @return IDに紐付く列挙型
+     * @return ラベルに紐付く列挙型
      */
     public static ComparisonType findByLabel(String label) {
         for(ComparisonType value: ComparisonType.values()) {

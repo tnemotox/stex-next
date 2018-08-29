@@ -1,15 +1,15 @@
 package jp.co.stex.domain.model.strategy;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.List;
 
 /**
  * <p>取引戦略を格納するモデルです。</p>
@@ -71,4 +71,14 @@ public class TradeStrategyEntity implements Serializable {
      * コメント
      */
     private String memo;
+
+    /**
+     * 仕掛けルール
+     */
+    private List<TradeRuleEntity> entryRules;
+
+    /**
+     * 手仕舞いルール
+     */
+    private List<TradeRuleEntity> exitRules;
 }

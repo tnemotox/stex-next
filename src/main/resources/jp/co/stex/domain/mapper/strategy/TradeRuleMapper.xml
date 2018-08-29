@@ -9,39 +9,22 @@
     <id property="rid" column="rid" />
     <result property="uid" column="uid" />
     <result property="sid" column="sid" />
-    <result property="todayOrTomorrow" column="today_or_tomorrow" />
-    <result property="buyOrSell" column="buy_or_sell" />
-    <result property="tradeTimingType" column="trade_timing_type" />
-    <result property="inOrExit" column="in_or_exit" />
+    <result property="tradingDayType" column="trading_day_type" />
+    <result property="buyingAndSellingType" column="buying_and_selling_type" />
+    <result property="orderType" column="order_type" />
+    <result property="tradeType" column="trade_type" />
     <result property="orderBy" column="r_order" />
     <collection property="palettes" ofType="TradeStrategyPaletteEntity">
       <id property="pid" column="pid"/>
       <result property="uid" column="uid" />
       <result property="rid" column="rid" />
+      <result property="cid" column="cid" />
       <result property="leftJointType" column="left_joint_type"/>
       <result property="rightJointType" column="right_joint_type"/>
       <result property="nestOpen" column="nest_open"/>
       <result property="nestClose" column="nest_close"/>
       <result property="orderBy" column="p_order"/>
-      <association property="card" resultMap="tradeStrategyCardMap" notNullColumn="cid"/>
     </collection>
-  </resultMap>
-
-  <resultMap id="tradeStrategyCardMap" type="TradeStrategyCardEntity">
-    <id property="cid" column="cid" />
-    <result property="label" column="label"/>
-    <result property="uid" column="uid" />
-    <result property="pid" column="pid" />
-    <result property="used" column="used"/>
-    <result property="cardType" column="card_type"/>
-    <result property="leftSideDays" column="left_side_days"/>
-    <result property="leftSideIndicatorType" column="left_side_indicator_type"/>
-    <result property="rightSideDays" column="right_side_days"/>
-    <result property="rightSideIndicatorType" column="right_side_indicator_type"/>
-    <result property="rightSideFixOrFlex" column="right_side_fix_or_flex"/>
-    <result property="rightSideFixValue" column="right_side_fix_value"/>
-    <result property="coefficient" column="coefficient"/>
-    <result property="comparisonType" column="comparison_type"/>
   </resultMap>
 
   <select id="findOne" resultType="TradeRuleEntity">
@@ -49,25 +32,25 @@
       rid,
       uid,
       sid,
-      today_or_tomorrow,
-      buy_or_sell,
-      trade_timing_type,
-      in_or_exit,
+      trading_day_type,
+      buying_and_selling_type,
+      order_type,
+      trade_type,
       order_by
     FROM trade_rules
     WHERE uid = #{uid}
       AND rid = #{rid}
   </select>
 
-  <select id="findAllByInOrExit" resultMap="tradeRuleMap">
+  <select id="findAllByTradeType" resultMap="tradeRuleMap">
     SELECT
       tr.rid,
       tr.uid,
       tr.sid,
-      tr.today_or_tomorrow,
-      tr.buy_or_sell,
-      tr.trade_timing_type,
-      tr.in_or_exit,
+      tr.trading_day_type,
+      tr.buying_and_selling_type,
+      tr.order_type,
+      tr.trade_type,
       tr.order_by r_order,
       tsp.pid,
       tsp.left_joint_type,
@@ -75,47 +58,34 @@
       tsp.nest_open,
       tsp.nest_close,
       tsp.order_by p_order,
-      tsc.cid,
-      tsc.label,
-      tsc.used,
-      tsc.card_type,
-      tsc.left_side_days,
-      tsc.left_side_indicator_type,
-      tsc.right_side_days,
-      tsc.right_side_indicator_type,
-      tsc.right_side_fix_or_flex,
-      tsc.right_side_fix_value,
-      tsc.coefficient,
-      tsc.comparison_type
+      tsp.cid
     FROM trade_rules tr
     INNER JOIN trade_strategy_palettes tsp
       ON tr.rid = tsp.rid
-    LEFT JOIN trade_strategy_cards tsc
-      ON tsp.pid = tsc.pid
     WHERE tr.uid = #{uid}
       AND tr.sid = #{sid}
-      AND tr.in_or_exit = #{inOrExit}
+      AND tr.trade_type = #{tradeType}
     ORDER BY tr.order_by, tsp.order_by
   </select>
 
-  <select id="createAll" resultType="int">
+  <select id="createAll" resultType="java.lang.Integer">
     INSERT INTO trade_rules (
       uid,
       sid,
-      today_or_tomorrow,
-      buy_or_sell,
-      trade_timing_type,
-      in_or_exit,
+      trading_day_type,
+      buying_and_selling_type,
+      order_type,
+      trade_type,
       order_by
     )
     VALUES (
       <foreach collection="rules" item="rule" separator="), (">
         #{rule.uid},
         #{rule.sid},
-        #{rule.todayOrTomorrow},
-        #{rule.buyOrSell},
-        #{rule.tradeTimingType},
-        #{rule.inOrExit},
+        #{rule.tradingDayType},
+        #{rule.buyingAndSellingType},
+        #{rule.orderType},
+        #{rule.tradeType},
         #{rule.orderBy}
       </foreach>
     )
@@ -126,10 +96,10 @@
     <foreach collection="rules" item="rule" separator=";">
       UPDATE trade_rules
       SET
-        today_or_tomorrow = #{rule.todayOrTomorrow},
-        buy_or_sell = #{rule.buyOrSell},
-        trade_timing_type = #{rule.tradeTimingType},
-        in_or_exit = #{rule.inOrExit},
+        trading_day_type = #{rule.tradingDayType},
+        buying_and_selling_type = #{rule.buyingAndSellingType},
+        order_type = #{rule.orderType},
+        trade_type = #{rule.tradeType},
         order_by = #{rule.orderBy}
       WHERE uid = #{rule.uid}
         AND rid = #{rule.rid}

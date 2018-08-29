@@ -1,4 +1,0 @@
-rid,uid,sid,today_or_tomorrow,buy_or_sell,trade_timing_type,in_or_exit,order_by
-1,1,1,true,true,1,true,1
-2,1,1,false,false,2,true,2
-3,1,1,false,false,3,false,1

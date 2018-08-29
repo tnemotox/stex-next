@@ -50,7 +50,10 @@ public class TradeStrategyCardController {
     private final TradeStrategyCardFormValidator tradeStrategyCardFormValidator;
 
     /**
-     * <p>バリデーターを追加する。</p>
+     * <p>初期処理を追加する。</p>
+     * <ul>
+     *   <li>バリデーターを追加する。</li>
+     * </ul>
      *
      * @param webDataBinder バインダ
      */
@@ -61,7 +64,7 @@ public class TradeStrategyCardController {
 
     @RequestMapping(path = "/{sid}", method = RequestMethod.GET)
     public ResponseEntity<List<TradeStrategyCardEntity>> fetch(@PathVariable(value = "sid", required = false) @NotNull Integer sid) {
-        return ResponseEntity.ok(tradeStrategyCardService.findAllTradeStrategyCard(findUserId(), sid));
+        return ResponseEntity.ok(tradeStrategyCardService.findAllTradeStrategyCard(1, sid));
     }
 
     /**
@@ -78,7 +81,7 @@ public class TradeStrategyCardController {
         if (bd.hasErrors()) {
             throw new BindException(bd);
         }
-        int cid = tradeStrategyCardService.createOneTradeStrategyCard(dozerMapper.map(form, TradeStrategyCardEntity.class).setUid(findUserId()));
+        int cid = tradeStrategyCardService.createOneTradeStrategyCard(dozerMapper.map(form, TradeStrategyCardEntity.class).setUid(1));
         return ResponseEntity.created(uriBuilder.path("/api/trade-strategy-card/{cid}").buildAndExpand(cid).toUri()).build();
     }
 
@@ -96,7 +99,7 @@ public class TradeStrategyCardController {
         if (bd.hasErrors()) {
             throw new BindException(bd);
         }
-        tradeStrategyCardService.updateOneTradeStrategyCard(dozerMapper.map(form, TradeStrategyCardEntity.class).setUid(findUserId()).setCid(cid));
+        tradeStrategyCardService.updateOneTradeStrategyCard(dozerMapper.map(form, TradeStrategyCardEntity.class).setUid(1).setCid(cid));
         return ResponseEntity.noContent().build();
     }
 
@@ -108,29 +111,7 @@ public class TradeStrategyCardController {
      */
     @RequestMapping(path = {"/", "/{cid}"}, method = RequestMethod.DELETE)
     public ResponseEntity<Void> delete(@PathVariable(value = "cid", required = false) @NotNull Integer cid) {
-        tradeStrategyCardService.deleteOneTradeStrategyCard(findUserId(), cid);
+        tradeStrategyCardService.deleteOneTradeStrategyCard(1, cid);
         return ResponseEntity.noContent().build();
-    }
-
-    /**
-     * <p>認証に用いたユーザ名を取得する。</p>
-     *
-     * @return ユーザ名
-     */
-    private String findUserName() {
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        if (principal instanceof UserDetails) {
-            return ((UserDetails) principal).getUsername();
-        }
-        return principal.toString();
-    }
-
-    /**
-     * <p>認証に用いたユーザIDを取得する。</p>
-     *
-     * @return ユーザID
-     */
-    private int findUserId() {
-        return userService.findUserId(findUserName());
     }
 }

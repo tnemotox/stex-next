@@ -1,5 +1,6 @@
 package jp.co.stex.domain.service.base;
 
+import ch.qos.logback.core.net.SyslogOutputStream;
 import jp.co.stex.base.MessageCode;
 import jp.co.stex.base.exception.StexSystemException;
 import jp.co.stex.domain.model.base.ResponseMessage;
@@ -59,8 +60,8 @@ public class MessageServiceImpl implements MessageService {
      */
     @Override
     public ResponseMessage makeResponesMessage(FieldError error, ErrorLevel level) {
-        String message = messageSource.getMessage(error.getCodes()[0], new Object[] {}, Locale.JAPAN);
-        return new ResponseMessage(error.getCodes()[0], new String[] {}, level, message);
+        String message = messageSource.getMessage(error.getCodes()[error.getCodes().length - 3], new Object[] {}, Locale.JAPAN);
+        return new ResponseMessage(error.getCodes()[error.getCodes().length - 3], new String[] {}, level, message);
     }
 
     /**

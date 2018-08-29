@@ -1,13 +1,12 @@
 package jp.co.stex.web.controller.api.strategy;
 
-import jp.co.stex.domain.model.strategy.TradeStrategyEntity;
+import jp.co.stex.domain.model.strategy.TradeStrategies;
+import jp.co.stex.domain.model.strategy.TradeStrategy;
+import jp.co.stex.domain.model.strategy.value.VSid;
 import jp.co.stex.domain.service.base.UserService;
 import jp.co.stex.domain.service.strategy.ITradeStrategyService;
 import lombok.RequiredArgsConstructor;
-import org.dozer.Mapper;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.validation.BindException;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
@@ -15,7 +14,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.validation.constraints.NotNull;
-import java.util.List;
 
 /**
  * <p>取引戦略の操作を行うコントローラです。</p>
@@ -27,11 +25,6 @@ import java.util.List;
 @RequiredArgsConstructor
 @Validated
 public class TradeStrategyController {
-
-    /**
-     * dozerマッパー
-     */
-    private final Mapper dozerMapper;
 
     /**
      * 取引戦略サービス
@@ -49,43 +42,43 @@ public class TradeStrategyController {
      * @return 取引戦略リスト
      */
     @RequestMapping(path = "", method = RequestMethod.GET)
-    public ResponseEntity<List<TradeStrategyEntity>> fetch() {
-        return ResponseEntity.ok(tradeStrategyService.findAllTradeStrategy(findUserId()));
+    public ResponseEntity<TradeStrategies> fetch() {
+        return ResponseEntity.ok(tradeStrategyService.findAll(userService.findUserId()));
     }
 
     /**
      * <p>取引戦略を作成する。</p>
      *
-     * @param form 取引戦略フォーム
+     * @param tradeStrategy 取引戦略フォーム
      * @param bd バインド結果
      * @param uriBuilder URIビルダー
      * @return なし
      * @throws BindException バインド例外
      */
     @RequestMapping(path = "", method = RequestMethod.POST)
-    public ResponseEntity<Void> create(@RequestBody @Validated TradeStrategyForm form, BindingResult bd, UriComponentsBuilder uriBuilder) throws BindException {
+    public ResponseEntity<Void> create(@RequestBody @Validated TradeStrategy tradeStrategy, BindingResult bd, UriComponentsBuilder uriBuilder) throws BindException {
         if (bd.hasErrors()) {
             throw new BindException(bd);
         }
-        int sid = tradeStrategyService.createOneTradeStrategy(dozerMapper.map(form, TradeStrategyEntity.class).setUid(findUserId()));
-        return ResponseEntity.created(uriBuilder.path("/api/strategy/{sid}").buildAndExpand(sid).toUri()).build();
+        VSid sid = tradeStrategyService.createOne(userService.findUserId(), tradeStrategy);
+        return ResponseEntity.created(uriBuilder.path("/api/strategy/{sid}").buildAndExpand(sid.getSid()).toUri()).build();
     }
 
     /**
      * <p>取引戦略を更新する。</p>
      *
      * @param sid 取引戦略ID
-     * @param form 取引戦略フォーム
+     * @param tradeStrategy 取引戦略
      * @param bd バインド結果
      * @return なし
      * @throws BindException バインド例外
      */
     @RequestMapping(path = {"/", "/{sid}"}, method = RequestMethod.PUT)
-    public ResponseEntity<Void> update(@PathVariable(value = "sid", required = false) @NotNull Integer sid, @RequestBody @Validated TradeStrategyForm form, BindingResult bd) throws BindException {
+    public ResponseEntity<Void> update(@PathVariable(value = "sid", required = false) @NotNull VSid sid, @RequestBody @Validated TradeStrategy tradeStrategy, BindingResult bd) throws BindException {
         if (bd.hasErrors()) {
             throw new BindException(bd);
         }
-        tradeStrategyService.updateOneTradeStrategy(dozerMapper.map(form, TradeStrategyEntity.class).setUid(findUserId()).setSid(sid));
+        tradeStrategyService.updateOne(userService.findUserId(), new TradeStrategy(tradeStrategy, sid));
         return ResponseEntity.noContent().build();
     }
 
@@ -96,30 +89,8 @@ public class TradeStrategyController {
      * @return なし
      */
     @RequestMapping(path = {"/", "/{sid}"}, method = RequestMethod.DELETE)
-    public ResponseEntity<Void> delete(@PathVariable(value = "sid", required = false) @NotNull Integer sid) {
-        tradeStrategyService.deleteOneTradeStrategy(findUserId(), sid);
+    public ResponseEntity<Void> delete(@PathVariable(value = "sid", required = false) @NotNull VSid sid) {
+        tradeStrategyService.deleteOne(userService.findUserId(), sid);
         return ResponseEntity.noContent().build();
-    }
-
-    /**
-     * <p>認証に用いたユーザ名を取得する。</p>
-     *
-     * @return ユーザ名
-     */
-    private String findUserName() {
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        if (principal instanceof UserDetails) {
-            return ((UserDetails) principal).getUsername();
-        }
-        return principal.toString();
-    }
-
-    /**
-     * <p>認証に用いたユーザIDを取得する。</p>
-     *
-     * @return ユーザID
-     */
-    private int findUserId() {
-        return userService.findUserId(findUserName());
     }
 }

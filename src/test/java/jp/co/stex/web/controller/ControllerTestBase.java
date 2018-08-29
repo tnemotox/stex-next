@@ -1,12 +1,17 @@
 package jp.co.stex.web.controller;
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.PropertyAccessor;
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import com.github.dozermapper.springboot.autoconfigure.DozerAutoConfiguration;
 import jp.co.stex.domain.service.base.MessageService;
 import jp.co.stex.domain.service.base.UserService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.dozer.Mapper;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -90,5 +95,14 @@ public abstract class ControllerTestBase {
         messageSource.setBasename(MESSAGE_SOURCE_BASE_NAME);
         messageSource.setUseCodeAsDefaultMessage(true);
         return messageSource;
+    }
+
+    @BeforeAll
+    void setup() {
+        mapper.setVisibility(PropertyAccessor.FIELD, JsonAutoDetect.Visibility.ANY)
+            .setVisibility(PropertyAccessor.GETTER, JsonAutoDetect.Visibility.NONE)
+            .setVisibility(PropertyAccessor.SETTER, JsonAutoDetect.Visibility.NONE)
+            .disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES)
+            .enable(SerializationFeature.INDENT_OUTPUT);
     }
 }

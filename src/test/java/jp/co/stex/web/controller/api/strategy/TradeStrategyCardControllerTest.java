@@ -1,6 +1,7 @@
 package jp.co.stex.web.controller.api.strategy;
 
 import com.fasterxml.jackson.databind.SerializationFeature;
+import jp.co.stex.domain.model.base.value.VUid;
 import jp.co.stex.domain.model.strategy.TradeStrategyCardEntity;
 import jp.co.stex.domain.model.strategy.code.CardType;
 import jp.co.stex.domain.model.strategy.code.ComparisonType;
@@ -18,6 +19,8 @@ import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors;
 import org.springframework.test.web.servlet.MvcResult;
+
+import java.util.UUID;
 
 import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -189,7 +192,7 @@ class TradeStrategyCardControllerTest extends ControllerTestBase {
         @DisplayName("最小限の正しい引数が与えられたとき、比較の取引戦略を作成する")
         @WithMockUser
         void _001() throws Exception {
-            when(userService.findUserId(anyString())).thenReturn(1);
+            when(userService.findUserId()).thenReturn(new VUid(UUID.randomUUID()));
             when(tradeStrategyCardService.createOneTradeStrategyCard(captor.capture())).thenReturn(1);
             MvcResult result = mockMvc.perform(
                 post("/api/trade-strategy-card")
@@ -220,7 +223,7 @@ class TradeStrategyCardControllerTest extends ControllerTestBase {
         @DisplayName("最小限の正しい引数が与えられたとき、交差の取引戦略を作成する")
         @WithMockUser
         void _002() throws Exception {
-            when(userService.findUserId(anyString())).thenReturn(1);
+            when(userService.findUserId()).thenReturn(new VUid(UUID.randomUUID()));
             when(tradeStrategyCardService.createOneTradeStrategyCard(captor.capture())).thenReturn(1);
             MvcResult result = mockMvc.perform(
                 post("/api/trade-strategy-card")
@@ -251,7 +254,7 @@ class TradeStrategyCardControllerTest extends ControllerTestBase {
         @DisplayName("最小限の正しい引数が与えられたとき、時間の取引戦略カードを作成する")
         @WithMockUser
         void _003() throws Exception {
-            when(userService.findUserId(anyString())).thenReturn(1);
+            when(userService.findUserId()).thenReturn(new VUid(UUID.randomUUID()));
             when(tradeStrategyCardService.createOneTradeStrategyCard(captor.capture())).thenReturn(1);
             MvcResult result = mockMvc.perform(
                 post("/api/trade-strategy-card")
@@ -468,7 +471,7 @@ class TradeStrategyCardControllerTest extends ControllerTestBase {
         @DisplayName("最小限の正しい引数が与えられたとき、取引戦略カードを更新する")
         @WithMockUser
         void _001() throws Exception {
-            when(userService.findUserId(anyString())).thenReturn(1);
+            when(userService.findUserId()).thenReturn(new VUid(UUID.randomUUID()));
             doNothing().when(tradeStrategyCardService).updateOneTradeStrategyCard(captor.capture());
             MvcResult result = mockMvc.perform(
                 put("/api/trade-strategy-card/1")
@@ -501,7 +504,7 @@ class TradeStrategyCardControllerTest extends ControllerTestBase {
         @DisplayName("最小限の正しい引数が与えられたとき、交差の取引戦略を更新する")
         @WithMockUser
         void _002() throws Exception {
-            when(userService.findUserId(anyString())).thenReturn(1);
+            when(userService.findUserId()).thenReturn(new VUid(UUID.randomUUID()));
             doNothing().when(tradeStrategyCardService).updateOneTradeStrategyCard(captor.capture());
             MvcResult result = mockMvc.perform(
                 put("/api/trade-strategy-card/1")
@@ -533,7 +536,7 @@ class TradeStrategyCardControllerTest extends ControllerTestBase {
         @DisplayName("最小限の正しい引数が与えられたとき、時間の取引戦略カードを更新する")
         @WithMockUser
         void _003() throws Exception {
-            when(userService.findUserId(anyString())).thenReturn(1);
+            when(userService.findUserId()).thenReturn(new VUid(UUID.randomUUID()));
             doNothing().when(tradeStrategyCardService).updateOneTradeStrategyCard(captor.capture());
             MvcResult result = mockMvc.perform(
                 put("/api/trade-strategy-card/1")

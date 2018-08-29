@@ -4,11 +4,14 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.experimental.Accessors;
 
+import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.List;
 
 /**
  * <p>取引戦略を格納するフォームです。</p>
@@ -19,7 +22,8 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-class TradeStrategyForm implements Serializable {
+@Accessors(chain = true)
+public class TradeStrategyForm implements Serializable {
 
     /**
      * シリアルID
@@ -54,4 +58,16 @@ class TradeStrategyForm implements Serializable {
      * コメント
      */
     private String memo;
+
+    /**
+     * 仕掛けルール
+     */
+    @Valid
+    private List<TradeRuleForm> entryRules;
+
+    /**
+     * 手仕舞いルール
+     */
+    @Valid
+    private List<TradeRuleForm> exitRules;
 }

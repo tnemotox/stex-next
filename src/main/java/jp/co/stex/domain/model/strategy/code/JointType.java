@@ -15,6 +15,8 @@ import org.apache.commons.lang3.ObjectUtils;
 @AllArgsConstructor
 public enum JointType {
 
+    NOTHING(0, ""),
+
     AND(1, "または"),
 
     OR(2, "かつ");
@@ -50,7 +52,7 @@ public enum JointType {
      * <p>ラベルに紐付く列挙型を取得する。存在しなければnullを返却する。</p>
      *
      * @param label ラベル
-     * @return IDに紐付く列挙型
+     * @return ラベルに紐付く列挙型
      */
     public static JointType findByLabel(String label) {
         for(JointType value: JointType.values()) {

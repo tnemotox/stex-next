@@ -1,0 +1,7 @@
+<dataset>
+  <users uid="00000000-0000-0000-0000-000000000001" name="テスト一郎" password="password" authority="ROLE_USER"/>
+  <users uid="00000000-0000-0000-0000-000000000002" name="テスト二郎" password="password" authority="ROLE_USER"/>
+
+  <brand_groups gid="00000000-0000-0000-0000-000000000002" uid="00000000-0000-0000-0000-000000000001" brand_group_name="分析銘柄グループ2" target_brand_codes="[3333,4444]"/>
+  <brand_groups gid="00000000-0000-0000-0000-000000000003" uid="00000000-0000-0000-0000-000000000002" brand_group_name="分析銘柄グループ3" target_brand_codes="[5555,6666]"/>
+</dataset>

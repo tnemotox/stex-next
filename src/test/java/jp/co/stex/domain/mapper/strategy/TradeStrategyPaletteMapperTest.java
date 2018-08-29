@@ -5,6 +5,8 @@ import com.github.springtestdbunit.annotation.DatabaseSetup;
 import jp.co.stex.domain.mapper.MapperTestBase;
 import jp.co.stex.domain.model.strategy.TradeStrategyCardEntity;
 import jp.co.stex.domain.model.strategy.TradeStrategyPaletteEntity;
+import jp.co.stex.domain.model.strategy.code.JointType;
+import jp.co.stex.domain.model.strategy.code.NestType;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -15,9 +17,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * 取引戦略パレットを操作するマッパーのテストクラスです。
@@ -36,45 +36,47 @@ class TradeStrategyPaletteMapperTest extends MapperTestBase {
 
     private final int pid = 1;
 
+    private final int cid = 1;
+
     private final List<TradeStrategyPaletteEntity> initialTradeStrategyPalettes = Arrays.asList(
         TradeStrategyPaletteEntity.builder()
             .pid(1)
             .uid(1)
             .rid(1)
-            .leftJointType(0)
-            .rightJointType(1)
-            .nestOpen(true)
-            .nestClose(false)
+            .leftJointType(JointType.NOTHING)
+            .rightJointType(JointType.AND)
+            .nestOpen(NestType.ENABLE)
+            .nestClose(NestType.DISABLE)
             .orderBy(1)
             .build(),
         TradeStrategyPaletteEntity.builder()
             .pid(2)
             .uid(1)
             .rid(1)
-            .leftJointType(2)
-            .rightJointType(0)
-            .nestOpen(false)
-            .nestClose(true)
+            .leftJointType(JointType.OR)
+            .rightJointType(JointType.NOTHING)
+            .nestOpen(NestType.DISABLE)
+            .nestClose(NestType.ENABLE)
             .orderBy(2)
             .build(),
         TradeStrategyPaletteEntity.builder()
             .pid(3)
             .uid(1)
             .rid(2)
-            .leftJointType(0)
-            .rightJointType(1)
-            .nestOpen(true)
-            .nestClose(false)
+            .leftJointType(JointType.NOTHING)
+            .rightJointType(JointType.AND)
+            .nestOpen(NestType.ENABLE)
+            .nestClose(NestType.DISABLE)
             .orderBy(1)
             .build(),
         TradeStrategyPaletteEntity.builder()
             .pid(4)
             .uid(1)
             .rid(2)
-            .leftJointType(2)
-            .rightJointType(0)
-            .nestOpen(false)
-            .nestClose(true)
+            .leftJointType(JointType.OR)
+            .rightJointType(JointType.NOTHING)
+            .nestOpen(NestType.DISABLE)
+            .nestClose(NestType.ENABLE)
             .orderBy(2)
             .build()
     );
@@ -116,19 +118,19 @@ class TradeStrategyPaletteMapperTest extends MapperTestBase {
                 TradeStrategyPaletteEntity.builder()
                     .uid(1)
                     .rid(1)
-                    .leftJointType(1)
-                    .rightJointType(1)
-                    .nestOpen(true)
-                    .nestClose(true)
+                    .leftJointType(JointType.AND)
+                    .rightJointType(JointType.AND)
+                    .nestOpen(NestType.ENABLE)
+                    .nestClose(NestType.ENABLE)
                     .orderBy(10)
                     .build(),
                 TradeStrategyPaletteEntity.builder()
                     .uid(1)
                     .rid(1)
-                    .leftJointType(2)
-                    .rightJointType(2)
-                    .nestOpen(true)
-                    .nestClose(true)
+                    .leftJointType(JointType.OR)
+                    .rightJointType(JointType.OR)
+                    .nestOpen(NestType.ENABLE)
+                    .nestClose(NestType.ENABLE)
                     .orderBy(11)
                     .build()
             );
@@ -157,20 +159,20 @@ class TradeStrategyPaletteMapperTest extends MapperTestBase {
                     .pid(1)
                     .uid(1)
                     .rid(1)
-                    .leftJointType(2)
-                    .rightJointType(2)
-                    .nestOpen(false)
-                    .nestClose(false)
+                    .leftJointType(JointType.OR)
+                    .rightJointType(JointType.OR)
+                    .nestOpen(NestType.DISABLE)
+                    .nestClose(NestType.DISABLE)
                     .orderBy(20)
                     .build(),
                 TradeStrategyPaletteEntity.builder()
                     .pid(2)
                     .uid(1)
                     .rid(1)
-                    .leftJointType(1)
-                    .rightJointType(1)
-                    .nestOpen(false)
-                    .nestClose(false)
+                    .leftJointType(JointType.AND)
+                    .rightJointType(JointType.AND)
+                    .nestOpen(NestType.DISABLE)
+                    .nestClose(NestType.DISABLE)
                     .orderBy(21)
                     .build()
             );
@@ -190,10 +192,10 @@ class TradeStrategyPaletteMapperTest extends MapperTestBase {
                     .pid(2)
                     .uid(1)
                     .rid(1)
-                    .leftJointType(1)
-                    .rightJointType(1)
-                    .nestOpen(false)
-                    .nestClose(false)
+                    .leftJointType(JointType.AND)
+                    .rightJointType(JointType.AND)
+                    .nestOpen(NestType.DISABLE)
+                    .nestClose(NestType.DISABLE)
                     .orderBy(1)
                     .build()
             );
@@ -225,7 +227,6 @@ class TradeStrategyPaletteMapperTest extends MapperTestBase {
             List<Integer> pids = Arrays.asList(1, 2, 3, 4);
             target.deleteAll(uid, pids);
             TradeStrategyCardEntity actual = cardMapper.findOne(uid, 2);
-            assertEquals(actual.getPid(), 0);
         }
     }
 }

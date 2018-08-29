@@ -1,5 +1,7 @@
 package jp.co.stex.domain.model.strategy;
 
+import jp.co.stex.domain.model.strategy.code.JointType;
+import jp.co.stex.domain.model.strategy.code.NestType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -40,24 +42,29 @@ public class TradeStrategyPaletteEntity implements Serializable {
     private int rid;
 
     /**
+     * 取引戦略カードID
+     */
+    private int cid;
+
+    /**
      * 左結合
      */
-    private int leftJointType;
+    private JointType leftJointType;
 
     /**
      * 右結合
      */
-    private int rightJointType;
+    private JointType rightJointType;
 
     /**
      * ネスト開始
      */
-    private boolean nestOpen;
+    private NestType nestOpen;
 
     /**
      * ネスト終了
      */
-    private boolean nestClose;
+    private NestType nestClose;
 
     /**
      * 順序
@@ -65,7 +72,7 @@ public class TradeStrategyPaletteEntity implements Serializable {
     private int orderBy;
 
     /**
-     * 取引戦略カード
+     * 取引戦略カードラベル
      */
-    private TradeStrategyCardEntity card;
+    private String cardLabel;
 }

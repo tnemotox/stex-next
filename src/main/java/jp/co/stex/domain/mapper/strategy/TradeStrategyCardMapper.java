@@ -52,13 +52,6 @@ public interface TradeStrategyCardMapper {
     void updateOne(@Param("card") TradeStrategyCardEntity card);
 
     /**
-     * <p>指定した取引戦略カードと取引戦略パレットの紐付けを更新する。</p>
-     *
-     * @param card 取引戦略カード
-     */
-    void associateOneWithPalette(@Param("card") TradeStrategyCardEntity card);
-
-    /**
      * <p>指定した取引戦略カードを削除する。</p>
      *
      * @param uid ユーザID

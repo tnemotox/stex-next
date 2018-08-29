@@ -4,7 +4,7 @@
     <el-row id="wrapper">
       <el-col :sm="24" :xs="24">
         <div class="board">
-          <div v-for="(rule, ridx) in tradeRules" :key="`${inOrExit}-${rule.orderBy}`">
+          <div v-for="(rule, ridx) in tradeRules" :key="`${tradeType}-${rule.orderBy}`">
             <el-form :model="rule" :rules="rules">
               <div class="rule-area">
                 <el-row class="rule-header" type="flex" align="bottom">
@@ -27,7 +27,7 @@
                         type="success"
                         icon="el-icon-arrow-up"
                         plain
-                        @click="orderUp(rule.orderBy, inOrExit)"
+                        @click="orderUp(rule.orderBy, tradeType)"
                       />
                       <el-button
                         v-if="tradeRules.length - 1 !== ridx"
@@ -35,14 +35,14 @@
                         type="success"
                         icon="el-icon-arrow-down"
                         plain
-                        @click="orderDown(rule.orderBy, inOrExit)"
+                        @click="orderDown(rule.orderBy, tradeType)"
                       />
                       <el-button
                         size="mini"
                         type="primary"
                         icon="el-icon-plus"
                         plain
-                        @click="addRule(rule, inOrExit)"
+                        @click="addRule(rule, tradeType)"
                       />
                       <el-button
                         v-if="ridx !== 0"
@@ -50,7 +50,7 @@
                         type="danger"
                         icon="el-icon-minus"
                         plain
-                        @click="removeRule(rule, inOrExit)"
+                        @click="removeRule(rule, tradeType)"
                       />
                     </div>
                   </el-col>
@@ -88,7 +88,7 @@
                   </el-col>
                 </el-row>
                 <el-row class="palette-row" v-for="(palette, pidx) in rule.palettes"
-                        :key="`${inOrExit}-${rule.orderBy}-${palette.orderBy}`">
+                        :key="`${tradeType}-${rule.orderBy}-${palette.orderBy}`">
                   <el-col :sm="3" :xs="5">
                     <div class="palette-item-manipulate">
                       <el-button
@@ -96,7 +96,7 @@
                         type="primary"
                         icon="el-icon-plus"
                         plain
-                        @click="addPalette(rule, palette, inOrExit)"
+                        @click="addPalette(rule, palette, tradeType)"
                       />
                       <el-button
                         v-if="pidx !== 0"
@@ -104,7 +104,7 @@
                         type="danger"
                         icon="el-icon-minus"
                         plain
-                        @click="removePalette(rule, palette, inOrExit)"
+                        @click="removePalette(rule, palette, tradeType)"
                       />
                     </div>
                   </el-col>
@@ -138,7 +138,7 @@
                     <div class="palette-item">
                       <div
                         class="palette-item-card"
-                        data-inorexit="true"
+                        data-tradetype="true"
                       >
                         <el-select
                           :value="resolveCard(palette)"
@@ -149,7 +149,7 @@
                         >
                           <el-option
                             v-for="card in cards.filter(c => c.pid === palette.pid).concat(unusedCards).sort((a, b) => a.cid > b.cid ? 1 : -1)"
-                            :key="`${inOrExit}-${rule.orderBy}-${palette.orderBy}-${card.cid}`"
+                            :key="`${tradeType}-${rule.orderBy}-${palette.orderBy}-${card.cid}`"
                             :value="`${card.cid}_${palette.pid}`"
                             :label="`${('000' + card.cid).slice(-4)}　${card.label}`"
                           >
@@ -189,19 +189,19 @@
                   <el-col>
                     <div class="rule">
                       <span class="rule-text">上記を満たすとき、</span>
-                      <el-radio-group size="small" v-model="rule.todayOrTomorrow">
+                      <el-radio-group size="small" v-model="rule.tradingDayType">
                         <el-radio-button :label="true">当日</el-radio-button>
                         <el-radio-button :label="false">翌日</el-radio-button>
                       </el-radio-group>
                       <span class="rule-text"> の </span>
-                      <el-radio-group size="small" v-model="rule.tradeTimingType">
+                      <el-radio-group size="small" v-model="rule.orderType">
                         <el-radio-button :label="1">寄成</el-radio-button>
                         <el-radio-button :label="2">引成</el-radio-button>
                         <el-radio-button :label="3">成行</el-radio-button>
                         <el-radio-button :label="4">指値</el-radio-button>
                       </el-radio-group>
                       <el-input
-                        v-if="rule.tradeTimingType === 4"
+                        v-if="rule.orderType === 4"
                         size="small"
                         placeholder="指値"
                         class="limit-order-value"
@@ -209,11 +209,11 @@
                         v-model="rule.limitOrderPrice"
                       />
                       <span class="rule-text"> で </span>
-                      <el-radio-group v-if="rule.orderBy === 1" size="small" v-model="rule.buyOrSell">
+                      <el-radio-group v-if="rule.orderBy === 1" size="small" v-model="rule.buyingAndSellingType">
                         <el-radio-button :label="true">購入</el-radio-button>
                         <el-radio-button :label="false">売却</el-radio-button>
                       </el-radio-group>
-                      <span class="rule-text" v-else> {{tradeRules[0].buyOrSell ? '購入' : '売却'}} </span>
+                      <span class="rule-text" v-else> {{tradeRules[0].buyingAndSellingType ? '購入' : '売却'}} </span>
                       <span class="rule-text"> で </span>
                       <span class="rule-text"> 仕掛ける </span>
                     </div>
@@ -236,7 +236,7 @@
 
   export default {
     props: {
-      inOrExit: Boolean,
+      tradeType: Boolean,
     },
 
     data() {
@@ -260,8 +260,9 @@
      * 取引ルールを初期化する。
      */
     created() {
-      this.$store.commit('initRules', this.inOrExit)
-      this.addRule({orderBy: 0}, this.inOrExit)
+      if (this.tradeRules.length === 0) {
+        this.addRule({orderBy: 0}, this.tradeType)
+      }
     },
 
     methods: {
@@ -270,9 +271,9 @@
        * ルールの順序を下と入れ替える
        *
        * @param rOrder 順序を入れ替えるルールの順序
-       * @param inOrExit 仕掛けフラグ
+       * @param tradeType 仕掛けフラグ
        */
-      orderDown(rOrder, inOrExit) {
+      orderDown(rOrder, tradeType) {
         const cb = rules => {
           return rules.map(rule => {
             if (rule.orderBy === rOrder) {
@@ -285,8 +286,8 @@
           }).sort((r1, r2) => r1.orderBy > r2.orderBy ? 1 : -1)
         }
 
-        if (inOrExit) {
-          this.inRules = cb(this.inRules)
+        if (tradeType) {
+          this.entryRules = cb(this.entryRules)
         }
         else {
           this.exitRules = cb(this.exitRules)
@@ -297,9 +298,9 @@
        * ルールの順序を上と入れ替える
        *
        * @param rOrder 順序を入れ替えるルールの順序
-       * @param inOrExit 仕掛けフラグ
+       * @param tradeType 仕掛けフラグ
        */
-      orderUp(rOrder, inOrExit) {
+      orderUp(rOrder, tradeType) {
         const cb = rules => {
           return rules.map(rule => {
             if (rule.orderBy === rOrder - 1) {
@@ -312,8 +313,8 @@
           }).sort((r1, r2) => r1.orderBy > r2.orderBy ? 1 : -1)
         }
 
-        if (inOrExit) {
-          this.inRules = cb(this.inRules)
+        if (tradeType) {
+          this.entryRules = cb(this.entryRules)
         }
         else {
           this.exitRules = cb(this.exitRules)
@@ -324,9 +325,9 @@
        * ルールを追加する
        *
        * @param rule 取引戦略ルール
-       * @param inOrExit 仕掛けフラグ
+       * @param tradeType 仕掛けフラグ
        */
-      addRule(rule, inOrExit) {
+      addRule(rule, tradeType) {
         const cb = rules => {
           // パレットをディープコピーして要素を追加する
           let newRules = [].concat(rules)
@@ -340,13 +341,15 @@
           newRules.splice(rule.orderBy, 0, {
             rid: this.newRid--,
             label: '新しい取引ルール',
-            todayOrTomorrow: false,
-            buyOrSell: true,
-            tradeTimingType: 1,
+            tradingDayType: false,
+            buyingAndSellingType: true,
+            orderType: 1,
             limitOrderPrice: null,
+            tradeType: this.tradeType,
             orderBy: rule.orderBy + 1,
             palettes: [{
               pid: this.newPid--,
+              cid: null,
               leftJointType: 0,
               rightJointType: 0,
               nestOpen: false,
@@ -359,8 +362,8 @@
         }
 
         // 仕掛けの場合
-        if (inOrExit) {
-          this.inRules = cb(this.inRules)
+        if (tradeType) {
+          this.entryRules = cb(this.entryRules)
         }
         // 手仕舞いの場合
         else {
@@ -373,9 +376,9 @@
        * ルールが持つパレットとカードの関連付けを削除する
        *
        * @param rule 取引戦略ルール
-       * @param inOrExit 仕掛けフラグ
+       * @param tradeType 仕掛けフラグ
        */
-      removeRule(rule, inOrExit) {
+      removeRule(rule, tradeType) {
         let pids = []
 
         const cb = rules => {
@@ -398,8 +401,8 @@
         }
 
         // 仕掛けの場合
-        if (inOrExit) {
-          this.inRules = cb(this.inRules)
+        if (tradeType) {
+          this.entryRules = cb(this.entryRules)
         }
         // 手仕舞いの場合
         else {
@@ -421,9 +424,9 @@
        *
        * @param rule 取引戦略ルール
        * @param palette 取引戦略パレット
-       * @param inOrExit 仕掛けフラグ
+       * @param tradeType 仕掛けフラグ
        */
-      addPalette(rule, palette, inOrExit) {
+      addPalette(rule, palette, tradeType) {
         const cb = rules => {
           // パレットをディープコピーして要素を追加する
           let newPalettes = [].concat(rules[rule.orderBy - 1].palettes)
@@ -449,8 +452,8 @@
         }
 
         // 仕掛けの場合
-        if (inOrExit) {
-          this.inRules = cb(this.inRules)
+        if (tradeType) {
+          this.entryRules = cb(this.entryRules)
         }
         // 手仕舞いの場合
         else {
@@ -464,9 +467,9 @@
        *
        * @param rule 取引戦略ルール
        * @param palette 取引戦略パレット
-       * @param inOrExit 仕掛けフラグ
+       * @param tradeType 仕掛けフラグ
        */
-      removePalette(rule, palette, inOrExit) {
+      removePalette(rule, palette, tradeType) {
         let pid
         const cb = rules => {
           // パレットをディープコピーして要素を削除する
@@ -487,8 +490,8 @@
         }
 
         // 仕掛けの場合
-        if (inOrExit) {
-          this.inRules = cb(this.inRules)
+        if (tradeType) {
+          this.entryRules = cb(this.entryRules)
         }
         // 手仕舞いの場合
         else {
@@ -532,8 +535,8 @@
         }
 
         // 仕掛けの場合
-        if (this.inOrExit) {
-          this.inRules = cb(this.inRules)
+        if (this.tradeType) {
+          this.entryRules = cb(this.entryRules)
         }
         // 手仕舞いの場合
         else {
@@ -568,8 +571,8 @@
         }
 
         // 仕掛けの場合
-        if (this.inOrExit) {
-          this.inRules = cb(this.inRules)
+        if (this.tradeType) {
+          this.entryRules = cb(this.entryRules)
         }
         // 手仕舞いの場合
         else {
@@ -583,8 +586,8 @@
        * @param palette 取引戦略カード
        */
       resolveCard(palette) {
-        let card = this.cards.find(card => palette.pid && card.pid === palette.pid)
-        return card ? `${card.cid}_${card.pid}` : null
+        let card = this.cards.find(card => palette.cid && card.cid === palette.cid)
+        return card ? `${card.cid}_${palette.pid}` : null
       },
 
       /**
@@ -601,7 +604,7 @@
       },
 
       /**
-       * 取引戦略カードをパレットにドロップする
+       * パレットで取引戦略カードを選択する
        */
       selectedCard(ids) {
         // アンダーバー区切りのカードID、パレットIDを取得
@@ -627,12 +630,12 @@
     computed: {
       ...mapFields({
         cards: 'strategyForm.cards',
-        inRules: 'strategyForm.inRules',
+        entryRules: 'strategyForm.entryRules',
         exitRules: 'strategyForm.exitRules',
       }),
 
       ...mapMultiRowFields({
-        inRulesMulti: 'strategyForm.inRules',
+        entryRulesMulti: 'strategyForm.entryRules',
         exitRulesMulti: 'strategyForm.exitRules',
       }),
 
@@ -647,7 +650,7 @@
        * 仕掛けフラグから利用する取引ルールを算出する
        */
       tradeRules: function () {
-        return this.inOrExit ? this.inRulesMulti : this.exitRulesMulti
+        return this.tradeType ? this.entryRulesMulti : this.exitRulesMulti
       },
     }
   }

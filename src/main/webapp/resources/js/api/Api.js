@@ -4,8 +4,13 @@ const strategy = new APIClient('/trade-strategy')
 const card = new APIClient('/trade-strategy-card')
 const analysisBrandGroup = new APIClient('/analysis-brand-group')
 const brand = new APIClient('/brand')
+const rule = new APIClient('/trade-rule')
 
 export default {
+
+  rule: {
+    $find: (sid, tradeType) => rule.get(`/${sid}/${tradeType}`)
+  },
 
   brand: {
     $fetch: () => brand.get()

@@ -746,10 +746,7 @@ moment__WEBPACK_IMPORTED_MODULE_1___default.a.locale('ja');
                   visible: true
                 };
                 _context2.next = 3;
-                return Promise.all([_this2.$http.card.$fetch(strategy.sid)]
-                // this.$http.rule.$find(strategy.sid),
-                // this.$http.rule.$find(strategy.sid),
-                );
+                return Promise.all([_this2.$http.card.$fetch(strategy.sid), _this2.$http.rule.$find(strategy.sid, true), _this2.$http.rule.$find(strategy.sid, false)]);
 
               case 3:
                 result = _context2.sent;
@@ -757,9 +754,12 @@ moment__WEBPACK_IMPORTED_MODULE_1___default.a.locale('ja');
                 _this2.strategyForm = Object.assign({
                   // element-uiのため、分析日時を配列に格納
                   analysisDate: [moment__WEBPACK_IMPORTED_MODULE_1___default()(strategy.analysisStartDate).format("YYYY-MM-DD"), moment__WEBPACK_IMPORTED_MODULE_1___default()(strategy.analysisEndDate).format("YYYY-MM-DD")],
-                  cards: result[0].data,
                   sid: strategy.sid
-                }, strategy);
+                }, strategy, {
+                  cards: result[0].data,
+                  inRules: result[1].data,
+                  exitRules: result[2].data
+                });
 
               case 5:
               case 'end':
@@ -2181,7 +2181,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
-    inOrExit: Boolean
+    tradeType: Boolean
   },
 
   data: function data() {
@@ -2204,8 +2204,9 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
    * 取引ルールを初期化する。
    */
   created: function created() {
-    this.$store.commit('initRules', this.inOrExit);
-    this.addRule({ orderBy: 0 }, this.inOrExit);
+    if (this.tradeRules.length === 0) {
+      this.addRule({ orderBy: 0 }, this.tradeType);
+    }
   },
 
 
@@ -2215,9 +2216,9 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
      * ルールの順序を下と入れ替える
      *
      * @param rOrder 順序を入れ替えるルールの順序
-     * @param inOrExit 仕掛けフラグ
+     * @param tradeType 仕掛けフラグ
      */
-    orderDown: function orderDown(rOrder, inOrExit) {
+    orderDown: function orderDown(rOrder, tradeType) {
       var cb = function cb(rules) {
         return rules.map(function (rule) {
           if (rule.orderBy === rOrder) {
@@ -2231,8 +2232,8 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
         });
       };
 
-      if (inOrExit) {
-        this.inRules = cb(this.inRules);
+      if (tradeType) {
+        this.entryRules = cb(this.entryRules);
       } else {
         this.exitRules = cb(this.exitRules);
       }
@@ -2243,9 +2244,9 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
      * ルールの順序を上と入れ替える
      *
      * @param rOrder 順序を入れ替えるルールの順序
-     * @param inOrExit 仕掛けフラグ
+     * @param tradeType 仕掛けフラグ
      */
-    orderUp: function orderUp(rOrder, inOrExit) {
+    orderUp: function orderUp(rOrder, tradeType) {
       var cb = function cb(rules) {
         return rules.map(function (rule) {
           if (rule.orderBy === rOrder - 1) {
@@ -2259,8 +2260,8 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
         });
       };
 
-      if (inOrExit) {
-        this.inRules = cb(this.inRules);
+      if (tradeType) {
+        this.entryRules = cb(this.entryRules);
       } else {
         this.exitRules = cb(this.exitRules);
       }
@@ -2271,9 +2272,9 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
      * ルールを追加する
      *
      * @param rule 取引戦略ルール
-     * @param inOrExit 仕掛けフラグ
+     * @param tradeType 仕掛けフラグ
      */
-    addRule: function addRule(rule, inOrExit) {
+    addRule: function addRule(rule, tradeType) {
       var _this = this;
 
       var cb = function cb(rules) {
@@ -2289,13 +2290,15 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
         newRules.splice(rule.orderBy, 0, {
           rid: _this.newRid--,
           label: '新しい取引ルール',
-          todayOrTomorrow: false,
-          buyOrSell: true,
-          tradeTimingType: 1,
+          tradingDayType: false,
+          buyingAndSellingType: true,
+          orderType: 1,
           limitOrderPrice: null,
+          tradeType: _this.tradeType,
           orderBy: rule.orderBy + 1,
           palettes: [{
             pid: _this.newPid--,
+            cid: null,
             leftJointType: 0,
             rightJointType: 0,
             nestOpen: false,
@@ -2308,8 +2311,8 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
       };
 
       // 仕掛けの場合
-      if (inOrExit) {
-        this.inRules = cb(this.inRules);
+      if (tradeType) {
+        this.entryRules = cb(this.entryRules);
       }
       // 手仕舞いの場合
       else {
@@ -2323,9 +2326,9 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
      * ルールが持つパレットとカードの関連付けを削除する
      *
      * @param rule 取引戦略ルール
-     * @param inOrExit 仕掛けフラグ
+     * @param tradeType 仕掛けフラグ
      */
-    removeRule: function removeRule(rule, inOrExit) {
+    removeRule: function removeRule(rule, tradeType) {
       var pids = [];
 
       var cb = function cb(rules) {
@@ -2348,8 +2351,8 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
       };
 
       // 仕掛けの場合
-      if (inOrExit) {
-        this.inRules = cb(this.inRules);
+      if (tradeType) {
+        this.entryRules = cb(this.entryRules);
       }
       // 手仕舞いの場合
       else {
@@ -2372,9 +2375,9 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
      *
      * @param rule 取引戦略ルール
      * @param palette 取引戦略パレット
-     * @param inOrExit 仕掛けフラグ
+     * @param tradeType 仕掛けフラグ
      */
-    addPalette: function addPalette(rule, palette, inOrExit) {
+    addPalette: function addPalette(rule, palette, tradeType) {
       var _this2 = this;
 
       var cb = function cb(rules) {
@@ -2402,8 +2405,8 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
       };
 
       // 仕掛けの場合
-      if (inOrExit) {
-        this.inRules = cb(this.inRules);
+      if (tradeType) {
+        this.entryRules = cb(this.entryRules);
       }
       // 手仕舞いの場合
       else {
@@ -2418,9 +2421,9 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
      *
      * @param rule 取引戦略ルール
      * @param palette 取引戦略パレット
-     * @param inOrExit 仕掛けフラグ
+     * @param tradeType 仕掛けフラグ
      */
-    removePalette: function removePalette(rule, palette, inOrExit) {
+    removePalette: function removePalette(rule, palette, tradeType) {
       var pid = void 0;
       var cb = function cb(rules) {
         // パレットをディープコピーして要素を削除する
@@ -2441,8 +2444,8 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
       };
 
       // 仕掛けの場合
-      if (inOrExit) {
-        this.inRules = cb(this.inRules);
+      if (tradeType) {
+        this.entryRules = cb(this.entryRules);
       }
       // 手仕舞いの場合
       else {
@@ -2487,8 +2490,8 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
       };
 
       // 仕掛けの場合
-      if (this.inOrExit) {
-        this.inRules = cb(this.inRules);
+      if (this.tradeType) {
+        this.entryRules = cb(this.entryRules);
       }
       // 手仕舞いの場合
       else {
@@ -2524,8 +2527,8 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
       };
 
       // 仕掛けの場合
-      if (this.inOrExit) {
-        this.inRules = cb(this.inRules);
+      if (this.tradeType) {
+        this.entryRules = cb(this.entryRules);
       }
       // 手仕舞いの場合
       else {
@@ -2541,9 +2544,9 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
      */
     resolveCard: function resolveCard(palette) {
       var card = this.cards.find(function (card) {
-        return palette.pid && card.pid === palette.pid;
+        return palette.cid && card.cid === palette.cid;
       });
-      return card ? card.cid + '_' + card.pid : null;
+      return card ? card.cid + '_' + palette.pid : null;
     },
 
 
@@ -2562,7 +2565,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 
     /**
-     * 取引戦略カードをパレットにドロップする
+     * パレットで取引戦略カードを選択する
      */
     selectedCard: function selectedCard(ids) {
       // アンダーバー区切りのカードID、パレットIDを取得
@@ -2587,10 +2590,10 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
   computed: _extends({}, Object(vuex_map_fields__WEBPACK_IMPORTED_MODULE_0__["mapFields"])({
     cards: 'strategyForm.cards',
-    inRules: 'strategyForm.inRules',
+    entryRules: 'strategyForm.entryRules',
     exitRules: 'strategyForm.exitRules'
   }), Object(vuex_map_fields__WEBPACK_IMPORTED_MODULE_0__["mapMultiRowFields"])({
-    inRulesMulti: 'strategyForm.inRules',
+    entryRulesMulti: 'strategyForm.entryRules',
     exitRulesMulti: 'strategyForm.exitRules'
   }), {
 
@@ -2607,7 +2610,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
      * 仕掛けフラグから利用する取引ルールを算出する
      */
     tradeRules: function tradeRules() {
-      return this.inOrExit ? this.inRulesMulti : this.exitRulesMulti;
+      return this.tradeType ? this.entryRulesMulti : this.exitRulesMulti;
     }
   })
 });
@@ -5519,7 +5522,7 @@ var render = function() {
               _vm._l(_vm.tradeRules, function(rule, ridx) {
                 return _c(
                   "div",
-                  { key: _vm.inOrExit + "-" + rule.orderBy },
+                  { key: _vm.tradeType + "-" + rule.orderBy },
                   [
                     _c(
                       "el-form",
@@ -5584,7 +5587,7 @@ var render = function() {
                                               click: function($event) {
                                                 _vm.orderUp(
                                                   rule.orderBy,
-                                                  _vm.inOrExit
+                                                  _vm.tradeType
                                                 )
                                               }
                                             }
@@ -5603,7 +5606,7 @@ var render = function() {
                                               click: function($event) {
                                                 _vm.orderDown(
                                                   rule.orderBy,
-                                                  _vm.inOrExit
+                                                  _vm.tradeType
                                                 )
                                               }
                                             }
@@ -5619,7 +5622,7 @@ var render = function() {
                                         },
                                         on: {
                                           click: function($event) {
-                                            _vm.addRule(rule, _vm.inOrExit)
+                                            _vm.addRule(rule, _vm.tradeType)
                                           }
                                         }
                                       }),
@@ -5636,7 +5639,7 @@ var render = function() {
                                               click: function($event) {
                                                 _vm.removeRule(
                                                   rule,
-                                                  _vm.inOrExit
+                                                  _vm.tradeType
                                                 )
                                               }
                                             }
@@ -5734,7 +5737,7 @@ var render = function() {
                                 "el-row",
                                 {
                                   key:
-                                    _vm.inOrExit +
+                                    _vm.tradeType +
                                     "-" +
                                     rule.orderBy +
                                     "-" +
@@ -5761,7 +5764,7 @@ var render = function() {
                                               _vm.addPalette(
                                                 rule,
                                                 palette,
-                                                _vm.inOrExit
+                                                _vm.tradeType
                                               )
                                             }
                                           }
@@ -5780,7 +5783,7 @@ var render = function() {
                                                   _vm.removePalette(
                                                     rule,
                                                     palette,
-                                                    _vm.inOrExit
+                                                    _vm.tradeType
                                                   )
                                                 }
                                               }
@@ -5887,7 +5890,7 @@ var render = function() {
                                         "div",
                                         {
                                           staticClass: "palette-item-card",
-                                          attrs: { "data-inorexit": "true" }
+                                          attrs: { "data-tradetype": "true" }
                                         },
                                         [
                                           _c(
@@ -5919,7 +5922,7 @@ var render = function() {
                                               function(card) {
                                                 return _c("el-option", {
                                                   key:
-                                                    _vm.inOrExit +
+                                                    _vm.tradeType +
                                                     "-" +
                                                     rule.orderBy +
                                                     "-" +
@@ -6060,15 +6063,15 @@ var render = function() {
                                         {
                                           attrs: { size: "small" },
                                           model: {
-                                            value: rule.todayOrTomorrow,
+                                            value: rule.tradingDayType,
                                             callback: function($$v) {
                                               _vm.$set(
                                                 rule,
-                                                "todayOrTomorrow",
+                                                "tradingDayType",
                                                 $$v
                                               )
                                             },
-                                            expression: "rule.todayOrTomorrow"
+                                            expression: "rule.tradingDayType"
                                           }
                                         },
                                         [
@@ -6096,15 +6099,11 @@ var render = function() {
                                         {
                                           attrs: { size: "small" },
                                           model: {
-                                            value: rule.tradeTimingType,
+                                            value: rule.orderType,
                                             callback: function($$v) {
-                                              _vm.$set(
-                                                rule,
-                                                "tradeTimingType",
-                                                $$v
-                                              )
+                                              _vm.$set(rule, "orderType", $$v)
                                             },
-                                            expression: "rule.tradeTimingType"
+                                            expression: "rule.orderType"
                                           }
                                         },
                                         [
@@ -6135,7 +6134,7 @@ var render = function() {
                                         1
                                       ),
                                       _vm._v(" "),
-                                      rule.tradeTimingType === 4
+                                      rule.orderType === 4
                                         ? _c("el-input", {
                                             staticClass: "limit-order-value",
                                             attrs: {
@@ -6167,15 +6166,17 @@ var render = function() {
                                             {
                                               attrs: { size: "small" },
                                               model: {
-                                                value: rule.buyOrSell,
+                                                value:
+                                                  rule.buyingAndSellingType,
                                                 callback: function($$v) {
                                                   _vm.$set(
                                                     rule,
-                                                    "buyOrSell",
+                                                    "buyingAndSellingType",
                                                     $$v
                                                   )
                                                 },
-                                                expression: "rule.buyOrSell"
+                                                expression:
+                                                  "rule.buyingAndSellingType"
                                               }
                                             },
                                             [
@@ -6200,7 +6201,8 @@ var render = function() {
                                               _vm._v(
                                                 " " +
                                                   _vm._s(
-                                                    _vm.tradeRules[0].buyOrSell
+                                                    _vm.tradeRules[0]
+                                                      .buyingAndSellingType
                                                       ? "購入"
                                                       : "売却"
                                                   ) +
@@ -6533,7 +6535,7 @@ var render = function() {
                       { attrs: { label: "仕掛けルール", name: "in-rule" } },
                       [
                         _c("strategy-board", {
-                          attrs: { "in-or-exit": true, id: "in-trade-rule" }
+                          attrs: { "trade-type": true, id: "in-trade-rule" }
                         })
                       ],
                       1
@@ -6544,7 +6546,7 @@ var render = function() {
                       { attrs: { label: "手仕舞いルール", name: "exit-rule" } },
                       [
                         _c("strategy-board", {
-                          attrs: { "in-or-exit": false, id: "exit-trade-rule" }
+                          attrs: { "trade-type": false, id: "exit-trade-rule" }
                         })
                       ],
                       1
@@ -7116,8 +7118,15 @@ var strategy = new _APIClient__WEBPACK_IMPORTED_MODULE_0__["default"]('/trade-st
 var card = new _APIClient__WEBPACK_IMPORTED_MODULE_0__["default"]('/trade-strategy-card');
 var analysisBrandGroup = new _APIClient__WEBPACK_IMPORTED_MODULE_0__["default"]('/analysis-brand-group');
 var brand = new _APIClient__WEBPACK_IMPORTED_MODULE_0__["default"]('/brand');
+var rule = new _APIClient__WEBPACK_IMPORTED_MODULE_0__["default"]('/trade-rule');
 
 /* harmony default export */ __webpack_exports__["default"] = ({
+
+  rule: {
+    $find: function $find(sid, tradeType) {
+      return rule.get('/' + sid + '/' + tradeType);
+    }
+  },
 
   brand: {
     $fetch: function $fetch() {
@@ -8763,7 +8772,7 @@ moment__WEBPACK_IMPORTED_MODULE_1___default.a.locale('ja');
       gid: null,
       analysisDate: [moment__WEBPACK_IMPORTED_MODULE_1___default()().subtract(1, 'years').format('YYYY-MM-DD'), moment__WEBPACK_IMPORTED_MODULE_1___default()().format('YYYY-MM-DD')],
       cards: [],
-      inRules: [],
+      entryRules: [],
       exitRules: []
     },
     ruleForm: {}
@@ -8787,15 +8796,15 @@ moment__WEBPACK_IMPORTED_MODULE_1___default.a.locale('ja');
         gid: null,
         analysisDate: [moment__WEBPACK_IMPORTED_MODULE_1___default()().subtract(1, 'years').format('YYYY-MM-DD'), moment__WEBPACK_IMPORTED_MODULE_1___default()().format('YYYY-MM-DD')],
         cards: [],
-        inRules: [],
+        entryRules: [],
         exitRules: []
       });
     },
     initRules: function initRules(state, inOrExit) {
       if (inOrExit) {
-        state.strategyForm.inRules = [];
+        state.strategyForm.entryRules.splice(0, state.strategyForm.entryRules.length - 1);
       } else {
-        state.strategyForm.exitRules = [];
+        state.strategyForm.exitRules.splice(0, state.strategyForm.entryRules.length - 1);
       }
     }
   }

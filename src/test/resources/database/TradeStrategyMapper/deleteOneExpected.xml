@@ -1,0 +1,9 @@
+<dataset>
+  <users uid="00000000-0000-0000-0000-000000000001" name="テスト一郎" password="password" authority="ROLE_USER"/>
+  <users uid="00000000-0000-0000-0000-000000000002" name="テスト二郎" password="password" authority="ROLE_USER"/>
+
+  <brand_groups gid="00000000-0000-0000-0000-000000000001" uid="00000000-0000-0000-0000-000000000001" brand_group_name="分析対象グループ1" target_brand_codes="brands"/>
+
+  <trade_strategies sid="00000000-0000-0000-0000-000000000002" uid="00000000-0000-0000-0000-000000000001" gid="00000000-0000-0000-0000-000000000001" trade_strategy_name="戦略2" analysis_start_date="2017-01-01" analysis_end_date="2017-12-31" analyzed_at="2018-04-01" memo="コメント2" />
+  <trade_strategies sid="00000000-0000-0000-0000-000000000003" uid="00000000-0000-0000-0000-000000000002" gid="00000000-0000-0000-0000-000000000001" trade_strategy_name="戦略3" analysis_start_date="2017-01-01" analysis_end_date="2017-12-31" memo="コメント3" />
+</dataset>

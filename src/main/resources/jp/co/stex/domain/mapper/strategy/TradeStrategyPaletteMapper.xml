@@ -20,7 +20,7 @@
       AND pid = #{pid}
   </select>
 
-  <select id="createAll" resultType="int">
+  <select id="createAll" resultType="java.lang.Integer">
     INSERT INTO trade_strategy_palettes (
       uid,
       rid,
