@@ -45,6 +45,11 @@ public class VTargetBrandCodes implements Serializable {
         this.targetBrandCodes = targetBrandCodes;
     }
 
+    /**
+     * Jacksonから利用するコンストラクタです。
+     *
+     * @param code 銘柄コード
+     */
     @JsonCreator
     public VTargetBrandCodes(int... code) {
         this.targetBrandCodes = Arrays.stream(code).mapToObj(VCode::new).collect(toList());
